@@ -2,10 +2,28 @@ Keskustelupalstan tulee tarjota ominaisuudet keskustelualueiden luomiseen,
 keskustelunavausten l‰hett‰miseen keskustelualueelle, sek‰ tietysti viesteihin vastaamiseen. 
 Viestien l‰hett‰j‰t tulee pysty‰ tunnistamaan esimerkiksi viesti‰ kirjoitettaessa annettavan nimimerkin avulla. 
 
-- keskustelupalsta
-- keskustelualue
-- keskusteluavaus
-- viesti
-- l‰hett‰j‰
-- nimimerkki
+- keskustelupalsta (ei tarvetta m‰‰ritell‰)
+- keskustelualue (= Alue)
+- keskusteluavaus (= Aihe)
+- viesti (= Viesti)
+- l‰hett‰j‰ (= Nimimerkki)
+- nimimerkki (= sama kuin l‰hett‰j‰)
 
+Viesti
+- (pk) id int
+- (fk) nimimerkki : Nimimerkki
+- (fk) aihe : Aihe
+- aikaleima date
+- teksti varchar(100)
+
+Nimimerkki
+- (pk) kayttajatunnus varchar(20)
+
+Aihe
+- (pk) id int
+- (fk) alue : Alue
+- teksti varchar(40)
+
+Alue
+- (pk) id int
+- otsikko varchar(40)
