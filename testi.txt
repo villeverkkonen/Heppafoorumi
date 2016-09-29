@@ -5,3 +5,5 @@ Testailen kotona toimiiko
 komentorivill‰ saan pushattua jutut eti‰p‰in mut desktop ohjelmalla homma kusee synccauksessa
 
 testailen teh‰ uusia brancheja ja liitt‰‰ niit‰ takas masteriin
+
+Toimisko nyt desktop appi!!!
