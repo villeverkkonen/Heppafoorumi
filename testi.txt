@@ -1,3 +1,5 @@
 toimiiko
 
 Testailen kotona toimiiko
+
+komentorivillä saan pushattua jutut etiäpäin mut desktop ohjelmalla homma kusee synccauksessa
