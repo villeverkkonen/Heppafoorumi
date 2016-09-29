@@ -9,26 +9,44 @@ Viestien lähettäjät tulee pystyä tunnistamaan esimerkiksi viestiä kirjoitettaess
 - lähettäjä (= Nimimerkki)
 - nimimerkki (= sama kuin lähettäjä)
 
+Alue
+- (pk) id int
+- otsikko varchar(40)
+
+Aihe
+- (pk) id int
+- (fk) alue : Alue int
+- (fk) nimimerkki : Nimimerkki varchar(20)
+- teksti varchar(40)
+
 Viesti
 - (pk) id int
-- (fk) nimimerkki : Nimimerkki
-- (fk) aihe : Aihe
+- (fk) nimimerkki : Nimimerkki varchar(20)
+- (fk) aihe : Aihe int
 - aikaleima date
 - teksti varchar(100)
 
 Nimimerkki
 - (pk) kayttajatunnus varchar(20)
 
-Aihe
-- (pk) id int
-- (fk) alue : Alue
-- teksti varchar(40)
-
-Alue
-- (pk) id int
-- otsikko varchar(40)
 
 Create Table -lauseet:
+
+CREATE TABLE Alue
+(
+	id int PRIMARY KEY,
+	otsikko varchar(40)
+);
+
+CREATE TABLE Aihe
+(
+	id int PRIMARY KEY,
+	alue int,
+	nimimerkki varchar(20),
+	teksti varchar(40),
+	FOREIGN KEY(alue) REFERENCES Alue(id)
+	FOREIGN KEY(nimimerkki) REFERENCES Nimimerkki(kayttajatunnus)
+);
 
 CREAT TABLE Viesti 
 (
@@ -44,18 +62,4 @@ CREAT TABLE Viesti
 CREAT TABLE Nimimerkki
 (
 	kayttajatunnus varchar(20) PRIMARY KEY
-);
-
-CREATE TABLE Aihe
-(
-	id int PRIMARY KEY,
-	alue int,
-	teksti varchar(40),
-	FOREIGN KEY(alue) REFERENCES Alue(id)
-);
-
-CREATE TABLE Alue
-(
-	id int PRIMARY KEY,
-	otsikko varchar(40)
 );
