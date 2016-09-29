@@ -1,0 +1,11 @@
+Keskustelupalstan tulee tarjota ominaisuudet keskustelualueiden luomiseen, 
+keskustelunavausten lähettämiseen keskustelualueelle, sekä tietysti viesteihin vastaamiseen. 
+Viestien lähettäjät tulee pystyä tunnistamaan esimerkiksi viestiä kirjoitettaessa annettavan nimimerkin avulla. 
+
+- keskustelupalsta
+- keskustelualue
+- keskusteluavaus
+- viesti
+- lähettäjä
+- nimimerkki
+
