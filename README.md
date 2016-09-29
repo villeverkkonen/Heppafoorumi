@@ -4,4 +4,4 @@ Tietokantojen perusteet tehtävän web-sovelluksen pohja.
 
 Heppafoorumi! Tällästä tänään.
 
-Näihin kuviin ja tunnelmiin täältä tähän!
+Aurinko saattaa paistaa joskus. Näihin kuviin ja tunnelmiin täältä tähän!
