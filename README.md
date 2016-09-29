@@ -1,5 +1,7 @@
-# tikape-runko
+﻿# tikape-runko
 
-Tietokantojen perusteet -kurssilla tehtävän web-sovelluksen pohja.
+Tietokantojen perusteet tehtävän web-sovelluksen pohja.
 
-Heppafoorumi!
+Heppafoorumi! Tällästä tänään.
+
+Näihin kuviin ja tunnelmiin täältä tähän!
