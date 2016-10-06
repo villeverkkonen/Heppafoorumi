@@ -14,6 +14,7 @@
 # Denote all files that are truly binary and should not be modified.
 *.png binary
 *.jpg binary
+*.xcf binary
 *.pdf binary
 *.odt binary
 *.doc binary
