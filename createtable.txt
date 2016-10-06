@@ -1,0 +1,26 @@
+Create Table -lauseet:
+
+CREATE TABLE Alue
+(
+	id int PRIMARY KEY,
+	otsikko varchar(40)
+);
+
+CREATE TABLE Aihe
+(
+	id int PRIMARY KEY,
+	alue int,
+	nimimerkki varchar(20),
+	teksti varchar(40),
+	FOREIGN KEY(alue) REFERENCES Alue(id)
+);
+
+CREATE TABLE Viesti 
+(
+	id int PRIMARY KEY, 
+	nimimerkki varchar(20), 
+	aihe int, 
+	aikaleima date, 
+	teksti varchar(100), 
+	FOREIGN KEY(aihe) REFERENCES Aihe(id)
+);
