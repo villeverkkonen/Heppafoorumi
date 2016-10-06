@@ -7,4 +7,5 @@ Heppafoorumi! Tällästä tänään.
 Kissanpäivät ovat täällä. Mahtavaa!
 
 Heppafoorumi on maailman paras keskustelufoorumi.
-HAloo
+
+Aurinko paistaa! Haloo?
