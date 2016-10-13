@@ -3,11 +3,11 @@ package heppafoorumi;
 public class Alue {
 
     private Integer id;
-    private String nimi;
+    private String teksti;
 
     public Alue(Integer id, String nimi) {
         this.id = id;
-        this.nimi = nimi;
+        this.teksti = nimi;
     }
 
     public Integer getId() {
@@ -19,11 +19,11 @@ public class Alue {
     }
 
     public String getNimi() {
-        return nimi;
+        return teksti;
     }
 
     public void setNimi(String nimi) {
-        this.nimi = nimi;
+        this.teksti = nimi;
     }
 
 }
