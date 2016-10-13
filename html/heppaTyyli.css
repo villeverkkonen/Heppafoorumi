@@ -16,19 +16,7 @@ header {
     border-bottom-right-radius: 15px;
     box-shadow: #000 8px 6px 8px;
     text-shadow: 4px 4px 2px #332;
-}
-
-footer {
-    width: 80%;
-    height: 50px;
-    background-color: Lavender;
-    text-align: center;
-    margin-left: 100px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    box-shadow: #000 8px 6px 8px;
+    
 }
 
 section {
@@ -60,4 +48,29 @@ nav ul {
 nav ul li {
     font-size: 30px;
     text-align: left;
+}
+
+footer {
+    width: 80%;
+    height: 50px;
+    background-color: Lavender;
+    text-align: center;
+    margin-left: 100px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: #000 8px 6px 8px;
+}
+
+h1 {
+    color: #8b0e0e;
+}
+
+span {
+    color: #3446c0;
+}
+
+legend {
+    color: #ff6a00;
 }
