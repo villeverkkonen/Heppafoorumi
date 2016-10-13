@@ -5,7 +5,7 @@ body {
 header {
     width: 80%;
     border-left-width: thin;
-    height: 100px;
+    height: 100%;
     background-color: Lavender;
     text-align: center;
     margin-left: 100px;
@@ -21,7 +21,7 @@ header {
 
 section {
     width: 80%;
-    height: 500px;
+    height: 100%;
     background-color: Lavender;
     text-align: left;
     font-size: 30px;
@@ -33,26 +33,9 @@ section {
     box-shadow: #000 8px 6px 8px;
 }
 
-nav ul {
-    float: right;
-    height: 600px;
-    background-color: Lavender;
-    margin-top: -100px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    box-shadow: #000 8px 6px 8px;
-}
-
-nav ul li {
-    font-size: 30px;
-    text-align: left;
-}
-
 footer {
     width: 80%;
-    height: 50px;
+    height: 100%;
     background-color: Lavender;
     text-align: center;
     margin-left: 100px;
@@ -65,12 +48,19 @@ footer {
 
 h1 {
     color: #8b0e0e;
+    text-align: center;
 }
 
-span {
-    color: #3446c0;
+h2 {
+    text-align: left;
+    margin-left: 10px;
 }
 
-legend {
-    color: #ff6a00;
+h3 {
+    text-align: center;
+}
+
+p {
+    text-align: left;
+    margin-left: 10px;
 }
