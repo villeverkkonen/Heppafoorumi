@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import tikape.runko.database.Database;
-import tikape.runko.database.Dao;
 
 public class ViestiDao implements Dao<Viesti, Integer> {
 
