@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import tikape.runko.database.Database;
+import heppafoorumi.database.Database;
 
 public class AlueDao implements Dao<Alue, Integer> {
 
