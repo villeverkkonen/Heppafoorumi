@@ -2,8 +2,11 @@ package heppafoorumi.domain;
 
 public class Alue extends Kategoria {
 
-    public Alue(Integer id, String nimi) {
-        super(id, nimi);
+    // alueen muuttujat:
+    // id int PRIMARY KEY,
+    // aikaleima date,
+    // teksti varchar(200)
+    public Alue(Integer id, String teksti) {
+        super(id, teksti);
     }
 }
-
