@@ -9,57 +9,12 @@ Viestien lähettäjät tulee pystyä tunnistamaan esimerkiksi viestiä kirjoitettaess
 - lähettäjä (= Nimimerkki)
 - nimimerkki (= sama kuin lähettäjä)
 
-Alue
-- (pk) id int
-- otsikko varchar(40)
+Muutokset aikajärjestyksessä:
 
-Aihe
-- (pk) id int
-- (fk) alue : Alue int
-- (fk) nimimerkki : Nimimerkki varchar(20)
-- teksti varchar(40)
-
-Viesti
-- (pk) id int
-- (fk) nimimerkki : Nimimerkki varchar(20)
-- (fk) aihe : Aihe int
-- aikaleima date
-- teksti varchar(100)
-
-Nimimerkki
-- (pk) kayttajatunnus varchar(20)
-
-
-Create Table -lauseet:
-
-CREATE TABLE Alue
-(
-	id int PRIMARY KEY,
-	otsikko varchar(40)
-);
-
-CREATE TABLE Aihe
-(
-	id int PRIMARY KEY,
-	alue int,
-	nimimerkki varchar(20),
-	teksti varchar(40),
-	FOREIGN KEY(alue) REFERENCES Alue(id)
-	FOREIGN KEY(nimimerkki) REFERENCES Nimimerkki(kayttajatunnus)
-);
-
-CREAT TABLE Viesti 
-(
-	id int PRIMARY KEY, 
-	nimimerkki varchar(20), 
-	aihe int, 
-	aikaleima date, 
-	teksti varchar(100), 
-	FOREIGN KEY(nimimerkki) REFERENCES Nimimerkki(kayttajatunnus),
-	FOREIGN KEY(aihe) REFERENCES Aihe(id)
-);
-
-CREAT TABLE Nimimerkki
-(
-	kayttajatunnus varchar(20) PRIMARY KEY
-);
+18.10.2016 (Antti):
+- aikaleimat kaikille: Alue, Aihe, Viesti
+- tekstikentän nimi on teksti kaikille: Alue, Aihe, Viesti
+- kenttien järjestystä muutettu loogisemmaksi: id, aikaleima, [alue/aihe], [nimimerkki], teksti
+- kaikkien tekstikenttien kooksi vaihdettu 200
+- Nimimerkki ei ole oma taulunsa eikä näin ole ole myöskään siihen viittaavia viiteavaimia
+- ks. database-schema.sql

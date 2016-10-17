@@ -1,0 +1,11 @@
+INSERT INTO Alue (id, aikaleima, teksti) VALUES (1, 0, 'Ponit (koska ne on mahtavia!)');
+INSERT INTO Alue (id, aikaleima, teksti) VALUES (2, 0, 'Hevoslajit');
+INSERT INTO Alue (id, aikaleima, teksti) VALUES (3, 0, 'Offtopic');
+INSERT INTO Aihe (id, aikaleima, alue, nimimerkki, teksti) VALUES (1, 0, 1, 'nuorzi', 'Ponit ovat parhaat');
+INSERT INTO Aihe (id, aikaleima, alue, nimimerkki, teksti) VALUES (2, 1, 2, 'zille', 'Islanninhevoset');
+INSERT INTO Aihe (id, aikaleima, alue, nimimerkki, teksti) VALUES (3, 2, 1, 'zille', 'Pokemon-ponit');
+INSERT INTO Aihe (id, aikaleima, alue, nimimerkki, teksti) VALUES (4, 3, 1, 'nuorzi', 'Ponit on ihania!!!');
+INSERT INTO Aihe (id, aikaleima, alue, nimimerkki, teksti) VALUES (5, 4, 1, 'nuorzi', 'Ponit on söpöjä!!!');
+INSERT INTO Viesti (id, aikaleima, aihe, nimimerkki, teksti) VALUES (1, 0, 3, 'zille', 'Charmander on paras Pokemon-poni');
+INSERT INTO Viesti (id, aikaleima, aihe, nimimerkki, teksti) VALUES (2, 1, 2, 'zille', 'En tykkää islanninhevosista...');
+INSERT INTO Viesti (id, aikaleima, aihe, nimimerkki, teksti) VALUES (3, 2, 2, 'nuorzi', 'Siis onko muka joku joka ei tykkää islanninhevosista???');
