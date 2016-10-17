@@ -46,9 +46,9 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     public List<Viesti> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Viesti");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Viesti");
 
-        ResultSet resultSet = stmt.executeQuery();
+        ResultSet resultSet = statement.executeQuery();
         List<Viesti> viestit = new ArrayList<>();
         while (resultSet.next()) {
             Integer id = resultSet.getInt("id");
@@ -58,7 +58,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         }
 
         resultSet.close();
-        stmt.close();
+        statement.close();
         connection.close();
 
         return viestit;

@@ -46,9 +46,9 @@ public class AiheDao implements Dao<Aihe, Integer> {
     public List<Aihe> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Aihe");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Aihe");
 
-        ResultSet resultSet = stmt.executeQuery();
+        ResultSet resultSet = statement.executeQuery();
         List<Aihe> aiheet = new ArrayList<>();
         while (resultSet.next()) {
             Integer id = resultSet.getInt("id");
@@ -58,7 +58,7 @@ public class AiheDao implements Dao<Aihe, Integer> {
         }
 
         resultSet.close();
-        stmt.close();
+        statement.close();
         connection.close();
 
         return aiheet;
