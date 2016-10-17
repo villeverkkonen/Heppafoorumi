@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package heppafoorumi.domain;
 
-/**
- *
- * @author antti
- */
-public class Viesti {
-    
+public class Viesti extends Kategoria {
+
+    public Viesti(Integer id, String nimi) {
+        super(id, nimi);
+    }
 }
