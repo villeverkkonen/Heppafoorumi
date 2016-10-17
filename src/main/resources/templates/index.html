@@ -2,15 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <title>Otsikko</title>
+        <title>Heppafoorumi</title>
         <meta charset="utf-8" />
     </head>
 
     <body>
-        <h1>Heippa vaan!</h1>
+        <h1>Heppafoorumi</h1>
 
-        <p>Ja .. <span th:text="${viesti}">jotain?</span></p>
-
-        <p><a href="/opiskelijat">Tästä opiskelijalistaukseen.</a></p>
+        <h2>Alueet</h2>
+        <ul>
+            <li th:each="alue : ${alueet}">
+                <span th:text="${alue}"></span>
+            </li>
+        </ul>
     </body>
 </html>
