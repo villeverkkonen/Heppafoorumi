@@ -25,14 +25,16 @@ public class AlueDao implements Dao<Alue, Integer> {
 
         ResultSet resultSet = statement.executeQuery();
         boolean hasOne = resultSet.next();
+
         if (!hasOne) {
             return null;
         }
 
         Integer id = resultSet.getInt("id");
+        Integer aikaleima = resultSet.getInt("aikaleima");
         String teksti = resultSet.getString("teksti");
 
-        Alue alue = new Alue(id, teksti);
+        Alue alue = new Alue(id, aikaleima, teksti);
 
         resultSet.close();
         statement.close();
@@ -51,9 +53,10 @@ public class AlueDao implements Dao<Alue, Integer> {
         List<Alue> alueet = new ArrayList();
         while (resultSet.next()) {
             Integer id = resultSet.getInt("id");
+            Integer aikaleima = resultSet.getInt("aikaleima");
             String nimi = resultSet.getString("teksti");
 
-            alueet.add(new Alue(id, nimi));
+            alueet.add(new Alue(id, aikaleima, nimi));
         }
 
         resultSet.close();
@@ -67,4 +70,10 @@ public class AlueDao implements Dao<Alue, Integer> {
     public void delete(Integer key) throws SQLException {
         // ei toteutettu
     }
+
+    @Override
+    public void create(Integer key) throws SQLException {
+        // ei toteutettu
+    }
+
 }

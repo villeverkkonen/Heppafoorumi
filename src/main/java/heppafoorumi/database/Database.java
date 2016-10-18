@@ -12,13 +12,12 @@ import org.h2.tools.RunScript;
 
 public class Database {
 
-    private String databaseAddress;
+    private final String databaseAddress;
 
     public Database(String databaseAddress) throws Exception {
         this.databaseAddress = databaseAddress;
-        
+
         // Open connection to a database
-        
         Connection connection = getConnection();
 
         try {
@@ -62,7 +61,6 @@ public class Database {
 //        lista.add("INSERT INTO Opiskelija (nimi) VALUES ('Platon');");
 //        lista.add("INSERT INTO Opiskelija (nimi) VALUES ('Aristoteles');");
 //        lista.add("INSERT INTO Opiskelija (nimi) VALUES ('Homeros');");
-
         return lista;
     }
 }

@@ -2,7 +2,6 @@ package heppafoorumi.dao;
 
 import heppafoorumi.domain.Aihe;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -44,16 +43,16 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
         Integer aiheId = resultSet.getInt("aihe_id");
         Integer aiheAikaleima = resultSet.getInt("aihe_aikaleima");
-        Integer aiheAlue = resultSet.getInt("aihe_alue");
+        // Integer aiheAlue = resultSet.getInt("aihe_alue");
         String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
         String aiheTeksti = resultSet.getString("aihe_teksti");
 
         resultSet.close();
         connection.close();
 
-        Alue alue = new Alue(alueId, alueTeksti);
+        Alue alue = new Alue(alueId, alueAikaleima, alueTeksti);
 
-        Aihe aihe = new Aihe(aiheId, alue, aiheNimimerkki, aiheTeksti);
+        Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheTeksti);
 
         return aihe;
     }
@@ -82,13 +81,13 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
             Integer aiheId = resultSet.getInt("aihe_id");
             Integer aiheAikaleima = resultSet.getInt("aihe_aikaleima");
-            Integer aiheAlue = resultSet.getInt("aihe_alue");
+            // Integer aiheAlue = resultSet.getInt("aihe_alue");
             String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
             String aiheTeksti = resultSet.getString("aihe_teksti");
 
-            Alue alue = new Alue(alueId, alueTeksti);
+            Alue alue = new Alue(alueId, alueAikaleima, alueTeksti);
 
-            Aihe aihe = new Aihe(aiheId, alue, aiheNimimerkki, aiheTeksti);
+            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheTeksti);
 
             aiheet.add(aihe);
         }
@@ -101,6 +100,11 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
+        // ei toteutettu
+    }
+
+    @Override
+    public void create(Integer key) throws SQLException {
         // ei toteutettu
     }
 }

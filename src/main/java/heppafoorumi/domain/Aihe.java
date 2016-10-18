@@ -16,8 +16,8 @@ public class Aihe extends Kategoria {
     // ainoastaan 20 ensimmäistä merkkiä otetaan huomioon.
     private final String nimimerkki;
 
-    public Aihe(Integer id, Alue alue, String nimimerkki, String teksti) {
-        super(id, teksti);
+    public Aihe(Integer id, int aikaleima, Alue alue, String nimimerkki, String teksti) {
+        super(id, aikaleima, teksti);
         this.alue = alue;
 
         // tallennetaan enintään 20 ensimmäistä merkkiä syötetystä nimimerkistä.
@@ -26,5 +26,21 @@ public class Aihe extends Kategoria {
 
     public String getNimimerkki() {
         return this.nimimerkki;
+    }
+
+    @Override
+    public String toString() {
+        return this.nimimerkki + ": " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object toinen) {
+        if (this.getClass() != toinen.getClass()) {
+            return false;
+        }
+
+        Aihe aihe = (Aihe) toinen;
+
+        return this.getId().equals(aihe.getId());
     }
 }

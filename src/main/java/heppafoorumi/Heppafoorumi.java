@@ -76,10 +76,10 @@ public class Heppafoorumi {
             System.out.println(alue);
         }
 
-        Alue testialue1 = new Alue(0, "testialue");
+        Alue testialue1 = new Alue(0, 0, "testialue");
         alueet.add(testialue1);
 
-        Alue testialue2 = new Alue(1, "toinen testialue");
+        Alue testialue2 = new Alue(1, 1, "toinen testialue");
         alueet.add(testialue2);
 
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
