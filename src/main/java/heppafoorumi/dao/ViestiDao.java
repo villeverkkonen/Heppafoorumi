@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import heppafoorumi.database.Database;
+import heppafoorumi.domain.Aihe;
 
 public class ViestiDao implements Dao<Viesti, Integer> {
 
@@ -30,9 +31,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         }
 
         Integer id = resultSet.getInt("id");
-        String nimi = resultSet.getString("nimi");
+        Aihe aihe = null; // TODO
+        String nimimerkki = resultSet.getString("nimi");
 
-        Viesti viesti = new Viesti(id, nimi);
+        Viesti viesti = new Viesti(id, aihe, nimimerkki);
 
         resultSet.close();
         statement.close();
@@ -48,12 +50,13 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Viesti");
 
         ResultSet resultSet = statement.executeQuery();
-        List<Viesti> viestit = new ArrayList<>();
+        List<Viesti> viestit = new ArrayList();
         while (resultSet.next()) {
             Integer id = resultSet.getInt("id");
             String nimi = resultSet.getString("nimi");
 
-            viestit.add(new Viesti(id, nimi));
+            Aihe aihe = null; // TODO
+            viestit.add(new Viesti(id, aihe, nimi));
         }
 
         resultSet.close();

@@ -29,4 +29,9 @@ public abstract class Kategoria {
     public void setTeksti(String nimi) {
         this.teksti = nimi;
     }
+
+    @Override
+    public String toString() {
+        return this.id + " " + this.aikaleima + " " + this.teksti;
+    }
 }

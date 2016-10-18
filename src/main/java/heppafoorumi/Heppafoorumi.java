@@ -5,18 +5,14 @@ import heppafoorumi.dao.AlueDao;
 import heppafoorumi.dao.ViestiDao;
 import heppafoorumi.domain.Alue;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.List;
 import spark.ModelAndView;
 import static spark.Spark.get;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
-import org.h2.tools.RunScript;
 
 public class Heppafoorumi {
 
@@ -65,18 +61,8 @@ public class Heppafoorumi {
         }
 
         // no niin, vanhat palvelinprosessit lopetettu, siirrytään asiaan.
-        // Open connection to a database
-        Connection connection = DriverManager.getConnection("jdbc:h2:./database", "sa", "");
-
-        try {
-            // If database has not yet been created, insert content
-            RunScript.execute(connection, new FileReader("database-schema.sql"));
-            RunScript.execute(connection, new FileReader("database-import.sql"));
-        } catch (Throwable t) {
-        }
-        connection.close();
-
         Database database = new Database("jdbc:h2:./database");
+
         AlueDao alueDao = new AlueDao(database);
         AiheDao aiheDao = new AiheDao(database);
         ViestiDao viestiDao = new ViestiDao(database);
@@ -90,13 +76,18 @@ public class Heppafoorumi {
             System.out.println(alue);
         }
 
+        Alue testialue1 = new Alue(0, "testialue");
+        alueet.add(testialue1);
+
+        Alue testialue2 = new Alue(1, "toinen testialue");
+        alueet.add(testialue2);
+
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
             HashMap<String, Object> data = new HashMap();
-            data.put("item", alueet);
+            data.put("alueet", alueet);
             return new ModelAndView(data, "index");
         }, new ThymeleafTemplateEngine());
-
     }
 }

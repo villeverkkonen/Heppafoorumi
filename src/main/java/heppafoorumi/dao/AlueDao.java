@@ -30,9 +30,9 @@ public class AlueDao implements Dao<Alue, Integer> {
         }
 
         Integer id = resultSet.getInt("id");
-        String nimi = resultSet.getString("nimi");
+        String teksti = resultSet.getString("teksti");
 
-        Alue alue = new Alue(id, nimi);
+        Alue alue = new Alue(id, teksti);
 
         resultSet.close();
         statement.close();
@@ -48,10 +48,10 @@ public class AlueDao implements Dao<Alue, Integer> {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Alue");
 
         ResultSet resultSet = statement.executeQuery();
-        List<Alue> alueet = new ArrayList<>();
+        List<Alue> alueet = new ArrayList();
         while (resultSet.next()) {
             Integer id = resultSet.getInt("id");
-            String nimi = resultSet.getString("nimi");
+            String nimi = resultSet.getString("teksti");
 
             alueet.add(new Alue(id, nimi));
         }
