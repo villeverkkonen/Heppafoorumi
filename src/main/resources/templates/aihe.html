@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8" />
         <title>Heppafoorumi - Aiheet</title>
-        <link rel="stylesheet" href="aiheTyyli.css">
-        <link rel="shortcut icon" href="../images/favicon.png" type="image/png">
+        <link rel="stylesheet" href="css/aiheTyyli.css" />
+        <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
     </head>
     <body>
         
@@ -15,12 +14,16 @@
 
         <section>
             <p>Voit lisätä uusia aiheita tälle alueelle tai valita jo valmiiksi olevan</p>
-            <hr>
-            <h2>Aiheet:</h2>
+            <hr/>
+            <ul>
+                <li th:each="aihe : ${aiheet}">
+                    <span th:text="${aihe}"></span>
+                </li>
+            </ul>
         </section>
 
         <footer>
-            <h3>Copyright @ Heppahullut</br>
+            <h3>Copyright @ Heppahullut<br/>
             Tietokantojen perusteet 2016</h3>
         </footer>
     </body>

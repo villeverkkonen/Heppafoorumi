@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8" />
         <title>Heppafoorumi - Alueet</title>
-        <link rel="stylesheet" href="alueetTyyli.css">
-        <link rel="shortcut icon" href="../images/favicon.png" type="image/png">
+        <link rel="stylesheet" href="css/alueetTyyli.css" />
+        <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
     </head>
     <body>
         
@@ -18,19 +17,19 @@
         </nav>
 
         <section>
-            <img style="float: right; margin: 15px 15px 15px 15px;" src="../hevonen.jpg" width="250px" alt="Uljas hevonen" />
+            <img style="float: right; margin: 15px 15px 15px 15px;" src="images/hevonen.jpg" width="250" alt="Uljas hevonen" />
             <h2>Kohtaamispaikka todellisille heppahulluille</h2>
-            <hr>
+            <hr/>
             <h2>Valitse mieleisesi alue:</h2>
             <ul>
-                <li>Ponit</li>
-                <li>Hevoslajit</li>
-                <li>Offtopic</li>
+                <li th:each="alue: ${alueet}">
+                    <a th:href="@{~/{id}(id=${alue.id})}" th:text="${alue.teksti}">alue</a>
+                </li>
             </ul>
         </section>
 
         <footer>
-            <h3>Copyright @ Heppahullut</br>
+            <h3>Copyright @ Heppahullut<br/>
             Tietokantojen perusteet 2016</h3>
         </footer>
 

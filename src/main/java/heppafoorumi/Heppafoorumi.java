@@ -13,6 +13,7 @@ import spark.ModelAndView;
 import static spark.Spark.get;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
+import spark.Spark;
 
 public class Heppafoorumi {
 
@@ -23,7 +24,7 @@ public class Heppafoorumi {
     }
 
     public static void main(String[] args) throws Exception {
-
+        Spark.staticFileLocation("public");
         // alla oleva koodi on kehityksen nopeuttamiseksi,
         // kun ei tarvitse huolehtia vanhoista palvelinprosesseista.
         boolean lopetetaankoVanhatPalvelinprosessit = true;
@@ -87,7 +88,9 @@ public class Heppafoorumi {
         get("/", (request, response) -> {
             HashMap<String, Object> data = new HashMap();
             data.put("alueet", alueet);
-            return new ModelAndView(data, "index");
+            return new ModelAndView(data, "alueet");
         }, new ThymeleafTemplateEngine());
+        
+        
     }
 }

@@ -1,0 +1,125 @@
+2016-10-18 23:51:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Cannot parse "DATE" constant "0"; SQL statement:
+INSERT INTO Alue (id, aikaleima, teksti) VALUES (1, 0, 'Ponit (koska ne on mahtavia!)') -- (1, 0, 'Ponit (koska ne on mahtavia!)') [22007-190]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
+	at org.h2.message.DbException.get(DbException.java:168)
+	at org.h2.value.ValueDate.parse(ValueDate.java:81)
+	at org.h2.value.Value.convertTo(Value.java:860)
+	at org.h2.table.Column.convert(Column.java:148)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:143)
+	at org.h2.command.dml.Insert.update(Insert.java:114)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78)
+	at org.h2.command.Command.executeUpdate(Command.java:253)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:184)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:158)
+	at org.h2.tools.RunScript.execute(RunScript.java:170)
+	at heppafoorumi.database.Database.<init>(Database.java:27)
+	at heppafoorumi.Heppafoorumi.main(Heppafoorumi.java:64)
+Caused by: java.lang.IllegalArgumentException: 0
+	at org.h2.util.DateTimeUtils.parseDateValue(DateTimeUtils.java:303)
+	at org.h2.value.ValueDate.parse(ValueDate.java:79)
+	... 11 more
+2016-10-19 11:15:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 11:17:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 11:24:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 11:26:59 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 11:29:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 11:31:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 11:32:32 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 11:34:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 11:36:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 11:37:06 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 11:40:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 11:42:26 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]
+2016-10-19 12:03:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int PRIMARY KEY,
+    aikaleima date,
+    teksti varchar(200)
+) [42101-190]

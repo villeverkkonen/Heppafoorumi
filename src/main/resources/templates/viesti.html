@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8" />
         <title>Heppafoorumi - Viestit</title>
-        <link rel="stylesheet" href="viestiTyyli.css">
-        <link rel="shortcut icon" href="../favicon.png" type="image/png">
+        <link rel="stylesheet" href="css/viestiTyyli.css" />
+        <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
     </head>
     <body>
         
@@ -14,11 +13,15 @@
         </header>
 
         <section>
-            <p>Tänne tulee viestejä</p>
+            <ul>
+                <li th:each="viesti : ${viestit}">
+                    <span th:text="${viesti}"></span>
+                </li>
+            </ul>
         </section>
 
         <footer>
-            <h3>Copyright @ Heppahullut</br>
+            <h3>Copyright @ Heppahullut<br/>
             Tietokantojen perusteet 2016</h3>
         </footer>
     </body>
