@@ -68,12 +68,32 @@ public class AlueDao implements Dao<Alue, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
-        // ei toteutettu
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Alue WHERE id = ?");
+        stmt.setObject(1, key);
+        
+        stmt.executeUpdate();
+        
+        stmt.close();
+        connection.close();
     }
 
     @Override
-    public void create(Integer key) throws SQLException {
-        // ei toteutettu
+    public void create(Alue alue) throws SQLException {
+        Integer id = alue.getId();
+        Integer aikaleima = alue.getAikaleima();
+        String teksti = alue.getTeksti();
+        
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Alue VALUES(?, ?, ?)");
+        stmt.setObject(1, id);
+        stmt.setObject(2, aikaleima);
+        stmt.setObject(3, teksti);
+        
+        stmt.executeUpdate();
+        
+        stmt.close();
+        connection.close();
     }
 
 }

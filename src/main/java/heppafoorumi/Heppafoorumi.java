@@ -24,7 +24,7 @@ public class Heppafoorumi {
     }
 
     public static void main(String[] args) throws Exception {
-        Spark.staticFileLocation("public");
+        Spark.staticFileLocation("/public");
         // alla oleva koodi on kehityksen nopeuttamiseksi,
         // kun ei tarvitse huolehtia vanhoista palvelinprosesseista.
         boolean lopetetaankoVanhatPalvelinprosessit = true;

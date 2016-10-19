@@ -2,17 +2,99 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fi">
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Heppafoorumi - Viestit</title>
-        <link rel="stylesheet" href="css/viestitTyyli.css" />
-        <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
-    </head>
-    <body>
         
-        <header>
-            <h1>Viestit</h1>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+<style>
+.body {
+    background-color: #808080;
+}
+
+.header {
+    width: 80%;
+    height: 100%;
+    background-color: Lavender;
+    margin-left: 100px;
+    border-left-width: thin;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: #000 8px 6px 8px;
+}
+
+.section {
+    width: 80%;
+    height: 100%;
+    background-color: Lavender;
+    margin-left: 100px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: #000 8px 6px 8px;
+}
+
+.footer {
+    width: 80%;
+    height: 100%;
+    background-color: Lavender;
+    text-align: center;
+    margin-left: 100px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    box-shadow: #000 8px 6px 8px;
+}
+
+.h1 {
+    color: #8b0e0e;
+    text-align: center;
+    font-size: 60px;
+    text-shadow: 3px 3px 3px #332;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.h2 {
+    text-align: left;
+    font-size: 40px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.h3 {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.p {
+    text-align: left;
+    margin-left: 10px;
+}
+
+.list-group {
+    width: 20%;
+    text-align: left;
+    font-size: 35px;
+    margin-left: 10px;
+}
+</style>
+    </head>
+    <body class="body">
+        
+        <header class="header">
+            <h1 class="h1">Viestit</h1>
         </header>
 
-        <section>
+        <section class="section">
             <ul>
                 <li th:each="viesti : ${viestit}">
                     <span th:text="${viesti}"></span>
@@ -20,9 +102,9 @@
             </ul>
         </section>
 
-        <footer>
-            <h3>Copyright @ Heppahullut<br/>
-            Tietokantojen perusteet 2016</h3>
+        <footer class="footer">
+            <h3 class="h3">Copyright @ Heppahullut</h3>
+            <h3 class="h3">Tietokantojen perusteet 2016</h3>
         </footer>
     </body>
 </html>

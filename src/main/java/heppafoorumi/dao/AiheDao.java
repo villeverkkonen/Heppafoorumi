@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Alue;
+import java.sql.PreparedStatement;
 
 public class AiheDao implements Dao<Aihe, Integer> {
 
@@ -100,11 +101,33 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
-        // ei toteutettu
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Aihe WHERE id = ?");
+        stmt.setObject(1, key);
+        
+        stmt.executeUpdate();
+        
+        stmt.close();
+        connection.close();
     }
 
     @Override
-    public void create(Integer key) throws SQLException {
-        // ei toteutettu
+    public void create(Aihe aihe) throws SQLException {
+        Integer id = aihe.getId();
+        Integer aikaleima = aihe.getAikaleima();
+        String nimimerkki = aihe.getNimimerkki();
+        String teksti = aihe.getTeksti();
+        
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Aihe VALUES(?, ?, ?, ?)");
+        stmt.setObject(1, id);
+        stmt.setObject(2, aikaleima);
+        stmt.setObject(3, nimimerkki);
+        stmt.setObject(4, teksti);
+        
+        stmt.executeUpdate();
+        
+        stmt.close();
+        connection.close();
     }
 }

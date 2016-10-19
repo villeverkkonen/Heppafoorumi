@@ -11,5 +11,5 @@ public interface Dao<T, K> {
 
     void delete(K key) throws SQLException;
 
-    void create(K key) throws SQLException;
+    void create(T key) throws SQLException;
 }

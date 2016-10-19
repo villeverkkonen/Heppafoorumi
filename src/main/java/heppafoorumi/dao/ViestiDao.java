@@ -9,6 +9,7 @@ import java.util.List;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
 import heppafoorumi.domain.Alue;
+import java.sql.PreparedStatement;
 
 public class ViestiDao implements Dao<Viesti, Integer> {
 
@@ -135,11 +136,31 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
     @Override
     public void delete(Integer key) throws SQLException {
-        // ei toteutettu
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Viesti WHERE id = ?");
+        stmt.setObject(1, key);
+        
+        stmt.executeUpdate();
+        
+        stmt.close();
+        connection.close();
     }
 
     @Override
-    public void create(Integer key) throws SQLException {
-        // ei toteutettu
+    public void create(Viesti viesti) throws SQLException {
+        Integer id = viesti.getId();
+        Integer aikaleima = viesti.getAikaleima();
+        String nimimerkki = viesti.getNimimerkki();
+        
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Alue VALUES(?, ?, ?)");
+        stmt.setObject(1, id);
+        stmt.setObject(2, aikaleima);
+        stmt.setObject(3, nimimerkki);
+        
+        stmt.executeUpdate();
+        
+        stmt.close();
+        connection.close();
     }
 }
