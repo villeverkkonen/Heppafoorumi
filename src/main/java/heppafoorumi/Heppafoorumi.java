@@ -40,7 +40,7 @@ public class Heppafoorumi {
                 // kirjoitetaan tiedostoon /tmp/niittaa_spark bash-skripti joka
                 // lopettaa porttia 4567 kuuntelevat prosessit.
                 writer.println("#!/bin/bash");
-                writer.println("sh -c 'for i in $(lsof -ti :4567); do kill -9 $i; done'");
+                writer.println("for i in $(lsof -ti :4567); do kill -9 $i; done");
                 writer.close();
 
                 // määritellään käynnistettävä ohjelma. 
