@@ -1,10 +1,10 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fi">
     <head>
         <meta charset="utf-8" />
         <title>Heppafoorumi - Aiheet</title>
-        <link rel="stylesheet" href="css/aiheTyyli.css" />
-        <link rel="shortcut icon" href="images/favicon.png" type="image/png" />
+        <link rel="stylesheet" href="css/aiheetTyyli.css" />
+        <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
     </head>
     <body>
         
@@ -16,8 +16,8 @@
             <p>Voit lisätä uusia aiheita tälle alueelle tai valita jo valmiiksi olevan</p>
             <hr/>
             <ul>
-                <li th:each="aihe : ${aiheet}">
-                    <span th:text="${aihe}"></span>
+                <li th:each="aihe: ${aiheet}">
+                    <a th:href="@{~/{id}(id=${aihe.id})}" th:text="${aihe.teksti}">aihe</a>
                 </li>
             </ul>
         </section>
