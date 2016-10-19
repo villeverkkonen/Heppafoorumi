@@ -139,12 +139,12 @@ public class AiheDao implements Dao<Aihe, Integer> {
     @Override
     public void delete(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Aihe WHERE id = ?");
-        stmt.setObject(1, key);
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM Aihe WHERE id = ?");
+        statement.setObject(1, key);
 
-        stmt.executeUpdate();
+        statement.executeUpdate();
 
-        stmt.close();
+        statement.close();
         connection.close();
     }
 
@@ -153,18 +153,20 @@ public class AiheDao implements Dao<Aihe, Integer> {
         Integer id = aihe.getId();
         Integer aikaleima = aihe.getAikaleima();
         String nimimerkki = aihe.getNimimerkki();
+        String otsikko = aihe.getOtsikko();
         String teksti = aihe.getTeksti();
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Aihe VALUES(?, ?, ?, ?)");
-        stmt.setObject(1, id);
-        stmt.setObject(2, aikaleima);
-        stmt.setObject(3, nimimerkki);
-        stmt.setObject(4, teksti);
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Aihe VALUES(?, ?, ?, ?, ?)");
+        statement.setObject(1, id);
+        statement.setObject(2, aikaleima);
+        statement.setObject(3, nimimerkki);
+        statement.setObject(4, otsikko);
+        statement.setObject(5, teksti);
 
-        stmt.executeUpdate();
+        statement.executeUpdate();
 
-        stmt.close();
+        statement.close();
         connection.close();
     }
 }

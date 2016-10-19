@@ -71,12 +71,12 @@ public class AlueDao implements Dao<Alue, Integer> {
     @Override
     public void delete(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("DELETE FROM Alue WHERE id = ?");
-        stmt.setObject(1, key);
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM Alue WHERE id = ?");
+        statement.setObject(1, key);
 
-        stmt.executeUpdate();
+        statement.executeUpdate();
 
-        stmt.close();
+        statement.close();
         connection.close();
     }
 
@@ -84,17 +84,19 @@ public class AlueDao implements Dao<Alue, Integer> {
     public void create(Alue alue) throws SQLException {
         Integer id = alue.getId();
         Integer aikaleima = alue.getAikaleima();
+        String otsikko = alue.getOtsikko();
         String teksti = alue.getTeksti();
 
         Connection connection = database.getConnection();
-        PreparedStatement stmt = connection.prepareStatement("INSERT INTO Alue VALUES(?, ?, ?)");
-        stmt.setObject(1, id);
-        stmt.setObject(2, aikaleima);
-        stmt.setObject(3, teksti);
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Alue VALUES(?, ?, ?, ?)");
+        statement.setObject(1, id);
+        statement.setObject(2, aikaleima);
+        statement.setObject(3, otsikko);
+        statement.setObject(4, teksti);
 
-        stmt.executeUpdate();
+        statement.executeUpdate();
 
-        stmt.close();
+        statement.close();
         connection.close();
     }
 
