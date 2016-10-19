@@ -19,7 +19,7 @@ public class Heppafoorumi {
 
     private static boolean onkoLinux() {
         // http://stackoverflow.com/questions/3282498/how-can-i-detect-a-unix-like-os-in-java/3282597#3282597
-        // Oletetaan ettÃ¤ jos ei ole Windows, niin on Linux.
+        // Oletetaan että jos ei ole Windows, niin on Linux.
         return (!(System.getProperty("os.name").startsWith("Windows")));
     }
 
@@ -31,9 +31,9 @@ public class Heppafoorumi {
 
         if (lopetetaankoVanhatPalvelinprosessit && onkoLinux()) {
             // lopetetaan vanha palvelin, toimii Linuxissa.
-            // jos kÃ¤yttÃ¶jÃ¤rjestelmÃ¤ on Windows, tÃ¤tÃ¤ lohkoa ei suoriteta.
+            // jos käyttÃ¶järjestelmä on Windows, tätä lohkoa ei suoriteta.
 
-            // tÃ¤llÃ¤ tavoin tehtynÃ¤ vanhojen prosessien niittaus toimii
+            // tällä tavoin tehtynä vanhojen prosessien niittaus toimii
             // (run toimii, clean & build myÃ¶s).
             try (PrintWriter writer = new PrintWriter("/tmp/niittaa_spark", "UTF-8")) {
 
@@ -43,25 +43,25 @@ public class Heppafoorumi {
                 writer.println("sh -c 'for i in $(lsof -ti :4567); do kill -9 $i; done'");
                 writer.close();
 
-                // mÃ¤Ã¤ritellÃ¤Ã¤n kÃ¤ynnistettÃ¤vÃ¤ ohjelma. 
+                // määritellään käynnistettävä ohjelma. 
                 String[] cmd = new String[]{"/bin/sh", "/tmp/niittaa_spark"};
 
                 try {
-                    // kÃ¤ynnistetÃ¤Ã¤n Ã¤sken luotu bash-skripti.
+                    // käynnistetään äsken luotu bash-skripti.
                     Process prosessi = Runtime.getRuntime().exec(cmd);
-                    // odotetaan ettÃ¤ skriptin suoritus pÃ¤Ã¤ttyy.
+                    // odotetaan että skriptin suoritus päättyy.
                     prosessi.waitFor();
                 } catch (IOException | InterruptedException e) {
-                    // ei tehdÃ¤ mitÃ¤Ã¤n poikkeuksille.
+                    // ei tehdä mitään poikkeuksille.
                 }
             } finally {
-                // poistetaan Ã¤sken luotu bash-skripti, onnistui lopetus tai ei.
+                // poistetaan äsken luotu bash-skripti, onnistui lopetus tai ei.
                 File tiedosto = new File("/tmp/niittaa_spark");
                 tiedosto.delete();
             }
         }
 
-        // no niin, vanhat palvelinprosessit lopetettu, siirrytÃ¤Ã¤n asiaan.
+        // no niin, vanhat palvelinprosessit lopetettu, siirrytään asiaan.
         Database database = new Database("jdbc:h2:./database");
 
         AlueDao alueDao = new AlueDao(database);
@@ -83,10 +83,10 @@ public class Heppafoorumi {
         Alue alue2 = new Alue(1, 2016, "Offtopic");
         alueet.add(alue2);
         
-//        Aihe aihe1 = new Aihe(1, 2016, alue1, "Ponit on perseestÃ¤!!!", "En tykkÃ¤Ã¤ poneista.");
+//        Aihe aihe1 = new Aihe(1, 2016, alue1, "Ponit on perseestä!!!", "En tykkää poneista.");
 
-        // lambda-lausekkeet HTTP-pyyntÃ¶jen kÃ¤sittelyÃ¤ varten.
-        // Heppafoorumin pÃ¤Ã¤sivu.
+        // lambda-lausekkeet HTTP-pyyntÃ¶jen käsittelyä varten.
+        // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
             HashMap<String, Object> data = new HashMap();
             data.put("alueet", alueet);
@@ -115,11 +115,11 @@ public class Heppafoorumi {
 //        Aihe aihe2 = new Aihe(1, 2016, "Islanninponit");
 //        alueet.add(aihe2);
 //  
-//        Aihe aihe3 = new Aihe(2, 2016, "Ponit on perseestÃ¤!!!");
+//        Aihe aihe3 = new Aihe(2, 2016, "Ponit on perseestä!!!");
 //        alueet.add(aihe3);
 //
-// lambda-lausekkeet HTTP-pyyntÃ¶jen kÃ¤sittelyÃ¤ varten.
-// Heppafoorumin pÃ¤Ã¤sivu.
+// lambda-lausekkeet HTTP-pyyntÃ¶jen käsittelyä varten.
+// Heppafoorumin pääsivu.
 //        get("/", (request, response) -> {
 //            HashMap<String, Object> data = new HashMap();
 //            data.put("aiheett", aiheet);
