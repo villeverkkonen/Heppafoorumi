@@ -31,10 +31,10 @@ public class Heppafoorumi {
 
         if (lopetetaankoVanhatPalvelinprosessit && onkoLinux()) {
             // lopetetaan vanha palvelin, toimii Linuxissa.
-            // jos käyttÃ¶järjestelmä on Windows, tätä lohkoa ei suoriteta.
+            // jos käyttöjärjestelmä on Windows, tätä lohkoa ei suoriteta.
 
             // tällä tavoin tehtynä vanhojen prosessien niittaus toimii
-            // (run toimii, clean & build myÃ¶s).
+            // (run toimii, clean & build myös).
             try (PrintWriter writer = new PrintWriter("/tmp/niittaa_spark", "UTF-8")) {
 
                 // kirjoitetaan tiedostoon /tmp/niittaa_spark bash-skripti joka
@@ -85,7 +85,7 @@ public class Heppafoorumi {
         
 //        Aihe aihe1 = new Aihe(1, 2016, alue1, "Ponit on perseestä!!!", "En tykkää poneista.");
 
-        // lambda-lausekkeet HTTP-pyyntÃ¶jen käsittelyä varten.
+        // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
             HashMap<String, Object> data = new HashMap();
@@ -118,7 +118,7 @@ public class Heppafoorumi {
 //        Aihe aihe3 = new Aihe(2, 2016, "Ponit on perseestä!!!");
 //        alueet.add(aihe3);
 //
-// lambda-lausekkeet HTTP-pyyntÃ¶jen käsittelyä varten.
+// lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
 // Heppafoorumin pääsivu.
 //        get("/", (request, response) -> {
 //            HashMap<String, Object> data = new HashMap();
