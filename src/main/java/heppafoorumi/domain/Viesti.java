@@ -1,5 +1,7 @@
 package heppafoorumi.domain;
 
+import java.sql.Timestamp;
+
 public class Viesti extends Kategoria {
 
     // viestin muuttujat:
@@ -14,12 +16,20 @@ public class Viesti extends Kategoria {
     // ainoastaan 20 ensimmäistä merkkiä otetaan huomioon.
     private final String nimimerkki;
 
-    public Viesti(Integer id, int aikaleima, Aihe aihe, String nimimerkki) {
-        super(id, aikaleima, nimimerkki);
+    public Viesti(Integer id, Timestamp aikaleima, Aihe aihe, String nimimerkki, String teksti) {
+        super(id, aikaleima, teksti);
         this.aihe = aihe;
 
         // tallennetaan enintään 20 ensimmäistä merkkiä syötetystä nimimerkistä.
         this.nimimerkki = nimimerkki.substring(Math.min(nimimerkki.length() - 1, NIMIMERKIN_PITUUS));
+    }
+
+    public Viesti(Integer id, Aihe aihe, String nimimerkki, String teksti) {
+        this(id, new java.sql.Timestamp(new java.util.Date().getTime()), aihe, nimimerkki, teksti);
+    }
+
+    public Aihe getAihe() {
+        return this.aihe;
     }
 
     public String getNimimerkki() {

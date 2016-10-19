@@ -9,6 +9,7 @@ import java.util.List;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Alue;
 import java.sql.PreparedStatement;
+import java.sql.Timestamp;
 
 public class AiheDao implements Dao<Aihe, Integer> {
 
@@ -41,12 +42,12 @@ public class AiheDao implements Dao<Aihe, Integer> {
         }
 
         Integer alueId = resultSet.getInt("alue_id");
-        Integer alueAikaleima = resultSet.getInt("alue_aikaleima");
+        Timestamp alueAikaleima = resultSet.getTimestamp("alue_aikaleima");
         String alueOtsikko = resultSet.getString("alue_otsikko");
         String alueTeksti = resultSet.getString("alue_teksti");
 
         Integer aiheId = resultSet.getInt("aihe_id");
-        Integer aiheAikaleima = resultSet.getInt("aihe_aikaleima");
+        Timestamp aiheAikaleima = resultSet.getTimestamp("aihe_aikaleima");
         // Integer aiheAlue = resultSet.getInt("aihe_alue");
         String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
         String aiheOtsikko = resultSet.getString("aihe_otsikko");
@@ -80,12 +81,55 @@ public class AiheDao implements Dao<Aihe, Integer> {
         List<Aihe> aiheet = new ArrayList();
         while (resultSet.next()) {
             Integer alueId = resultSet.getInt("alue_id");
-            Integer alueAikaleima = resultSet.getInt("alue_aikaleima");
+            Timestamp alueAikaleima = resultSet.getTimestamp("alue_aikaleima");
             String alueOtsikko = resultSet.getString("alue_otsikko");
             String alueTeksti = resultSet.getString("alue_teksti");
 
             Integer aiheId = resultSet.getInt("aihe_id");
-            Integer aiheAikaleima = resultSet.getInt("aihe_aikaleima");
+            Timestamp aiheAikaleima = resultSet.getTimestamp("aihe_aikaleima");
+            // Integer aiheAlue = resultSet.getInt("aihe_alue");
+            String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
+            String aiheOtsikko = resultSet.getString("aihe_otsikko");
+            String aiheTeksti = resultSet.getString("aihe_teksti");
+
+            Alue alue = new Alue(alueId, alueAikaleima, alueOtsikko, alueTeksti);
+
+            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+
+            aiheet.add(aihe);
+        }
+
+        resultSet.close();
+        connection.close();
+
+        return aiheet;
+    }
+
+    public List<Aihe> findAll(int alueId) throws SQLException {
+
+        Connection connection = database.getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+                + "alue.id AS alue_id, "
+                + "alue.aikaleima AS alue_aikaleima, "
+                + "alue.otsikko AS alue_otsikko, "
+                + "alue.teksti AS alue_teksti, "
+                + "aihe.id AS aihe_id, "
+                + "aihe.aikaleima AS aihe_aikaleima, "
+                + "aihe.alue AS aihe_alue, "
+                + "aihe.nimimerkki AS aihe_nimimerkki, "
+                + "aihe.otsikko AS aihe_otsikko, "
+                + "aihe.teksti AS aihe_teksti "
+                + "FROM Alue alue, Aihe aihe "
+                + "WHERE alue.id = " + alueId);
+
+        List<Aihe> aiheet = new ArrayList();
+        while (resultSet.next()) {
+            Timestamp alueAikaleima = resultSet.getTimestamp("alue_aikaleima");
+            String alueOtsikko = resultSet.getString("alue_otsikko");
+            String alueTeksti = resultSet.getString("alue_teksti");
+
+            Integer aiheId = resultSet.getInt("aihe_id");
+            Timestamp aiheAikaleima = resultSet.getTimestamp("aihe_aikaleima");
             // Integer aiheAlue = resultSet.getInt("aihe_alue");
             String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
             String aiheOtsikko = resultSet.getString("aihe_otsikko");
@@ -119,7 +163,7 @@ public class AiheDao implements Dao<Aihe, Integer> {
         List<Aihe> aiheet = new ArrayList();
         while (resultSet.next()) {
             Integer aiheId = resultSet.getInt("aihe_id");
-            Integer aiheAikaleima = resultSet.getInt("aihe_aikaleima");
+            Timestamp aiheAikaleima = resultSet.getTimestamp("aihe_aikaleima");
             // Integer aiheAlue = resultSet.getInt("aihe_alue");
             String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
             String aiheOtsikko = resultSet.getString("aihe_otsikko");
@@ -150,19 +194,33 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
     @Override
     public void create(Aihe aihe) throws SQLException {
-        Integer id = aihe.getId();
-        Integer aikaleima = aihe.getAikaleima();
         String nimimerkki = aihe.getNimimerkki();
         String otsikko = aihe.getOtsikko();
         String teksti = aihe.getTeksti();
 
         Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Aihe VALUES(?, ?, ?, ?, ?)");
+
+        int id;
+
+        ResultSet resultSet = connection.createStatement().executeQuery(
+                "SELECT id FROM Aihe ORDER BY id DESC LIMIT 1");
+
+        if (resultSet.next()) {
+            id = resultSet.getInt("id") + 1;
+        } else {
+            id = 1;
+        }
+
+        resultSet.close();
+
+        PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO Aihe (id, aikaleima, alue, nimimerkki, otsikko, teksti) VALUES(?, ?, ?, ?, ?, ?)");
         statement.setObject(1, id);
-        statement.setObject(2, aikaleima);
-        statement.setObject(3, nimimerkki);
-        statement.setObject(4, otsikko);
-        statement.setObject(5, teksti);
+        statement.setObject(2, new java.sql.Timestamp(new java.util.Date().getTime()));
+        statement.setObject(3, aihe.getAlue().getId());
+        statement.setObject(4, nimimerkki);
+        statement.setObject(5, otsikko);
+        statement.setObject(6, teksti);
 
         statement.executeUpdate();
 

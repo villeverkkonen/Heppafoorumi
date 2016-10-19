@@ -95,7 +95,7 @@
             <hr/>
             <div class="list-group">
                 <a th:each="aihe : ${aiheet}" class="list-group">
-                    <a href="#" th:href="@{~/{id}(id=${aihe.id})}" th:text="${aihe.otsikko}" class="list-group-item list-group-item-info">aihe</a>
+                    <a href="#" th:href="@{~/{aiheid}(aiheid=${aihe.id})}" th:text="${aihe.otsikko}" class="list-group-item list-group-item-info">aihe</a>
                 </a>
             </div>
 

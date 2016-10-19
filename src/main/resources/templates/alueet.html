@@ -4,111 +4,111 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Heppafoorumi - Alueet</title>
-        
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    
-<style>     
-.body {
-    background-color: #808080;
-}
 
-.header {
-    width: 80%;
-    height: 100%;
-    background-color: Lavender;
-    margin-left: 100px;
-    border-left-width: thin;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    box-shadow: #000 8px 6px 8px;
-}
+        <style>
+            .body {
+                background-color: #808080;
+            }
 
-.section {
-    width: 80%;
-    height: 100%;
-    background-color: Lavender;
-    margin-left: 100px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    box-shadow: #000 8px 6px 8px;
-}
+            .header {
+                width: 80%;
+                height: 100%;
+                background-color: Lavender;
+                margin-left: 100px;
+                border-left-width: thin;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                box-shadow: #000 8px 6px 8px;
+            }
 
-.footer {
-    width: 80%;
-    height: 100%;
-    background-color: Lavender;
-    margin-left: 100px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    box-shadow: #000 8px 6px 8px;
-}
+            .section {
+                width: 80%;
+                height: 100%;
+                background-color: Lavender;
+                margin-left: 100px;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                box-shadow: #000 8px 6px 8px;
+            }
 
-.h1 {
-    color: #8b0e0e;
-    text-align: center;
-    font-size: 60px;
-    text-shadow: 3px 3px 3px #332;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
+            .footer {
+                width: 80%;
+                height: 100%;
+                background-color: Lavender;
+                margin-left: 100px;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                box-shadow: #000 8px 6px 8px;
+            }
 
-.h2 {
-    text-align: left;
-    font-size: 40px;
-    margin-left: 10px;
-    margin-top: 10px;
-}
+            .h1 {
+                color: #8b0e0e;
+                text-align: center;
+                font-size: 60px;
+                text-shadow: 3px 3px 3px #332;
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
 
-.h3 {
-    margin-bottom: 10px;
-    margin-top: 10px;
-    text-align: center;
-}
+            .h2 {
+                text-align: left;
+                font-size: 40px;
+                margin-left: 10px;
+                margin-top: 10px;
+            }
 
-.p {
-    text-align: left;
-    margin-left: 10px;
-}
+            .h3 {
+                margin-bottom: 10px;
+                margin-top: 10px;
+                text-align: center;
+            }
 
-.list-group-item {
-    width: 20%;
-    text-align: left;
-    font-size: 35px;
-    margin-left: 10px;
-}
+            .p {
+                text-align: left;
+                margin-left: 10px;
+            }
 
-</style>
+            .list-group-item {
+                width: 20%;
+                text-align: left;
+                font-size: 35px;
+                margin-left: 10px;
+            }
+
+        </style>
     </head>
-    
+
     <body class="body">
-        
+
         <header class="header">
             <h1 class="h1">Tervetuloa Heppafoorumille!</h1>
         </header>
 
         <nav>
-            
+
         </nav>
 
         <section class="section">
             <img style="float: right; margin: 10px 10px 10px 10px;" src="images/hevonen.jpg" width="230" alt="Uljas hevonen"></img>
             <h2 class="h2">Kohtaamispaikka todellisille heppahulluille</h2>
-            
+
             <hr/>
-            
+
             <h2 class="h2">Valitse mieleisesi alue:</h2>
             <div class="list-group">
-                <a th:each="alue: ${alueet}" class="list-group">
+                <a th:each="alue : ${alueet}" class="list-group">
                     <a href="#" th:href="@{~/{id}(id=${alue.id})}" th:text="${alue.otsikko}" class="list-group-item list-group-item-info">alue</a>
                 </a>
             </div>

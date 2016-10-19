@@ -14,6 +14,7 @@ import static spark.Spark.get;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
+import java.util.ArrayList;
 import spark.Spark;
 
 public class Heppafoorumi {
@@ -69,49 +70,43 @@ public class Heppafoorumi {
         AiheDao aiheDao = new AiheDao(database);
         ViestiDao viestiDao = new ViestiDao(database);
 
-        // tulostetaan kaikki alueet konsoliin.
-        System.out.println("Kaikki alueet");
-
-        List<Alue> alueet = alueDao.findAll();
-
-        for (Alue alue : alueet) {
-            System.out.println(alue);
-        }
-
-        Alue ponialue = new Alue(1, 2016, "Ponit", "Keskustelua ponihevosista");
-        alueet.add(ponialue);
-
-        Alue vikellysalue = new Alue(2, 2016, "Vikellys", "Akrobatiaa liikkuvan hevosen selässä");
-        alueet.add(vikellysalue);
-
-        Alue offtopicalue = new Alue(3, 2016, "Offtopic", "Kaikkea maan ja taivaan väliltä");
-        alueet.add(offtopicalue);
-        
-        Aihe aihe1 = new Aihe(1, 2016, ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
-
+//        Aihe aihe1 = new Aihe(1, Timestamp.valueOf("2016-01-01 00:00:03"), ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
             HashMap<String, Object> data = new HashMap();
+            List<Alue> alueet = alueDao.findAll();
             data.put("alueet", alueet);
             return new ModelAndView(data, "alueet");
         }, new ThymeleafTemplateEngine());
 
         get("/:alue", (request, response) -> {
             HashMap<String, Object> data = new HashMap();
+
+            int alueId = Integer.parseInt(request.params(":alue"));
             data.put("alue", data.get(request.params(":alue")));
+
+            List<Aihe> aiheet = aiheDao.findAll(alueId);
+            data.put("aiheet", aiheet);
+
             return new ModelAndView(data, "aiheet");
         }, new ThymeleafTemplateEngine());
 
-//        tulostetaan kaikki aiheet konsoliin.
-//        System.out.println("Kaikki alueet");
-//
-//        List<Aihe> aiheet = new List<>();
-//
-//        for (Alue alue : alueet) {
-//            System.out.println(alue);
-//        }
-//
+        get("/:alue/:aihe", (request, response) -> {
+            HashMap<String, Object> data = new HashMap();
+
+            int alueId = Integer.parseInt(request.params(":alue"));
+            data.put("alue", data.get(request.params(":alue")));
+
+            int aiheId = Integer.parseInt(request.params(":aihe"));
+            data.put("aihe", data.get(request.params(":aihe")));
+
+            List<Aihe> viestit = aiheDao.findAll(aiheId);
+            data.put("viestit", viestit);
+
+            return new ModelAndView(data, "viestit");
+        }, new ThymeleafTemplateEngine());
+
 //      Aihe aihe1 = new Aihe(0, 2016, "My Litlle Pony");
 //        alueet.add(aihe1);
 //

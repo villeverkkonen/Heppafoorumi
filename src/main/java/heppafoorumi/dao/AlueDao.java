@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import heppafoorumi.database.Database;
+import java.sql.Timestamp;
 
 public class AlueDao implements Dao<Alue, Integer> {
 
@@ -31,7 +32,7 @@ public class AlueDao implements Dao<Alue, Integer> {
         }
 
         Integer id = resultSet.getInt("id");
-        Integer aikaleima = resultSet.getInt("aikaleima");
+        Timestamp aikaleima = resultSet.getTimestamp("aikaleima");
         String otsikko = resultSet.getString("otsikko");
         String teksti = resultSet.getString("teksti");
 
@@ -54,7 +55,7 @@ public class AlueDao implements Dao<Alue, Integer> {
         List<Alue> alueet = new ArrayList();
         while (resultSet.next()) {
             Integer id = resultSet.getInt("id");
-            Integer aikaleima = resultSet.getInt("aikaleima");
+            Timestamp aikaleima = resultSet.getTimestamp("aikaleima");
             String otsikko = resultSet.getString("otsikko");
             String teksti = resultSet.getString("teksti");
 
@@ -82,15 +83,27 @@ public class AlueDao implements Dao<Alue, Integer> {
 
     @Override
     public void create(Alue alue) throws SQLException {
-        Integer id = alue.getId();
-        Integer aikaleima = alue.getAikaleima();
         String otsikko = alue.getOtsikko();
         String teksti = alue.getTeksti();
 
         Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Alue VALUES(?, ?, ?, ?)");
+
+        int id;
+
+        ResultSet resultSet = connection.createStatement().executeQuery(
+                "SELECT id FROM Aihe ORDER BY id DESC LIMIT 1");
+
+        if (resultSet.next()) {
+            id = resultSet.getInt("id") + 1;
+        } else {
+            id = 1;
+        }
+
+        resultSet.close();
+        PreparedStatement statement = connection.prepareStatement(
+                "INSERT INTO Alue (id, aikaleima, otsikko, teksti) VALUES(?, ?, ?, ?)");
         statement.setObject(1, id);
-        statement.setObject(2, aikaleima);
+        statement.setObject(2, new java.sql.Timestamp(new java.util.Date().getTime()));
         statement.setObject(3, otsikko);
         statement.setObject(4, teksti);
 

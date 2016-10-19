@@ -1,15 +1,17 @@
 package heppafoorumi.domain;
 
+import java.sql.Timestamp;
+
 public abstract class Kategoria {
 
     private final int id;        // juokseva numero 1... (0 on varattu poikkeustilanteisiin).
-    private final int aikaleima;
+    private final Timestamp aikaleima;
     private String teksti; // alueen nimi / aihe / viestin teksti
 
     protected final static int NIMIMERKIN_PITUUS = 20;
     protected final static int OTSIKON_PITUUS = 200;
 
-    public Kategoria(int id, int aikaleima, String teksti) {
+    public Kategoria(int id, Timestamp aikaleima, String teksti) {
         java.util.Date today = new java.util.Date();
 
         this.id = id;
@@ -21,7 +23,7 @@ public abstract class Kategoria {
         return this.id;
     }
 
-    public final int getAikaleima() {
+    public final Timestamp getAikaleima() {
         return this.aikaleima;
     }
 
