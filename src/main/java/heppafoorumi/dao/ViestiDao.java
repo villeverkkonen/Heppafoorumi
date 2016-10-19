@@ -25,11 +25,13 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
                 + "alue.id AS alue_id, "
                 + "alue.aikaleima AS alue_aikaleima, "
+                + "alue.otsikko AS alue_otsikko, "
                 + "alue.teksti AS alue_teksti, "
                 + "aihe.id AS aihe_id, "
                 + "aihe.aikaleima AS aihe_aikaleima, "
                 + "aihe.alue AS aihe_alue, "
                 + "aihe.nimimerkki AS aihe_nimimerkki, "
+                + "aihe.otsikko AS aihe_otsikko, "
                 + "aihe.teksti AS aihe_teksti, "
                 + "viesti.id AS viesti_id, "
                 + "viesti.aikaleima AS viesti_aikaleima, "
@@ -48,12 +50,14 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         Integer alueId = resultSet.getInt("alue_id");
         Integer alueAikaleima = resultSet.getInt("alue_aikaleima");
+        String alueOtsikko = resultSet.getString("alue_otsikko");
         String alueTeksti = resultSet.getString("alue_teksti");
 
         Integer aiheId = resultSet.getInt("aihe_id");
         Integer aiheAikaleima = resultSet.getInt("aihe_aikaleima");
         // Integer aiheAlue = resultSet.getInt("aihe_alue");
         String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
+        String aiheOtsikko = resultSet.getString("aihe_otsikko");
         String aiheTeksti = resultSet.getString("aihe_teksti");
 
         Integer viestiId = resultSet.getInt("viesti_id");
@@ -64,9 +68,9 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         resultSet.close();
         connection.close();
 
-        Alue alue = new Alue(alueId, alueAikaleima, alueTeksti);
+        Alue alue = new Alue(alueId, alueAikaleima, alueOtsikko, alueTeksti);
 
-        Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheTeksti);
+        Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
         Viesti viesti = new Viesti(viestiId, viestiAikaleima, aihe, viestiNimimerkki);
 
@@ -83,11 +87,13 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
                 + "alue.id AS alue_id, "
                 + "alue.aikaleima AS alue_aikaleima, "
+                + "alue.otsikko AS alue_otsikko, "
                 + "alue.teksti AS alue_teksti, "
                 + "aihe.id AS aihe_id, "
                 + "aihe.aikaleima AS aihe_aikaleima, "
                 + "aihe.alue AS aihe_alue, "
                 + "aihe.nimimerkki AS aihe_nimimerkki, "
+                + "aihe.otsikko AS aihe_otsikko, "
                 + "aihe.teksti AS aihe_teksti, "
                 + "viesti.id AS viesti_id, "
                 + "viesti.aikaleima AS viesti_aikaleima, "
@@ -103,12 +109,14 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         while (resultSet.next()) {
             Integer alueId = resultSet.getInt("alue_id");
             Integer alueAikaleima = resultSet.getInt("alue_aikaleima");
+            String alueOtsikko = resultSet.getString("alue_otsikko");
             String alueTeksti = resultSet.getString("alue_teksti");
 
             Integer aiheId = resultSet.getInt("aihe_id");
             Integer aiheAikaleima = resultSet.getInt("aihe_aikaleima");
             // Integer aiheAlue = resultSet.getInt("aihe_alue");
             String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
+            String aiheOtsikko = resultSet.getString("aihe_otsikko");
             String aiheTeksti = resultSet.getString("aihe_teksti");
 
             Integer viestiId = resultSet.getInt("viesti_id");
@@ -119,9 +127,9 @@ public class ViestiDao implements Dao<Viesti, Integer> {
             resultSet.close();
             connection.close();
 
-            Alue alue = new Alue(alueId, alueAikaleima, alueTeksti);
+            Alue alue = new Alue(alueId, alueAikaleima, alueOtsikko, alueTeksti);
 
-            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheTeksti);
+            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
             Viesti viesti = new Viesti(viestiId, viestiAikaleima, aihe, viestiNimimerkki);
 
@@ -139,9 +147,9 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("DELETE FROM Viesti WHERE id = ?");
         stmt.setObject(1, key);
-        
+
         stmt.executeUpdate();
-        
+
         stmt.close();
         connection.close();
     }
@@ -151,15 +159,15 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         Integer id = viesti.getId();
         Integer aikaleima = viesti.getAikaleima();
         String nimimerkki = viesti.getNimimerkki();
-        
+
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Alue VALUES(?, ?, ?)");
         stmt.setObject(1, id);
         stmt.setObject(2, aikaleima);
         stmt.setObject(3, nimimerkki);
-        
+
         stmt.executeUpdate();
-        
+
         stmt.close();
         connection.close();
     }

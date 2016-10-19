@@ -13,6 +13,7 @@ import spark.ModelAndView;
 import static spark.Spark.get;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
+import heppafoorumi.domain.Aihe;
 import spark.Spark;
 
 public class Heppafoorumi {
@@ -77,13 +78,16 @@ public class Heppafoorumi {
             System.out.println(alue);
         }
 
-        Alue alue1 = new Alue(0, 2016, "Ponit");
-        alueet.add(alue1);
+        Alue ponialue = new Alue(1, 2016, "Ponit", "Keskustelua ponihevosista");
+        alueet.add(ponialue);
+
+        Alue vikellysalue = new Alue(2, 2016, "Vikellys", "Akrobatiaa liikkuvan hevosen selässä");
+        alueet.add(vikellysalue);
+
+        Alue offtopicalue = new Alue(3, 2016, "Offtopic", "Kaikkea maan ja taivaan väliltä");
+        alueet.add(offtopicalue);
         
-        Alue alue2 = new Alue(1, 2016, "Offtopic");
-        alueet.add(alue2);
-        
-//        Aihe aihe1 = new Aihe(1, 2016, alue1, "Ponit on perseestä!!!", "En tykkää poneista.");
+        Aihe aihe1 = new Aihe(1, 2016, ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
 
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
@@ -92,14 +96,13 @@ public class Heppafoorumi {
             data.put("alueet", alueet);
             return new ModelAndView(data, "alueet");
         }, new ThymeleafTemplateEngine());
-        
+
         get("/:alue", (request, response) -> {
             HashMap<String, Object> data = new HashMap();
             data.put("alue", data.get(request.params(":alue")));
             return new ModelAndView(data, "aiheet");
         }, new ThymeleafTemplateEngine());
-  
-        
+
 //        tulostetaan kaikki aiheet konsoliin.
 //        System.out.println("Kaikki alueet");
 //
@@ -125,6 +128,5 @@ public class Heppafoorumi {
 //            data.put("aiheett", aiheet);
 //            return new ModelAndView(data, "aiheet");
 //        }, new ThymeleafTemplateEngine());
-        
     }
 }

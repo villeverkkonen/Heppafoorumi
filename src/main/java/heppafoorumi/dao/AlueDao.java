@@ -32,9 +32,10 @@ public class AlueDao implements Dao<Alue, Integer> {
 
         Integer id = resultSet.getInt("id");
         Integer aikaleima = resultSet.getInt("aikaleima");
+        String otsikko = resultSet.getString("otsikko");
         String teksti = resultSet.getString("teksti");
 
-        Alue alue = new Alue(id, aikaleima, teksti);
+        Alue alue = new Alue(id, aikaleima, otsikko, teksti);
 
         resultSet.close();
         statement.close();
@@ -54,9 +55,10 @@ public class AlueDao implements Dao<Alue, Integer> {
         while (resultSet.next()) {
             Integer id = resultSet.getInt("id");
             Integer aikaleima = resultSet.getInt("aikaleima");
-            String nimi = resultSet.getString("teksti");
+            String otsikko = resultSet.getString("otsikko");
+            String teksti = resultSet.getString("teksti");
 
-            alueet.add(new Alue(id, aikaleima, nimi));
+            alueet.add(new Alue(id, aikaleima, otsikko, teksti));
         }
 
         resultSet.close();
@@ -71,9 +73,9 @@ public class AlueDao implements Dao<Alue, Integer> {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("DELETE FROM Alue WHERE id = ?");
         stmt.setObject(1, key);
-        
+
         stmt.executeUpdate();
-        
+
         stmt.close();
         connection.close();
     }
@@ -83,15 +85,15 @@ public class AlueDao implements Dao<Alue, Integer> {
         Integer id = alue.getId();
         Integer aikaleima = alue.getAikaleima();
         String teksti = alue.getTeksti();
-        
+
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Alue VALUES(?, ?, ?)");
         stmt.setObject(1, id);
         stmt.setObject(2, aikaleima);
         stmt.setObject(3, teksti);
-        
+
         stmt.executeUpdate();
-        
+
         stmt.close();
         connection.close();
     }

@@ -7,25 +7,30 @@ public class Aihe extends Kategoria {
     // aikaleima date,
     // alue int,
     // nimimerkki varchar(20),
-    // teksti varchar(40),
+    // otsikko varchar(200),
+    // teksti varchar(200),
     // FOREIGN KEY(alue) REFERENCES Alue(id);
-    private final static int NIMIMERKIN_PITUUS = 20;
-
     private final Alue alue; // huom. Alue-olio, vrt. wepa:n 28. HelloOneToMany:n Agent.java
+    private final String otsikko;
 
     // ainoastaan 20 ensimmäistä merkkiä otetaan huomioon.
     private final String nimimerkki;
 
-    public Aihe(Integer id, int aikaleima, Alue alue, String nimimerkki, String teksti) {
+    public Aihe(Integer id, int aikaleima, Alue alue, String nimimerkki, String otsikko, String teksti) {
         super(id, aikaleima, teksti);
         this.alue = alue;
 
         // tallennetaan enintään 20 ensimmäistä merkkiä syötetystä nimimerkistä.
         this.nimimerkki = nimimerkki.substring(Math.min(nimimerkki.length() - 1, NIMIMERKIN_PITUUS));
+        this.otsikko = otsikko.substring(Math.min(otsikko.length() - 1, OTSIKON_PITUUS));
     }
 
     public String getNimimerkki() {
         return this.nimimerkki;
+    }
+
+    public String getOtsikko() {
+        return this.otsikko;
     }
 
     @Override

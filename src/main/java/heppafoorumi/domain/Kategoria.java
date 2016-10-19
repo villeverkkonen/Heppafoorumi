@@ -6,6 +6,9 @@ public abstract class Kategoria {
     private final int aikaleima;
     private String teksti; // alueen nimi / aihe / viestin teksti
 
+    protected final static int NIMIMERKIN_PITUUS = 20;
+    protected final static int OTSIKON_PITUUS = 200;
+
     public Kategoria(int id, int aikaleima, String teksti) {
         java.util.Date today = new java.util.Date();
 

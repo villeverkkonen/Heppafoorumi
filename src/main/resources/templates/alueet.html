@@ -109,7 +109,7 @@
             <h2 class="h2">Valitse mieleisesi alue:</h2>
             <div class="list-group">
                 <a th:each="alue: ${alueet}" class="list-group">
-                    <a href="#" th:href="@{~/{id}(id=${alue.id})}" th:text="${alue.teksti}" class="list-group-item list-group-item-info">alue</a>
+                    <a href="#" th:href="@{~/{id}(id=${alue.id})}" th:text="${alue.otsikko}" class="list-group-item list-group-item-info">alue</a>
                 </a>
             </div>
         </section>

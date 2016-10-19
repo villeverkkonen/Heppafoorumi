@@ -24,11 +24,13 @@ public class AiheDao implements Dao<Aihe, Integer> {
         ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
                 + "alue.id AS alue_id, "
                 + "alue.aikaleima AS alue_aikaleima, "
+                + "alue.otsikko AS alue_otsikko, "
                 + "alue.teksti AS alue_teksti, "
                 + "aihe.id AS aihe_id, "
                 + "aihe.aikaleima AS aihe_aikaleima, "
                 + "aihe.alue AS aihe_alue, "
                 + "aihe.nimimerkki AS aihe_nimimerkki, "
+                + "aihe.otsikko AS aihe_otsikko "
                 + "aihe.teksti AS aihe_teksti "
                 + "FROM Alue alue, Aihe aihe "
                 + "WHERE aihe.alue = alue.id AND "
@@ -40,55 +42,90 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
         Integer alueId = resultSet.getInt("alue_id");
         Integer alueAikaleima = resultSet.getInt("alue_aikaleima");
+        String alueOtsikko = resultSet.getString("alue_otsikko");
         String alueTeksti = resultSet.getString("alue_teksti");
 
         Integer aiheId = resultSet.getInt("aihe_id");
         Integer aiheAikaleima = resultSet.getInt("aihe_aikaleima");
         // Integer aiheAlue = resultSet.getInt("aihe_alue");
         String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
+        String aiheOtsikko = resultSet.getString("aihe_otsikko");
         String aiheTeksti = resultSet.getString("aihe_teksti");
 
         resultSet.close();
         connection.close();
 
-        Alue alue = new Alue(alueId, alueAikaleima, alueTeksti);
+        Alue alue = new Alue(alueId, alueAikaleima, alueOtsikko, alueTeksti);
 
-        Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheTeksti);
+        Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
         return aihe;
     }
 
-    @Override
     public List<Aihe> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
         ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
                 + "alue.id AS alue_id, "
                 + "alue.aikaleima AS alue_aikaleima, "
+                + "alue.otsikko AS alue_otsikko, "
                 + "alue.teksti AS alue_teksti, "
                 + "aihe.id AS aihe_id, "
                 + "aihe.aikaleima AS aihe_aikaleima, "
                 + "aihe.alue AS aihe_alue, "
                 + "aihe.nimimerkki AS aihe_nimimerkki, "
                 + "aihe.teksti AS aihe_teksti "
-                + "FROM Alue alue, Aihe aihe "
-                + "WHERE aihe.alue = alue.id");
+                + "FROM Alue alue, Aihe aihe");
 
         List<Aihe> aiheet = new ArrayList();
         while (resultSet.next()) {
             Integer alueId = resultSet.getInt("alue_id");
             Integer alueAikaleima = resultSet.getInt("alue_aikaleima");
+            String alueOtsikko = resultSet.getString("alue_otsikko");
             String alueTeksti = resultSet.getString("alue_teksti");
 
             Integer aiheId = resultSet.getInt("aihe_id");
             Integer aiheAikaleima = resultSet.getInt("aihe_aikaleima");
             // Integer aiheAlue = resultSet.getInt("aihe_alue");
             String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
+            String aiheOtsikko = resultSet.getString("aihe_otsikko");
             String aiheTeksti = resultSet.getString("aihe_teksti");
 
-            Alue alue = new Alue(alueId, alueAikaleima, alueTeksti);
+            Alue alue = new Alue(alueId, alueAikaleima, alueOtsikko, alueTeksti);
 
-            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheTeksti);
+            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+
+            aiheet.add(aihe);
+        }
+
+        resultSet.close();
+        connection.close();
+
+        return aiheet;
+    }
+
+    public List<Aihe> findAll(Alue alue) throws SQLException {
+
+        Connection connection = database.getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+                + "aihe.id AS aihe_id, "
+                + "aihe.aikaleima AS aihe_aikaleima, "
+                + "aihe.alue AS aihe_alue, "
+                + "aihe.nimimerkki AS aihe_nimimerkki, "
+                + "aihe.teksti AS aihe_teksti "
+                + "FROM Aihe aihe "
+                + "WHERE aihe.alue = " + alue.getId());
+
+        List<Aihe> aiheet = new ArrayList();
+        while (resultSet.next()) {
+            Integer aiheId = resultSet.getInt("aihe_id");
+            Integer aiheAikaleima = resultSet.getInt("aihe_aikaleima");
+            // Integer aiheAlue = resultSet.getInt("aihe_alue");
+            String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
+            String aiheOtsikko = resultSet.getString("aihe_otsikko");
+            String aiheTeksti = resultSet.getString("aihe_teksti");
+
+            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
             aiheet.add(aihe);
         }
@@ -104,9 +141,9 @@ public class AiheDao implements Dao<Aihe, Integer> {
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("DELETE FROM Aihe WHERE id = ?");
         stmt.setObject(1, key);
-        
+
         stmt.executeUpdate();
-        
+
         stmt.close();
         connection.close();
     }
@@ -117,16 +154,16 @@ public class AiheDao implements Dao<Aihe, Integer> {
         Integer aikaleima = aihe.getAikaleima();
         String nimimerkki = aihe.getNimimerkki();
         String teksti = aihe.getTeksti();
-        
+
         Connection connection = database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Aihe VALUES(?, ?, ?, ?)");
         stmt.setObject(1, id);
         stmt.setObject(2, aikaleima);
         stmt.setObject(3, nimimerkki);
         stmt.setObject(4, teksti);
-        
+
         stmt.executeUpdate();
-        
+
         stmt.close();
         connection.close();
     }

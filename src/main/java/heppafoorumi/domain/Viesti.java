@@ -9,8 +9,6 @@ public class Viesti extends Kategoria {
     // nimimerkki varchar(20),
     // teksti varchar(200),
     // FOREIGN KEY(aihe) REFERENCES Aihe(id);
-    private final static int NIMIMERKIN_PITUUS = 20;
-
     private final Aihe aihe; // huom. Aihe-olio, vrt. wepa:n 28. HelloOneToMany:n Agent.java
 
     // ainoastaan 20 ensimmäistä merkkiä otetaan huomioon.
