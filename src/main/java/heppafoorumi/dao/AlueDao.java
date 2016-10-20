@@ -100,6 +100,7 @@ public class AlueDao implements Dao<Alue, Integer> {
         }
 
         resultSet.close();
+
         PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO Alue (id, aikaleima, otsikko, teksti) VALUES(?, ?, ?, ?)");
         statement.setObject(1, id);
@@ -113,4 +114,7 @@ public class AlueDao implements Dao<Alue, Integer> {
         connection.close();
     }
 
+    public void create(String otsikko, String teksti) {
+        // ei toteutettu.
+    }
 }

@@ -239,6 +239,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         }
 
         resultSet.close();
+
         PreparedStatement statement = connection.prepareStatement("INSERT INTO Alue VALUES(?, ?, ?, ?, ?)");
         statement.setObject(1, id);
         statement.setObject(2, viesti.getAihe().getId());
@@ -253,6 +254,6 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     }
 
     public void create(Aihe aihe, String nimimerkki, String teksti) {
-
+        // ei toteutettu.
     }
 }

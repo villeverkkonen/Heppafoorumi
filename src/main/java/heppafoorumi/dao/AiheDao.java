@@ -227,4 +227,8 @@ public class AiheDao implements Dao<Aihe, Integer> {
         statement.close();
         connection.close();
     }
+
+    public void create(Alue alue, String nimimerkki, String otsikko, String teksti) {
+        // ei toteutettu.
+    }
 }

@@ -10,13 +10,12 @@ public abstract class Kategoria {
 
     protected final static int NIMIMERKIN_PITUUS = 20;
     protected final static int OTSIKON_PITUUS = 200;
+    private final static int TEKSTIN_PITUUS = 200;
 
     public Kategoria(int id, Timestamp aikaleima, String teksti) {
-        java.util.Date today = new java.util.Date();
-
         this.id = id;
-        this.aikaleima = aikaleima;
-        this.teksti = teksti;
+        this.aikaleima = new java.sql.Timestamp(new java.util.Date().getTime());
+        this.teksti = teksti.substring(Math.min(teksti.length() - 1, TEKSTIN_PITUUS));
     }
 
     public Integer getId() {
@@ -31,8 +30,8 @@ public abstract class Kategoria {
         return this.teksti;
     }
 
-    public void setTeksti(String nimi) {
-        this.teksti = nimi;
+    public void setTeksti(String teksti) {
+        this.teksti = teksti.substring(Math.min(teksti.length() - 1, TEKSTIN_PITUUS));
     }
 
     @Override
