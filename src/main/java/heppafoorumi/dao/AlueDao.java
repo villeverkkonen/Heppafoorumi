@@ -84,6 +84,7 @@ public class AlueDao implements Dao<Alue, Integer> {
 
     public void create(String otsikko, String teksti) throws SQLException {
         otsikko = korjaaAakkoset(otsikko);
+        
         teksti = korjaaAakkoset(teksti);
 
         Connection connection = database.getConnection();

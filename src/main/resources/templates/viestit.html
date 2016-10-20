@@ -86,6 +86,38 @@
     font-size: 35px;
     margin-left: 10px;
 }
+
+            .list-group {
+                width: 20%;
+                text-align: left;
+                font-size: 35px;
+                margin-left: 10px;
+            }
+            
+            .form-inline {
+                margin-bottom: 10px;
+            }
+            
+            .list-group {
+                
+            }
+            
+            .form-group {
+                margin-left: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .form-control {
+                
+            }
+            
+            .btn {
+                
+            }
+            
+            .btn-success {
+                
+            }
 </style>
     </head>
     <body class="body">
@@ -100,6 +132,21 @@
                     <span th:text="${viesti}"></span>
                 </li>
             </ul>
+            
+            <form action="/" method="POST" class="form-inline">
+                <div class="form-group">
+                    <label>Nimimerkki:</label>
+                    <input type="text" name="nimimerkki" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label>Lis&auml;&auml; viesti:</label>
+                    <input type="text" name="viesti" class="form-control"/>
+                </div>
+                <button type="submit" class="btn btn-success">Lis&auml;&auml;!</button>
+            </form>
+            
+            <a href="../"><p class="form-group">Takaisin aiheisiin</p></a>                
+            
         </section>
 
         <footer class="footer">
