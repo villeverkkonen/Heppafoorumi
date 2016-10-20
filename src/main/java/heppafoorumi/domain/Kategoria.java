@@ -36,6 +36,14 @@ public abstract class Kategoria {
         return this.teksti;
     }
 
+    public static String korjaaAakkoset(String sana) {
+        sana = sana.replaceAll("ä", "&auml;");
+        sana = sana.replaceAll("ö", "&ouml;");
+        sana = sana.replaceAll("Ä", "&Auml;");
+        sana = sana.replaceAll("Ö", "&Ouml;");
+        return sana;
+    }
+
     public void setTeksti(String teksti) {
         this.teksti = teksti.substring(Math.min(teksti.length() - 1, TEKSTIN_PITUUS));
     }

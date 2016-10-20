@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Alue;
+import static heppafoorumi.domain.Kategoria.korjaaAakkoset;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
@@ -195,8 +196,11 @@ public class AiheDao implements Dao<Aihe, Integer> {
     @Override
     public void create(Aihe aihe) throws SQLException {
         String nimimerkki = aihe.getNimimerkki();
+        nimimerkki = korjaaAakkoset(nimimerkki);
         String otsikko = aihe.getOtsikko();
+        otsikko = korjaaAakkoset(otsikko);
         String teksti = aihe.getTeksti();
+        teksti = korjaaAakkoset(teksti);
 
         Connection connection = database.getConnection();
 

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import heppafoorumi.database.Database;
+import static heppafoorumi.domain.Kategoria.korjaaAakkoset;
 import java.sql.Timestamp;
 
 public class AlueDao implements Dao<Alue, Integer> {
@@ -84,7 +85,9 @@ public class AlueDao implements Dao<Alue, Integer> {
     @Override
     public void create(Alue alue) throws SQLException {
         String otsikko = alue.getOtsikko();
+        otsikko = korjaaAakkoset(otsikko);
         String teksti = alue.getTeksti();
+        teksti = korjaaAakkoset(teksti);
 
         Connection connection = database.getConnection();
 
