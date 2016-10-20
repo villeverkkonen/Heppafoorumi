@@ -70,13 +70,15 @@ public class Heppafoorumi {
         AlueDao alueDao = new AlueDao(database);
         AiheDao aiheDao = new AiheDao(database);
         ViestiDao viestiDao = new ViestiDao(database);
-        List<Alue> alueet = new ArrayList<>();
+        
 
 //        Aihe aihe1 = new Aihe(1, Timestamp.valueOf("2016-01-01 00:00:03"), ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
             HashMap<String, Object> data = new HashMap();
+            List<Alue> alueet = new ArrayList<>();
+            alueet = alueDao.findAll();
             data.put("alueet", alueet);
             return new ModelAndView(data, "alueet");
         }, new ThymeleafTemplateEngine());
@@ -109,12 +111,12 @@ public class Heppafoorumi {
         }, new ThymeleafTemplateEngine());
         
         post("/", (req, res) -> {
+            
             String otsikko = req.queryParams("otsikko").trim();
             String kuvaus = req.queryParams("kuvaus").trim();
 
             if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
-                Alue alue = new Alue(otsikko, kuvaus);
-                alueet.add(alue);
+                alueDao.create(otsikko, kuvaus);
             }
 
             res.redirect("/");

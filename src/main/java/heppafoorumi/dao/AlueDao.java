@@ -82,11 +82,11 @@ public class AlueDao implements Dao<Alue, Integer> {
         connection.close();
     }
 
-    @Override
-    public void create(Alue alue) throws SQLException {
-        String otsikko = alue.getOtsikko();
+    
+    public void create(String otsikko, String teksti) throws SQLException {
+        
         otsikko = korjaaAakkoset(otsikko);
-        String teksti = alue.getTeksti();
+        
         teksti = korjaaAakkoset(teksti);
 
         Connection connection = database.getConnection();
@@ -103,7 +103,10 @@ public class AlueDao implements Dao<Alue, Integer> {
         connection.close();
     }
 
-    public void create(String otsikko, String teksti) throws SQLException {
-        this.create(new Alue(otsikko, teksti));
+    @Override
+    public void create(Alue key) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
+
+
