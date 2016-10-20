@@ -230,25 +230,11 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         Connection connection = database.getConnection();
 
-        int id;
-
-        ResultSet resultSet = connection.createStatement().executeQuery(
-                "SELECT id FROM Aihe ORDER BY id DESC LIMIT 1");
-
-        if (resultSet.next()) {
-            id = resultSet.getInt("id") + 1;
-        } else {
-            id = 1;
-        }
-
-        resultSet.close();
-
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Alue VALUES(?, ?, ?, ?, ?)");
-        statement.setObject(1, id);
-        statement.setObject(2, viesti.getAihe().getId());
-        statement.setObject(3, new java.sql.Timestamp(new java.util.Date().getTime()));
-        statement.setObject(4, nimimerkki);
-        statement.setObject(5, teksti);
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Alue VALUES(?, ?, ?, ?)");
+        statement.setObject(1, viesti.getAihe().getId());
+        statement.setObject(2, new java.sql.Timestamp(new java.util.Date().getTime()));
+        statement.setObject(3, nimimerkki);
+        statement.setObject(4, teksti);
 
         statement.executeUpdate();
 
