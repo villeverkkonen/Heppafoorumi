@@ -98,6 +98,17 @@
                     <a href="#" th:href="@{~/{aiheid}(aiheid=${aihe.id})}" th:text="${aihe.otsikko}" class="list-group-item list-group-item-info">aihe</a>
                 </a>
             </div>
+            
+            <form action="/:alue" method="POST">
+                <span>Nimimerkki:</span>
+                <input type="text" name="nimimerkki"/>
+                <span>Lis&auml;&auml; aihe:</span>
+                <input type="text" name="otsikko"/>
+                <span>Lis&auml;&auml; kuvaus:</span>
+                <input type="text" name="kuvaus"/>
+                <input type="submit" value="Lis&auml;&auml;!"/>
+                <!--<button type="submit" class="btn btn-success">Lis&auml;&auml;!</button>-->
+            </form>
 
         </section>
 
