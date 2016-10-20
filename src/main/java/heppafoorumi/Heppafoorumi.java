@@ -113,10 +113,24 @@ public class Heppafoorumi {
             String kuvaus = req.queryParams("kuvaus").trim();
 
             if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
-                Alue alue = new Alue(database, otsikko, kuvaus);
+                alueDao.create(otsikko, kuvaus);
             }
 
             res.redirect("/");
+            return "";
+        });
+        
+        post("/:alue", (req, res) -> {
+            
+            String nimimerkki = req.queryParams("nimimerkki").trim();
+            String otsikko = req.queryParams("otsikko").trim();
+            String kuvaus = req.queryParams("kuvaus").trim();
+
+            if (!nimimerkki.isEmpty() && !otsikko.isEmpty() && !kuvaus.isEmpty()) {
+                aiheDao.create(nimimerkki, otsikko, kuvaus);
+            }
+
+            res.redirect("/:alue");
             return "";
         });
     }

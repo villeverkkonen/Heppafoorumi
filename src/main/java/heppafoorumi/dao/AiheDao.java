@@ -193,8 +193,7 @@ public class AiheDao implements Dao<Aihe, Integer> {
         connection.close();
     }
 
-    public void create(Timestamp aikaleima, int alueId,
-            String nimimerkki, String otsikko, String teksti) throws SQLException {
+    public void create(String nimimerkki, String otsikko, String teksti) throws SQLException {
         nimimerkki = korjaaAakkoset(nimimerkki);
         otsikko = korjaaAakkoset(otsikko);
         teksti = korjaaAakkoset(teksti);
@@ -204,7 +203,7 @@ public class AiheDao implements Dao<Aihe, Integer> {
         PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO Aihe (aikaleima, alue, nimimerkki, otsikko, teksti) VALUES(?, ?, ?, ?, ?)");
         statement.setObject(1, new java.sql.Timestamp(new java.util.Date().getTime()));
-        statement.setObject(2, alueId);
+        statement.setObject(2, 1);
         statement.setObject(3, nimimerkki);
         statement.setObject(4, otsikko);
         statement.setObject(5, teksti);
