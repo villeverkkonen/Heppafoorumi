@@ -232,7 +232,9 @@ public class AiheDao implements Dao<Aihe, Integer> {
         connection.close();
     }
 
-    public void create(Alue alue, String nimimerkki, String otsikko, String teksti) {
-        // ei toteutettu.
+    public void create(Alue alueId, String nimimerkki, String otsikko, String teksti) throws SQLException {
+        Alue alue = new Alue(-1, "alueen otsikko", "alueen teksti");
+        Aihe aihe = new Aihe(-1, alue, nimimerkki, otsikko, teksti);
+        this.create(aihe);
     }
 }

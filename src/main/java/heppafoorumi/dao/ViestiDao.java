@@ -256,7 +256,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         connection.close();
     }
 
-    public void create(Aihe aihe, String nimimerkki, String teksti) {
-        // ei toteutettu.
+    public void create(Aihe aiheId, String nimimerkki, String teksti) throws SQLException {
+        Alue alue = new Alue(-1, "alueen otsikko", "alueen teksti");
+        Aihe aihe = new Aihe(-1, alue, "nimimerkki", "aiheen otsikko", "alueen teksti");
+        Viesti viesti = new Viesti(-1, aihe, nimimerkki, teksti);
+        this.create(viesti);
     }
 }

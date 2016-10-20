@@ -117,7 +117,7 @@ public class AlueDao implements Dao<Alue, Integer> {
         connection.close();
     }
 
-    public void create(String otsikko, String teksti) {
-        // ei toteutettu.
+    public void create(String otsikko, String teksti) throws SQLException {
+        this.create(new Alue(-1, otsikko, teksti));
     }
 }
