@@ -57,9 +57,9 @@ public class AiheDao implements Dao<Aihe, Integer> {
         resultSet.close();
         connection.close();
 
-        Alue alue = new Alue(alueId, alueAikaleima, alueOtsikko, alueTeksti);
+        Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
 
-        Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+        Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, alueId, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
         return aihe;
     }
@@ -93,9 +93,9 @@ public class AiheDao implements Dao<Aihe, Integer> {
             String aiheOtsikko = resultSet.getString("aihe_otsikko");
             String aiheTeksti = resultSet.getString("aihe_teksti");
 
-            Alue alue = new Alue(alueId, alueAikaleima, alueOtsikko, alueTeksti);
+            Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
 
-            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+            Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, alueId, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
             aiheet.add(aihe);
         }
@@ -136,9 +136,9 @@ public class AiheDao implements Dao<Aihe, Integer> {
             String aiheOtsikko = resultSet.getString("aihe_otsikko");
             String aiheTeksti = resultSet.getString("aihe_teksti");
 
-            Alue alue = new Alue(alueId, alueAikaleima, alueOtsikko, alueTeksti);
+            Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
 
-            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+            Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, alueId, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
             aiheet.add(aihe);
         }
@@ -165,12 +165,12 @@ public class AiheDao implements Dao<Aihe, Integer> {
         while (resultSet.next()) {
             Integer aiheId = resultSet.getInt("aihe_id");
             Timestamp aiheAikaleima = resultSet.getTimestamp("aihe_aikaleima");
-            // Integer aiheAlue = resultSet.getInt("aihe_alue");
+            Integer alueId = resultSet.getInt("aihe_alue");
             String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
             String aiheOtsikko = resultSet.getString("aihe_otsikko");
             String aiheTeksti = resultSet.getString("aihe_teksti");
 
-            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+            Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, alueId, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
             aiheet.add(aihe);
         }
@@ -193,23 +193,18 @@ public class AiheDao implements Dao<Aihe, Integer> {
         connection.close();
     }
 
-    @Override
-    public void create(Aihe aihe) throws SQLException {
-        String nimimerkki = aihe.getNimimerkki();
+    public void create(Timestamp aikaleima, int alueId,
+            String nimimerkki, String otsikko, String teksti) throws SQLException {
         nimimerkki = korjaaAakkoset(nimimerkki);
-        String otsikko = aihe.getOtsikko();
         otsikko = korjaaAakkoset(otsikko);
-        String teksti = aihe.getTeksti();
         teksti = korjaaAakkoset(teksti);
 
         Connection connection = database.getConnection();
 
-        
-
         PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO Aihe (aikaleima, alue, nimimerkki, otsikko, teksti) VALUES(?, ?, ?, ?, ?)");
         statement.setObject(1, new java.sql.Timestamp(new java.util.Date().getTime()));
-        statement.setObject(2, aihe.getAlue().getId());
+        statement.setObject(2, alueId);
         statement.setObject(3, nimimerkki);
         statement.setObject(4, otsikko);
         statement.setObject(5, teksti);
@@ -218,11 +213,5 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
         statement.close();
         connection.close();
-    }
-
-    public void create(Alue alueId, String nimimerkki, String otsikko, String teksti) throws SQLException {
-        Alue alue = new Alue("alueen otsikko", "alueen teksti");
-        Aihe aihe = new Aihe(alue, nimimerkki, otsikko, teksti);
-        this.create(aihe);
     }
 }
