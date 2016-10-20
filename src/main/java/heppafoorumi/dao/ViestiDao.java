@@ -71,11 +71,11 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         resultSet.close();
         connection.close();
 
-        Alue alue = new Alue(alueId, alueAikaleima, alueOtsikko, alueTeksti);
+        Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
 
-        Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+        Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, alueId, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
-        Viesti viesti = new Viesti(viestiId, viestiAikaleima, aihe, viestiNimimerkki, viestiTeksti);
+        Viesti viesti = new Viesti(this.database, viestiId, viestiAikaleima, aiheId, viestiNimimerkki, viestiTeksti);
 
         resultSet.close();
         connection.close();
@@ -132,11 +132,11 @@ public class ViestiDao implements Dao<Viesti, Integer> {
             resultSet.close();
             connection.close();
 
-            Alue alue = new Alue(alueId, alueAikaleima, alueOtsikko, alueTeksti);
+            Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
 
-            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+            Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, alueId, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
-            Viesti viesti = new Viesti(viestiId, viestiAikaleima, aihe, viestiNimimerkki, viestiTeksti);
+            Viesti viesti = new Viesti(this.database, viestiId, viestiAikaleima, aiheId, viestiNimimerkki, viestiTeksti);
 
             viestit.add(viesti);
         }
@@ -194,11 +194,11 @@ public class ViestiDao implements Dao<Viesti, Integer> {
             resultSet.close();
             connection.close();
 
-            Alue alue = new Alue(alueId, alueAikaleima, alueOtsikko, alueTeksti);
+            Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
 
-            Aihe aihe = new Aihe(aiheId, aiheAikaleima, alue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+            Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, alueId, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
-            Viesti viesti = new Viesti(viestiId, viestiAikaleima, aihe, viestiNimimerkki, viestiTeksti);
+            Viesti viesti = new Viesti(this.database, viestiId, viestiAikaleima, aiheId, viestiNimimerkki, viestiTeksti);
 
             viestit.add(viesti);
         }
@@ -221,17 +221,14 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         connection.close();
     }
 
-    @Override
-    public void create(Viesti viesti) throws SQLException {
-        String nimimerkki = viesti.getNimimerkki();
+    public void create(int aiheId, String nimimerkki, String teksti) throws SQLException {
         nimimerkki = korjaaAakkoset(nimimerkki);
-        String teksti = viesti.getTeksti();
         teksti = korjaaAakkoset(teksti);
 
         Connection connection = database.getConnection();
 
         PreparedStatement statement = connection.prepareStatement("INSERT INTO Alue(aihe, aikaleima, nimimerkki, teksti) VALUES(?, ?, ?, ?)");
-        statement.setObject(1, viesti.getAihe().getId());
+        statement.setObject(1, aiheId);
         statement.setObject(2, new java.sql.Timestamp(new java.util.Date().getTime()));
         statement.setObject(3, nimimerkki);
         statement.setObject(4, teksti);
@@ -240,12 +237,5 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         statement.close();
         connection.close();
-    }
-
-    public void create(Aihe aiheId, String nimimerkki, String teksti) throws SQLException {
-        Alue alue = new Alue("alueen otsikko", "alueen teksti");
-        Aihe aihe = new Aihe(alue, "nimimerkki", "aiheen otsikko", "alueen teksti");
-        Viesti viesti = new Viesti(aihe, nimimerkki, teksti);
-        this.create(viesti);
     }
 }
