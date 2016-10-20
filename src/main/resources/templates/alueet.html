@@ -91,6 +91,11 @@
                 float: right;
                 margin: 10px 10px;
             }
+            
+            .form {
+                margin-left: 15px;
+                margin-bottom: 15px;
+            }
 
         </style>
     </head>
@@ -106,19 +111,19 @@
         </nav>
 
         <section class="section">
-            <img class="img" src="/hevonen.jpg" width="230" alt="Uljas hevonen"></img>
+            <img class="img" src="images/hevonen.jpg" width="230" alt="Uljas hevonen"></img>
             <h2 class="h2">Kohtaamispaikka todellisille heppahulluille</h2>
 
             <hr/>
 
             <h2 class="h2">Valitse mieleisesi alue:</h2>
             <div class="list-group">
-                <a th:each="alue : ${alueet}" class="list-group">
-                    <a href="#" th:href="@{~/{id}(id=${alue.id})}" th:text="${alue.otsikko}" class="list-group-item list-group-item-info">alue</a>
-                </a>
+                <p th:each="alue : ${alueet}" class="list-group">
+                    <a href="#" th:href="@{~/{id}(id=${alue.id})}" th:text="${alue.otsikko}" class="list-group-item list-group-item-info">alue</a> <span th:text="${alue.teksti}">kuvaus</span>
+                </p>
             </div>
             
-            <form action="/" method="POST">
+            <form action="/" method="POST" class="form">
                 <span>Lis&auml;&auml; alue:</span>
                 <input type="text" name="otsikko"/>
                 <span>Lis&auml;&auml; kuvaus:</span>

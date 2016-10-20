@@ -76,8 +76,7 @@ public class Heppafoorumi {
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
-            List<Alue> alueet = new ArrayList<>();
-            alueet = alueDao.findAll();
+            List<Alue> alueet = alueDao.findAll();
             HashMap<String, Object> data = new HashMap();
             data.put("alueet", alueet);
             return new ModelAndView(data, "alueet");
@@ -111,7 +110,14 @@ public class Heppafoorumi {
         }, new ThymeleafTemplateEngine());
         
         post("/", (req, res) -> {
-            alueDao.create(new Alue(req.queryParams("otsikko"), req.queryParams("kuvaus")));
+            String otsikko = req.queryParams("otsikko").trim();
+            String kuvaus = req.queryParams("kuvaus").trim();
+
+            if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
+                Alue alue = new Alue(otsikko, kuvaus);
+                
+            }
+
             res.redirect("/");
             return "";
         });
