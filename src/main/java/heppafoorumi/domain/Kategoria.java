@@ -14,6 +14,12 @@ public abstract class Kategoria {
 
     public Kategoria(int id, Timestamp aikaleima, String teksti) {
         this.id = id;
+        this.aikaleima = aikaleima;
+        this.teksti = teksti.substring(Math.min(teksti.length() - 1, TEKSTIN_PITUUS));
+    }
+
+    public Kategoria(int id, String teksti) {
+        this.id = id;
         this.aikaleima = new java.sql.Timestamp(new java.util.Date().getTime());
         this.teksti = teksti.substring(Math.min(teksti.length() - 1, TEKSTIN_PITUUS));
     }
