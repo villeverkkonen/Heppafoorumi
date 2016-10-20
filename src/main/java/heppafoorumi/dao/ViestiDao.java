@@ -230,7 +230,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         Connection connection = database.getConnection();
 
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Alue VALUES(?, ?, ?, ?)");
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Alue(aihe, aikaleima, nimimerkki, teksti) VALUES(?, ?, ?, ?)");
         statement.setObject(1, viesti.getAihe().getId());
         statement.setObject(2, new java.sql.Timestamp(new java.util.Date().getTime()));
         statement.setObject(3, nimimerkki);
