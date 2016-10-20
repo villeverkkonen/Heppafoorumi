@@ -77,6 +77,8 @@ public class Heppafoorumi {
             List<Alue> alueet = new ArrayList<>();
             alueet = alueDao.findAll();
             HashMap<String, Object> data = new HashMap();
+            List<Alue> alueet = new ArrayList<>();
+            alueet = alueDao.findAll();
             data.put("alueet", alueet);
             return new ModelAndView(data, "alueet");
         }, new ThymeleafTemplateEngine());
@@ -109,12 +111,12 @@ public class Heppafoorumi {
         }, new ThymeleafTemplateEngine());
         
         post("/", (req, res) -> {
+            
             String otsikko = req.queryParams("otsikko").trim();
             String kuvaus = req.queryParams("kuvaus").trim();
 
             if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
-                Alue alue = new Alue(otsikko, kuvaus);
-                alueDao.create(alue);
+                alueDao.create(otsikko, kuvaus);
             }
 
             res.redirect("/");
