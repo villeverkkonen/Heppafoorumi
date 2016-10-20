@@ -23,6 +23,10 @@ public class Alue extends Kategoria {
     public Alue(Integer id, String otsikko, String teksti) {
         this(id, new java.sql.Timestamp(new java.util.Date().getTime()), otsikko, teksti);
     }
+    
+    public Alue(String otsikko, String teksti) {
+        this(-1, new java.sql.Timestamp(new java.util.Date().getTime()), otsikko, teksti);
+    }
 
     public String getOtsikko() {
         return this.otsikko;

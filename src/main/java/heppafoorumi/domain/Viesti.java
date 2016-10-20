@@ -27,6 +27,10 @@ public class Viesti extends Kategoria {
     public Viesti(Integer id, Aihe aihe, String nimimerkki, String teksti) {
         this(id, new java.sql.Timestamp(new java.util.Date().getTime()), aihe, nimimerkki, teksti);
     }
+    
+    public Viesti(Aihe aihe, String nimimerkki, String teksti) {
+        this(-1, aihe, nimimerkki, teksti);
+    }
 
     public Aihe getAihe() {
         return this.aihe;

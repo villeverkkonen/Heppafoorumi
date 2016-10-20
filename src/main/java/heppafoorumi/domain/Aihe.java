@@ -30,6 +30,10 @@ public class Aihe extends Kategoria {
     public Aihe(Integer id, Alue alue, String nimimerkki, String otsikko, String teksti) {
         this(id, new java.sql.Timestamp(new java.util.Date().getTime()), alue, nimimerkki, otsikko, teksti);
     }
+    
+    public Aihe(Alue alue, String nimimerkki, String otsikko, String teksti) {
+        this(-1, alue, nimimerkki, otsikko, teksti);
+    }
 
     public Alue getAlue() {
         return this.alue;
