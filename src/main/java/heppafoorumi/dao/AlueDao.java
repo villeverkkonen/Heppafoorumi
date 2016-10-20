@@ -118,6 +118,6 @@ public class AlueDao implements Dao<Alue, Integer> {
     }
 
     public void create(String otsikko, String teksti) throws SQLException {
-        this.create(new Alue(-1, otsikko, teksti));
+        this.create(new Alue(otsikko, teksti));
     }
 }
