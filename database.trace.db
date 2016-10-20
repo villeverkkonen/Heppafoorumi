@@ -7,3 +7,48 @@ CREATE TABLE Alue
     otsikko varchar(200),
     teksti varchar(200)
 ) [42101-190]
+2016-10-20 19:15:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int IDENTITY(1,1) PRIMARY KEY,
+    aikaleima datetime(3),
+    otsikko varchar(200),
+    teksti varchar(200)
+) [42101-190]
+2016-10-20 19:53:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int IDENTITY(1,1) PRIMARY KEY,
+    aikaleima datetime(3),
+    otsikko varchar(200),
+    teksti varchar(200)
+) [42101-190]
+2016-10-20 19:57:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int IDENTITY(1,1) PRIMARY KEY,
+    aikaleima datetime(3),
+    otsikko varchar(200),
+    teksti varchar(200)
+) [42101-190]
+2016-10-20 20:29:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int IDENTITY(1,1) PRIMARY KEY,
+    aikaleima datetime(3),
+    otsikko varchar(200),
+    teksti varchar(200)
+) [42101-190]
+2016-10-20 20:31:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "ALUE" already exists; SQL statement:
+CREATE TABLE Alue
+(
+    id int IDENTITY(1,1) PRIMARY KEY,
+    aikaleima datetime(3),
+    otsikko varchar(200),
+    teksti varchar(200)
+) [42101-190]
