@@ -23,10 +23,6 @@ public abstract class Kategoria {
         this.aikaleima = new java.sql.Timestamp(new java.util.Date().getTime());
         this.teksti = teksti.substring(Math.min(teksti.length() - 1, TEKSTIN_PITUUS));
     }
-    
-    public Kategoria(String teksti){
-        this(-1,teksti);
-    }
 
     public Integer getId() {
         return this.id;

@@ -37,7 +37,7 @@ public class AlueDao implements Dao<Alue, Integer> {
         String otsikko = resultSet.getString("otsikko");
         String teksti = resultSet.getString("teksti");
 
-        Alue alue = new Alue(id, aikaleima, otsikko, teksti);
+        Alue alue = new Alue(this.database, id, aikaleima, otsikko, teksti);
 
         resultSet.close();
         statement.close();
@@ -60,7 +60,7 @@ public class AlueDao implements Dao<Alue, Integer> {
             String otsikko = resultSet.getString("otsikko");
             String teksti = resultSet.getString("teksti");
 
-            alueet.add(new Alue(id, aikaleima, otsikko, teksti));
+            alueet.add(new Alue(this.database, id, aikaleima, otsikko, teksti));
         }
 
         resultSet.close();
@@ -82,9 +82,7 @@ public class AlueDao implements Dao<Alue, Integer> {
         connection.close();
     }
 
-    
     public void create(String otsikko, String teksti) throws SQLException {
-        
         otsikko = korjaaAakkoset(otsikko);
         
         teksti = korjaaAakkoset(teksti);
@@ -102,11 +100,4 @@ public class AlueDao implements Dao<Alue, Integer> {
         statement.close();
         connection.close();
     }
-
-    @Override
-    public void create(Alue key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
-
-
