@@ -75,9 +75,7 @@ public class Heppafoorumi {
         // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
             List<Alue> alueet = new ArrayList<>();
-            alueet = alueDao.findAll();
             HashMap<String, Object> data = new HashMap();
-            List<Alue> alueet = new ArrayList<>();
             alueet = alueDao.findAll();
             data.put("alueet", alueet);
             return new ModelAndView(data, "alueet");
