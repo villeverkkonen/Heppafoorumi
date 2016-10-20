@@ -204,27 +204,15 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
         Connection connection = database.getConnection();
 
-        int id;
-
-        ResultSet resultSet = connection.createStatement().executeQuery(
-                "SELECT id FROM Aihe ORDER BY id DESC LIMIT 1");
-
-        if (resultSet.next()) {
-            id = resultSet.getInt("id") + 1;
-        } else {
-            id = 1;
-        }
-
-        resultSet.close();
+        
 
         PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO Aihe (id, aikaleima, alue, nimimerkki, otsikko, teksti) VALUES(?, ?, ?, ?, ?, ?)");
-        statement.setObject(1, id);
-        statement.setObject(2, new java.sql.Timestamp(new java.util.Date().getTime()));
-        statement.setObject(3, aihe.getAlue().getId());
-        statement.setObject(4, nimimerkki);
-        statement.setObject(5, otsikko);
-        statement.setObject(6, teksti);
+                "INSERT INTO Aihe (aikaleima, alue, nimimerkki, otsikko, teksti) VALUES(?, ?, ?, ?, ?)");
+        statement.setObject(1, new java.sql.Timestamp(new java.util.Date().getTime()));
+        statement.setObject(2, aihe.getAlue().getId());
+        statement.setObject(3, nimimerkki);
+        statement.setObject(4, otsikko);
+        statement.setObject(5, teksti);
 
         statement.executeUpdate();
 

@@ -1,6 +1,6 @@
 CREATE TABLE Alue
 (
-    id int PRIMARY KEY,
+    id int IDENTITY(1,1) PRIMARY KEY,
     aikaleima datetime(3),
     otsikko varchar(200),
     teksti varchar(200)
@@ -8,7 +8,7 @@ CREATE TABLE Alue
 
 CREATE TABLE Aihe
 (
-    id int PRIMARY KEY,
+    id int IDENTITY(1,1) PRIMARY KEY,
     aikaleima datetime(3),
     alue int,
     nimimerkki varchar(20),
@@ -19,7 +19,7 @@ CREATE TABLE Aihe
 
 CREATE TABLE Viesti
 (
-    id int PRIMARY KEY,
+    id int IDENTITY(1,1) PRIMARY KEY,
     aikaleima datetime(3),
     aihe int,
     nimimerkki varchar(20),
