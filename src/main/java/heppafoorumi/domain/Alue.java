@@ -10,6 +10,7 @@ public class Alue extends Kategoria {
     // otsikko varchar(200),
     // teksti varchar(200)
     private final String otsikko;
+    private final String teksti;
 
     public Alue(Integer id, Timestamp aikaleima, String otsikko, String teksti) {
         super(id, aikaleima, teksti);
@@ -17,6 +18,7 @@ public class Alue extends Kategoria {
         // this.otsikko = otsikko.substring(0, otsikko.length() - 1);
         final int otsikon_pituus = Math.min(otsikko.length(), OTSIKON_PITUUS);
         this.otsikko = otsikko.substring(0, otsikon_pituus);
+        this.teksti = teksti;
         // this.otsikko = otsikko;
     }
 
@@ -41,5 +43,9 @@ public class Alue extends Kategoria {
         Alue alue = (Alue) toinen;
 
         return this.getId().equals(alue.getId());
+    }
+    
+    public String getTeksti() {
+        return this.teksti;
     }
 }

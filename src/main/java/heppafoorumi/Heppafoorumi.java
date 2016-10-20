@@ -70,13 +70,12 @@ public class Heppafoorumi {
         AlueDao alueDao = new AlueDao(database);
         AiheDao aiheDao = new AiheDao(database);
         ViestiDao viestiDao = new ViestiDao(database);
-        
+        List<Alue> alueet = new ArrayList<>();
 
 //        Aihe aihe1 = new Aihe(1, Timestamp.valueOf("2016-01-01 00:00:03"), ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
-            List<Alue> alueet = alueDao.findAll();
             HashMap<String, Object> data = new HashMap();
             data.put("alueet", alueet);
             return new ModelAndView(data, "alueet");
@@ -115,30 +114,12 @@ public class Heppafoorumi {
 
             if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
                 Alue alue = new Alue(otsikko, kuvaus);
-                
+                alueet.add(alue);
             }
 
             res.redirect("/");
             return "";
         });
-        
-        
-
-//      Aihe aihe1 = new Aihe(0, 2016, "My Litlle Pony");
-//        alueet.add(aihe1);
-//
-//        Aihe aihe2 = new Aihe(1, 2016, "Islanninponit");
-//        alueet.add(aihe2);
-//  
-//        Aihe aihe3 = new Aihe(2, 2016, "Ponit on perseestä!!!");
-//        alueet.add(aihe3);
-//
-// lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
-// Heppafoorumin pääsivu.
-//        get("/", (request, response) -> {
-//            HashMap<String, Object> data = new HashMap();
-//            data.put("aiheett", aiheet);
-//            return new ModelAndView(data, "aiheet");
-//        }, new ThymeleafTemplateEngine());
+ 
     }
 }

@@ -92,11 +92,45 @@
                 margin: 10px 10px;
             }
             
-            .form {
+            .form-group {
                 margin-left: 15px;
                 margin-bottom: 15px;
             }
-
+            
+            .form-inline {
+                margin-bottom: 10px;
+            }
+            
+            .list-group {
+                
+            }
+            
+            .list-group-item {
+                font-size: 30px;
+            }
+            
+            .list-group-item-info {
+                
+            }
+            
+            .span {
+                margin-left: 25px;
+                margin-bottom: 10px;
+                font-size: 24px;
+            }
+            
+            .form-control {
+                
+            }
+            
+            .btn {
+                
+            }
+            
+            .btn-success {
+                
+            }
+            
         </style>
     </head>
 
@@ -119,17 +153,21 @@
             <h2 class="h2">Valitse mieleisesi alue:</h2>
             <div class="list-group">
                 <p th:each="alue : ${alueet}" class="list-group">
-                    <a href="#" th:href="@{~/{id}(id=${alue.id})}" th:text="${alue.otsikko}" class="list-group-item list-group-item-info">alue</a> <span th:text="${alue.teksti}">kuvaus</span>
+                    <a href="#" th:href="@{~/{id}(id=${alue.id})}" th:text="${alue.otsikko}" class="list-group-item list-group-item-info">alue</a>
+                    <span th:text="${alue.teksti}" class="span">kuvaus</span>
                 </p>
             </div>
             
-            <form action="/" method="POST" class="form">
-                <span>Lis&auml;&auml; alue:</span>
-                <input type="text" name="otsikko"/>
-                <span>Lis&auml;&auml; kuvaus:</span>
-                <input type="text" name="kuvaus"/>
-                <input type="submit" value="Lis&auml;&auml;!"/>
-                <!--<button type="submit" class="btn btn-success">Lis&auml;&auml;!</button>-->
+            <form action="/" method="POST" class="form-inline">
+                <div class="form-group">
+                    <label>Lis&auml;&auml; alue:</label>
+                    <input type="text" name="otsikko" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label>Kuvaus:</label>
+                    <input type="text" name="kuvaus" class="form-control"/>
+                </div>
+                <button type="submit" class="btn btn-success">Lis&auml;&auml;!</button>
             </form>
             
         </section>

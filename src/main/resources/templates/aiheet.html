@@ -81,6 +81,32 @@
                 font-size: 35px;
                 margin-left: 10px;
             }
+            
+            .form-inline {
+                margin-bottom: 10px;
+            }
+            
+            .list-group {
+                
+            }
+            
+            .form-group {
+                margin-left: 15px;
+                margin-bottom: 15px;
+            }
+            
+            .form-control {
+                
+            }
+            
+            .btn {
+                
+            }
+            
+            .btn-success {
+                
+            }
+            
         </style>
     </head>
 
@@ -99,16 +125,23 @@
                 </a>
             </div>
             
-            <form action="/:alue" method="POST">
-                <span>Nimimerkki:</span>
-                <input type="text" name="nimimerkki"/>
-                <span>Lis&auml;&auml; aihe:</span>
-                <input type="text" name="otsikko"/>
-                <span>Lis&auml;&auml; kuvaus:</span>
-                <input type="text" name="kuvaus"/>
-                <input type="submit" value="Lis&auml;&auml;!"/>
-                <!--<button type="submit" class="btn btn-success">Lis&auml;&auml;!</button>-->
+            <form action="/" method="POST" class="form-inline">
+                <div class="form-group">
+                    <label>Nimimerkki:</label>
+                    <input type="text" name="nimimerkki" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label>Lis&auml;&auml; aihe:</label>
+                    <input type="text" name="otsikko" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label>Kuvaus:</label>
+                    <input type="text" name="kuvaus" class="form-control"/>
+                </div>
+                <button type="submit" class="btn btn-success">Lis&auml;&auml;!</button>
             </form>
+            
+            <a href="../"><p class="form-group">Takaisin etusivulle</p></a>
 
         </section>
 
