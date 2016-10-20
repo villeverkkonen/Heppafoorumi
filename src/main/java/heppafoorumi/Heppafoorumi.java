@@ -19,7 +19,7 @@ import spark.Spark;
 import static spark.Spark.post;
 
 public class Heppafoorumi {
-
+    
     private static boolean onkoLinux() {
         // http://stackoverflow.com/questions/3282498/how-can-i-detect-a-unix-like-os-in-java/3282597#3282597
         // Oletetaan että jos ei ole Windows, niin on Linux.
@@ -27,7 +27,6 @@ public class Heppafoorumi {
     }
 
     public static void main(String[] args) throws Exception {
-        Spark.staticFileLocation("public");
         // alla oleva koodi on kehityksen nopeuttamiseksi,
         // kun ei tarvitse huolehtia vanhoista palvelinprosesseista.
         boolean lopetetaankoVanhatPalvelinprosessit = true;
@@ -70,12 +69,13 @@ public class Heppafoorumi {
         AlueDao alueDao = new AlueDao(database);
         AiheDao aiheDao = new AiheDao(database);
         ViestiDao viestiDao = new ViestiDao(database);
-        List<Alue> alueet = new ArrayList<>();
 
 //        Aihe aihe1 = new Aihe(1, Timestamp.valueOf("2016-01-01 00:00:03"), ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
+            List<Alue> alueet = new ArrayList<>();
+            alueet = alueDao.findAll();
             HashMap<String, Object> data = new HashMap();
             data.put("alueet", alueet);
             return new ModelAndView(data, "alueet");
@@ -114,7 +114,7 @@ public class Heppafoorumi {
 
             if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
                 Alue alue = new Alue(otsikko, kuvaus);
-                alueet.add(alue);
+                alueDao.create(alue);
             }
 
             res.redirect("/");
