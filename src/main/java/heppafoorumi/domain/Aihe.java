@@ -1,5 +1,6 @@
 package heppafoorumi.domain;
 
+import heppafoorumi.dao.AiheDao;
 import heppafoorumi.database.Database;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -54,6 +55,7 @@ public class Aihe extends Kategoria {
 
     public Aihe(Database database, int alueId, String nimimerkki, String otsikko, String teksti) throws SQLException {
         this(database, Aihe.getNewAiheId(database), alueId, nimimerkki, otsikko, teksti);
+        new AiheDao(this.database).create(this.getAikaleima(), alueId, this.getNimimerkki(), this.otsikko, this.getTeksti());
     }
 
 //    public Alue getAlue() {

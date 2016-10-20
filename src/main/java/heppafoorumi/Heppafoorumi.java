@@ -14,7 +14,7 @@ import static spark.Spark.get;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
-import spark.Spark;
+import java.util.ArrayList;
 import static spark.Spark.post;
 
 public class Heppafoorumi {
@@ -73,7 +73,7 @@ public class Heppafoorumi {
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
-            List<Alue> alueet = new ArrayList<>();
+            List<Alue> alueet = new ArrayList();
             HashMap<String, Object> data = new HashMap();
             alueet = alueDao.findAll();
             data.put("alueet", alueet);
@@ -113,7 +113,7 @@ public class Heppafoorumi {
             String kuvaus = req.queryParams("kuvaus").trim();
 
             if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
-                alueDao.create(otsikko, kuvaus);
+                Alue alue = new Alue(database, otsikko, kuvaus);
             }
 
             res.redirect("/");

@@ -1,5 +1,6 @@
 package heppafoorumi.domain;
 
+import heppafoorumi.dao.ViestiDao;
 import heppafoorumi.database.Database;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -51,12 +52,12 @@ public class Viesti extends Kategoria {
 
     public Viesti(Database database, int aiheId, String nimimerkki, String teksti) throws SQLException {
         this(database, aiheId, Viesti.getNewViestiId(database), nimimerkki, teksti);
+        new ViestiDao(this.database).create(aiheId, this.getNimimerkki(), this.getTeksti());
     }
 
 //    public Aihe getAihe() {
 //        return this.aihe;
 //    }
-
     public String getNimimerkki() {
         return this.nimimerkki;
     }
