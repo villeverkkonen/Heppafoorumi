@@ -2,3 +2,5 @@
 .odt#
 .swp
 /target/
+database.mv.db
+database.trace.db
