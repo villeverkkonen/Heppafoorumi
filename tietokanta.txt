@@ -18,3 +18,7 @@ Muutokset aikajärjestyksessä:
 - kaikkien tekstikenttien kooksi vaihdettu 200
 - Nimimerkki ei ole oma taulunsa eikä näin ole ole myöskään siihen viittaavia viiteavaimia
 - ks. database-schema.sql
+
+20.10.2016:
+- aikaleima on muotoa datetime(3)
+- id:eitä ei enää määritellä käsin

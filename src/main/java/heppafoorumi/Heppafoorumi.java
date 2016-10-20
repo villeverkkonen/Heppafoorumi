@@ -16,6 +16,7 @@ import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
 import java.util.ArrayList;
 import spark.Spark;
+import static spark.Spark.post;
 
 public class Heppafoorumi {
 
@@ -26,7 +27,7 @@ public class Heppafoorumi {
     }
 
     public static void main(String[] args) throws Exception {
-        Spark.staticFileLocation("/public");
+        Spark.staticFileLocation("public");
         // alla oleva koodi on kehityksen nopeuttamiseksi,
         // kun ei tarvitse huolehtia vanhoista palvelinprosesseista.
         boolean lopetetaankoVanhatPalvelinprosessit = true;
@@ -69,13 +70,14 @@ public class Heppafoorumi {
         AlueDao alueDao = new AlueDao(database);
         AiheDao aiheDao = new AiheDao(database);
         ViestiDao viestiDao = new ViestiDao(database);
+        
 
 //        Aihe aihe1 = new Aihe(1, Timestamp.valueOf("2016-01-01 00:00:03"), ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
-            HashMap<String, Object> data = new HashMap();
             List<Alue> alueet = alueDao.findAll();
+            HashMap<String, Object> data = new HashMap();
             data.put("alueet", alueet);
             return new ModelAndView(data, "alueet");
         }, new ThymeleafTemplateEngine());
@@ -106,6 +108,21 @@ public class Heppafoorumi {
 
             return new ModelAndView(data, "viestit");
         }, new ThymeleafTemplateEngine());
+        
+        post("/", (req, res) -> {
+            String otsikko = req.queryParams("otsikko").trim();
+            String kuvaus = req.queryParams("kuvaus").trim();
+
+            if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
+                Alue alue = new Alue(otsikko, kuvaus);
+                
+            }
+
+            res.redirect("/");
+            return "";
+        });
+        
+        
 
 //      Aihe aihe1 = new Aihe(0, 2016, "My Litlle Pony");
 //        alueet.add(aihe1);
