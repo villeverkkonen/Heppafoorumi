@@ -97,9 +97,14 @@ public class Heppafoorumi {
 
             String alueJaAihe = req.params(":alue_ja_aihe");
             int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
+
+            String alueString = alueJaAihe.substring(0, erotinmerkinIndeksi);
+            int alueId = Integer.parseInt(alueString);
+            Alue alue = alueDao.findOne(alueId);
+            data.put("alue", alue);
+
             String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
             int aiheId = Integer.parseInt(aiheString);
-
             Aihe aihe = aiheDao.findOne(aiheId);
             data.put("aihe", aihe);
 

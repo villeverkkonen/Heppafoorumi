@@ -62,6 +62,10 @@ public class Aihe extends Kategoria {
         new AiheDao(this.database).create(this.alue, this.getNimimerkki(), this.otsikko, this.getTeksti());
     }
 
+    public int alueId() {
+        return this.alue;
+    }
+
     public String getNimimerkki() {
         return this.nimimerkki;
     }
