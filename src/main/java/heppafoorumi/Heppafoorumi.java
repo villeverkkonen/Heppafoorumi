@@ -72,17 +72,17 @@ public class Heppafoorumi {
         //        Aihe aihe1 = new Aihe(1, Timestamp.valueOf("2016-01-01 00:00:03"), ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
-        get("/", (request, response) -> {
+        get("/", (req, res) -> {
             List<Alue> alueet = alueDao.findAll();
             HashMap<String, Object> data = new HashMap();
             data.put("alueet", alueet);
             return new ModelAndView(data, "alueet");
         }, new ThymeleafTemplateEngine());
 
-        get("/:alue", (request, response) -> {
+        get("/:alue", (req, res) -> {
             HashMap<String, Object> data = new HashMap();
 
-            int alueId = Integer.parseInt(request.params(":alue"));
+            int alueId = Integer.parseInt(req.params(":alue"));
             Alue alue = alueDao.findOne(alueId);
             data.put("alueet", alue);
 
@@ -92,14 +92,14 @@ public class Heppafoorumi {
             return new ModelAndView(data, "aiheet");
         }, new ThymeleafTemplateEngine());
 
-        get("/:alue/:aihe", (request, response) -> {
+        get("/:alue/:aihe", (req, res) -> {
             HashMap<String, Object> data = new HashMap();
 
-            int alueId = Integer.parseInt(request.params(":alue"));
+            int alueId = Integer.parseInt(req.params(":alue"));
             Alue alue = alueDao.findOne(alueId);
             data.put("alueet", alue);
 
-            int aiheId = Integer.parseInt(request.params(":aihe"));
+            int aiheId = Integer.parseInt(req.params(":aihe"));
             Aihe aihe = aiheDao.findOne(aiheId);
             data.put("aiheet", aihe);
 
@@ -109,48 +109,48 @@ public class Heppafoorumi {
             return new ModelAndView(data, "viestit");
         }, new ThymeleafTemplateEngine());
 
-        post("/", (request, response) -> {
-            String otsikko = request.queryParams("otsikko");
-            String kuvaus = request.queryParams("kuvaus");
+        post("/", (req, res) -> {
+            String otsikko = req.queryParams("otsikko");
+            String kuvaus = req.queryParams("kuvaus");
 
             if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
                 alueDao.create(otsikko, kuvaus);
             }
 
-            response.redirect("/");
+            res.redirect("/");
             return "";
         });
 
-        post("/:alue", (request, response) -> {
-            String nimimerkki = request.queryParams("nimimerkki");
-            String aihe = request.queryParams("aihe");
-            String kuvaus = request.queryParams("kuvaus");
+        post("/:alue", (req, res) -> {
+            String nimimerkki = req.queryParams("nimimerkki");
+            String aihe = req.queryParams("aihe");
+            String kuvaus = req.queryParams("kuvaus");
 
             if (!nimimerkki.isEmpty() && !aihe.isEmpty() && !kuvaus.isEmpty()) {
-                int alueId = Integer.parseInt(request.params(":alue"));
+                int alueId = Integer.parseInt(req.params(":alue"));
                 aiheDao.create(alueId, nimimerkki, aihe, kuvaus);
             }
 
-            response.redirect(request.params("/:alue"));
+            res.redirect(req.params("/:alue"));
             return "";
         });
 
-        post(":alue/:aihe", (request, response) -> {
-            String nimimerkki = request.queryParams("nimimerkki");
-            String viesti = request.queryParams("viesti");
+        post(":alue/:aihe", (req, res) -> {
+            String nimimerkki = req.queryParams("nimimerkki");
+            String viesti = req.queryParams("viesti");
 
-            viestiDao.create(Integer.parseInt(request.params(":aihe")), nimimerkki, viesti);
+            viestiDao.create(Integer.parseInt(req.params(":aihe")), nimimerkki, viesti);
 
-            response.redirect("/" + request.params(":alue/:aihe"));
+            res.redirect("/" + req.params(":alue/:aihe"));
             return "";
         });
 
         //yritys delete napille
-        post("/poistaAlue", (request, response) -> {
+        post("/poistaAlue", (req, res) -> {
             // en tiedä mistä haetaan alueen int id
             alueDao.delete(5);
 
-            response.redirect("/");
+            res.redirect("/");
             return "";
         });
     }
