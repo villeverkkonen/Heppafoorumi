@@ -108,36 +108,24 @@ public class AiheDao implements Dao<Aihe, Integer> {
     }
 
     public List<Aihe> findAll(int alueId) throws SQLException {
-
         Connection connection = database.getConnection();
         ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
-                + "alue.id AS alue_id, "
-                + "alue.aikaleima AS alue_aikaleima, "
-                + "alue.otsikko AS alue_otsikko, "
-                + "alue.teksti AS alue_teksti, "
                 + "aihe.id AS aihe_id, "
                 + "aihe.aikaleima AS aihe_aikaleima, "
                 + "aihe.alue AS aihe_alue, "
                 + "aihe.nimimerkki AS aihe_nimimerkki, "
                 + "aihe.otsikko AS aihe_otsikko, "
                 + "aihe.teksti AS aihe_teksti "
-                + "FROM Alue alue, Aihe aihe "
-                + "WHERE alue.id = " + alueId);
+                + "FROM Aihe aihe "
+                + "WHERE aihe.alue = " + alueId);
 
         List<Aihe> aiheet = new ArrayList();
         while (resultSet.next()) {
-            Timestamp alueAikaleima = resultSet.getTimestamp("alue_aikaleima");
-            String alueOtsikko = resultSet.getString("alue_otsikko");
-            String alueTeksti = resultSet.getString("alue_teksti");
-
             Integer aiheId = resultSet.getInt("aihe_id");
             Timestamp aiheAikaleima = resultSet.getTimestamp("aihe_aikaleima");
-            // Integer aiheAlue = resultSet.getInt("aihe_alue");
             String aiheNimimerkki = resultSet.getString("aihe_nimimerkki");
             String aiheOtsikko = resultSet.getString("aihe_otsikko");
             String aiheTeksti = resultSet.getString("aihe_teksti");
-
-            Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
 
             Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, alueId, aiheNimimerkki, aiheOtsikko, aiheTeksti);
 
