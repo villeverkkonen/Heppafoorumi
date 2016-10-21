@@ -101,9 +101,7 @@ public class Heppafoorumi {
             int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
 
             String alueString = alueJaAihe.substring(0, erotinmerkinIndeksi);
-            int alueId = Integer.parseInt(alueString);
-            Alue alue = alueDao.findOne(alueId);
-            data.put("alue", alue);
+            data.put("alue", alueString);
 
             String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
             int aiheId = Integer.parseInt(aiheString);
