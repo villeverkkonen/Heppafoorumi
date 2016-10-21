@@ -45,7 +45,7 @@ public abstract class Kategoria {
     }
 
     public void setTeksti(String teksti) {
-        this.teksti = teksti.substring(Math.min(teksti.length(), TEKSTIN_PITUUS));
+        this.teksti = teksti.substring(0, Math.min(teksti.length(), TEKSTIN_PITUUS));
     }
 
     @Override
