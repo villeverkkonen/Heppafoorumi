@@ -18,6 +18,8 @@ public class Alue extends Kategoria {
     private final String teksti;
 
     private final Database database;
+    
+    private final int alueId;
 
     private static int getNewAlueId(Database database) throws SQLException {
         Connection connection = database.getConnection();
@@ -42,6 +44,7 @@ public class Alue extends Kategoria {
         this.otsikko = otsikko.substring(0, otsikon_pituus);
         this.teksti = teksti;
         // this.otsikko = otsikko;
+        this.alueId = id;
     }
 
     public Alue(Database database, Integer id, String otsikko, String teksti) throws SQLException {
@@ -69,7 +72,12 @@ public class Alue extends Kategoria {
         return this.getId().equals(alue.getId());
     }
 
+    @Override
     public String getTeksti() {
         return this.teksti;
+    }
+    
+    public Integer getId() {
+        return this.alueId;
     }
 }
