@@ -113,6 +113,10 @@
                 
             }
             
+            .list-group-item-info {
+                
+            }
+            
         </style>
     </head>
 
@@ -129,16 +133,14 @@
         <section class="section">
             <h2 class="h2">Voit lis&auml;t&auml; uusia aiheita t&auml;lle alueelle tai valita jo valmiiksi olevan</h2>
             <hr/>
-            <div class="list-group">
-                <a th:each="alue : ${alueet}" class="list-group">
-                    <a th:each="aihe : ${aiheet}" class="list-group">
+                <div th:each="alue : ${alueet}" class="list-group">
+                    <div th:each="aihe : ${aiheet}" class="list-group">
                     
                         <a href="#" th:href="@{~/{alueid}(alueid=${alue.id})/{aiheid}(aiheid=${aihe.id})}" 
                            th:text="${aihe.otsikko}" class="list-group-item list-group-item-info">aihe</a>
                         <span th:text="${aihe.kuvaus}" class="span">kuvaus</span>
-                    </a>
-                </a>
-            </div>
+                    </div>
+                </div>
             
             <form action="/" method="POST" class="form-inline">
                 <div class="form-group">

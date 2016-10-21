@@ -14,6 +14,7 @@ import static spark.Spark.get;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
+import heppafoorumi.domain.Viesti;
 import java.util.ArrayList;
 import static spark.Spark.post;
 
@@ -97,13 +98,13 @@ public class Heppafoorumi {
 
             int alueId = Integer.parseInt(request.params(":alue"));
             Alue alue = alueDao.findOne(alueId);
-            data.put("alue", alue);
+            data.put("alueet", alue);
 
             int aiheId = Integer.parseInt(request.params(":aihe"));
             Aihe aihe = aiheDao.findOne(aiheId);
-            data.put("aihe", aihe);
+            data.put("aiheet", aihe);
 
-            List<Aihe> viestit = aiheDao.findAll(aiheId);
+            List<Viesti> viestit = viestiDao.findAll(aiheId);
             data.put("viestit", viestit);
 
             return new ModelAndView(data, "viestit");
@@ -111,8 +112,8 @@ public class Heppafoorumi {
 
         post("/", (req, res) -> {
 
-            String otsikko = req.queryParams("otsikko").trim();
-            String kuvaus = req.queryParams("kuvaus").trim();
+            String otsikko = req.queryParams("otsikko");
+            String kuvaus = req.queryParams("kuvaus");
 
             if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
                 alueDao.create(otsikko, kuvaus);
@@ -147,8 +148,9 @@ public class Heppafoorumi {
             return "";
         });
         
+        //yritys delete napille
         post("/poistaAlue", (req, res) -> {
-
+            // en tiedä mistä haetaan alueen int id
             alueDao.delete(5);
 
             res.redirect("/");
