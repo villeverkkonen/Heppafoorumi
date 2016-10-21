@@ -15,11 +15,13 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
 import heppafoorumi.domain.Viesti;
+import spark.Spark;
 import static spark.Spark.post;
 
 public class Heppafoorumi {
 
     private static boolean onkoLinux() {
+        Spark.staticFileLocation("public");
         // http://stackoverflow.com/questions/3282498/how-can-i-detect-a-unix-like-os-in-java/3282597#3282597
         // Oletetaan että jos ei ole Windows, niin on Linux.
         return (!(System.getProperty("os.name").startsWith("Windows")));
@@ -121,17 +123,17 @@ public class Heppafoorumi {
             return "";
         });
 
-        post("/:alue", (req, res) -> {
+        post("/lisaa_aihe/:alue", (req, res) -> {
             String nimimerkki = req.queryParams("nimimerkki");
             String aihe = req.queryParams("aihe");
             String kuvaus = req.queryParams("kuvaus");
-
+            int alueId = Integer.parseInt(req.params("/aiheet/:alue"));
+            
             if (!nimimerkki.isEmpty() && !aihe.isEmpty() && !kuvaus.isEmpty()) {
-                int alueId = Integer.parseInt(req.params(":alue"));
                 aiheDao.create(alueId, nimimerkki, aihe, kuvaus);
             }
 
-            res.redirect(req.params("/:alue"));
+            res.redirect(req.params("/aiheet/") + alueId);
             return "";
         });
 
