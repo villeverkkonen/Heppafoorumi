@@ -161,10 +161,6 @@ public class AiheDao implements Dao<Aihe, Integer> {
     }
 
     public void create(Integer alueId, String nimimerkki, String otsikko, String teksti) throws SQLException {
-        nimimerkki = korjaaAakkoset(nimimerkki);
-        otsikko = korjaaAakkoset(otsikko);
-        teksti = korjaaAakkoset(teksti);
-
         Connection connection = database.getConnection();
 
         PreparedStatement statement = connection.prepareStatement(

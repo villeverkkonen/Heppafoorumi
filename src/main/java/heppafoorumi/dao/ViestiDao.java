@@ -190,9 +190,6 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     }
 
     public void create(int aiheId, String nimimerkki, String teksti) throws SQLException {
-        nimimerkki = korjaaAakkoset(nimimerkki);
-        teksti = korjaaAakkoset(teksti);
-
         Connection connection = database.getConnection();
 
         PreparedStatement statement = connection.prepareStatement("INSERT INTO Alue(aihe, aikaleima, nimimerkki, teksti) VALUES(?, ?, ?, ?)");
