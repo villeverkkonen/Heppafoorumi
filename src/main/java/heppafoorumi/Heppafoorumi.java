@@ -15,7 +15,6 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
 import heppafoorumi.domain.Viesti;
-import java.util.ArrayList;
 import static spark.Spark.post;
 
 public class Heppafoorumi {
