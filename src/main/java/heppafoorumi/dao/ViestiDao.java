@@ -84,7 +84,6 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     }
 
     @Override
-
     public List<Viesti> findAll() throws SQLException {
 
         Connection connection = database.getConnection();

@@ -64,6 +64,7 @@ public class AiheDao implements Dao<Aihe, Integer> {
         return aihe;
     }
 
+    @Override
     public List<Aihe> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
