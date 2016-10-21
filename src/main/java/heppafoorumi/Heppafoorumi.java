@@ -146,5 +146,13 @@ public class Heppafoorumi {
             res.redirect("/" + req.params(":alue/:aihe"));
             return "";
         });
+        
+        post("/poistaAlue", (req, res) -> {
+
+            alueDao.delete(5);
+
+            res.redirect("/");
+            return "";
+        });
     }
 }

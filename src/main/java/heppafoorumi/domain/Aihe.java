@@ -24,6 +24,7 @@ public class Aihe extends Kategoria {
 
     // ainoastaan 20 ensimmäistä merkkiä otetaan huomioon.
     private final String nimimerkki;
+    private final String kuvaus;
 
     private static int getNewAiheId(Database database) throws SQLException {
         Connection connection = database.getConnection();
@@ -47,6 +48,7 @@ public class Aihe extends Kategoria {
         // tallennetaan enintään 20 ensimmäistä merkkiä syötetystä nimimerkistä.
         this.nimimerkki = nimimerkki.substring(Math.min(nimimerkki.length() - 1, NIMIMERKIN_PITUUS));
         this.otsikko = otsikko.substring(Math.min(otsikko.length() - 1, OTSIKON_PITUUS));
+        this.kuvaus = teksti;
     }
 
     public Aihe(Database database, Integer id, int alueId, String nimimerkki, String otsikko, String teksti) {
@@ -67,6 +69,10 @@ public class Aihe extends Kategoria {
 
     public String getOtsikko() {
         return this.otsikko;
+    }
+    
+    public String getKuvaus() {
+        return this.kuvaus;
     }
 
     @Override

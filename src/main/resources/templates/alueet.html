@@ -81,10 +81,10 @@
             }
 
             .list-group-item {
-                width: 20%;
                 text-align: left;
                 font-size: 35px;
                 margin-left: 10px;
+                margin-right: 10px;
             }
             
             .img {
@@ -104,10 +104,6 @@
             
             .list-group {
                 
-            }
-            
-            .list-group-item {
-                font-size: 30px;
             }
             
             .list-group-item-info {
@@ -153,10 +149,13 @@
 
             <h2 class="h2">Valitse mieleisesi alue:</h2>
             <div class="list-group">
+                <form action="/poistaAlue" method="POST">
                 <p th:each="alue : ${alueet}" class="list-group">
                     <a href="#" th:href="@{~/{id}(id=${alue.id})}" th:text="${alue.otsikko}" class="list-group-item list-group-item-info">alue</a>
                     <span th:text="${alue.teksti}" class="span">kuvaus</span>
+                    <button type="submit" class="btn btn-warning">Poista!</button>
                 </p>
+                </form>
             </div>
             
             <form action="/" method="POST" class="form-inline">
