@@ -47,8 +47,8 @@ public class Aihe extends Kategoria {
         this.alue = alueId;
 
         // tallennetaan enintään 20 ensimmäistä merkkiä syötetystä nimimerkistä.
-        this.nimimerkki = nimimerkki.substring(Math.min(nimimerkki.length() - 1, NIMIMERKIN_PITUUS));
-        this.otsikko = otsikko.substring(Math.min(otsikko.length() - 1, OTSIKON_PITUUS));
+        this.nimimerkki = nimimerkki.substring(0, Math.min(nimimerkki.length(), NIMIMERKIN_PITUUS));
+        this.otsikko = otsikko.substring(0, Math.min(otsikko.length(), OTSIKON_PITUUS));
         this.kuvaus = teksti;
         this.aiheId = id;
     }
@@ -62,9 +62,6 @@ public class Aihe extends Kategoria {
         new AiheDao(this.database).create(this.alue, this.getNimimerkki(), this.otsikko, this.getTeksti());
     }
 
-//    public Alue getAlue() {
-//        // return this.alue;
-//    }
     public String getNimimerkki() {
         return this.nimimerkki;
     }
@@ -72,11 +69,12 @@ public class Aihe extends Kategoria {
     public String getOtsikko() {
         return this.otsikko;
     }
-    
+
     public String getKuvaus() {
         return this.kuvaus;
     }
-    
+
+    @Override
     public Integer getId() {
         return this.aiheId;
     }

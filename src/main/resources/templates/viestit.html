@@ -4,126 +4,126 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Heppafoorumi - Viestit</title>
-        
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link rel="shortcut icon" href="/images/favicon.png" type="image/png" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    
+
         <style>
             .body {
-            background-color: #808080;
-        }
+                background-color: #808080;
+            }
 
-        .header {
-            width: 80%;
-            height: 100%;
-            background-color: Lavender;
-            margin-left: 100px;
-            border-left-width: thin;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-            box-shadow: #000 8px 6px 8px;
-        }
+            .header {
+                width: 80%;
+                height: 100%;
+                background-color: Lavender;
+                margin-left: 100px;
+                border-left-width: thin;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                box-shadow: #000 8px 6px 8px;
+            }
 
-        .section {
-            width: 80%;
-            height: 100%;
-            background-color: Lavender;
-            margin-left: 100px;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-            box-shadow: #000 8px 6px 8px;
-        }
+            .section {
+                width: 80%;
+                height: 100%;
+                background-color: Lavender;
+                margin-left: 100px;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                box-shadow: #000 8px 6px 8px;
+            }
 
-        .footer {
-            width: 80%;
-            height: 100%;
-            background-color: Lavender;
-            text-align: center;
-            margin-left: 100px;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-            box-shadow: #000 8px 6px 8px;
-        }
+            .footer {
+                width: 80%;
+                height: 100%;
+                background-color: Lavender;
+                text-align: center;
+                margin-left: 100px;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                box-shadow: #000 8px 6px 8px;
+            }
 
-        .h1 {
-            color: #8b0e0e;
-            text-align: center;
-            font-size: 60px;
-            text-shadow: 3px 3px 3px #332;
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
+            .h1 {
+                color: #8b0e0e;
+                text-align: center;
+                font-size: 60px;
+                text-shadow: 3px 3px 3px #332;
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
 
-        .h2 {
-            text-align: left;
-            font-size: 40px;
-            margin-left: 10px;
-            margin-top: 10px;
-        }
+            .h2 {
+                text-align: left;
+                font-size: 40px;
+                margin-left: 10px;
+                margin-top: 10px;
+            }
 
-        .h3 {
-            margin-bottom: 10px;
-            margin-top: 10px;
-            text-align: center;
-        }
+            .h3 {
+                margin-bottom: 10px;
+                margin-top: 10px;
+                text-align: center;
+            }
 
-        .p {
-            text-align: left;
-            margin-left: 10px;
-        }
+            .p {
+                text-align: left;
+                margin-left: 10px;
+            }
 
-        .list-group {
-            width: 20%;
-            text-align: left;
-            font-size: 35px;
-            margin-left: 10px;
-        }
+            .list-group {
+                width: 20%;
+                text-align: left;
+                font-size: 35px;
+                margin-left: 10px;
+            }
 
-        .list-group {
-            width: 20%;
-            text-align: left;
-            font-size: 35px;
-            margin-left: 10px;
-        }
-           
-        .form-inline {
-            margin-bottom: 10px;
-        }
-            
-        .list-group {
-                
-        }
-            
-        .form-group {
-            margin-left: 15px;
-            margin-bottom: 15px;
-        }
-            
-        .form-control {
-                
-        }
-           
-        .btn {
-                
-        }
-            
-        .btn-success {
-                
-        }
+            .list-group {
+                width: 20%;
+                text-align: left;
+                font-size: 35px;
+                margin-left: 10px;
+            }
+
+            .form-inline {
+                margin-bottom: 10px;
+            }
+
+            .list-group {
+
+            }
+
+            .form-group {
+                margin-left: 15px;
+                margin-bottom: 15px;
+            }
+
+            .form-control {
+
+            }
+
+            .btn {
+
+            }
+
+            .btn-success {
+
+            }
         </style>
     </head>
     <body class="body">
-        
+
         <header class="header">
-            <div th:each="aihe : ${aiheet}">
+            <div>
                 <h1 th:text="${aihe.otsikko}" class="h1" >aihe</h1>
             </div>
         </header>
@@ -131,10 +131,10 @@
         <section class="section">
             <ul>
                 <li th:each="viesti : ${viestit}">
-                    <span th:text="${viesti}"></span>
+                    <span th:text="${viesti.teksti}"></span>
                 </li>
             </ul>
-            
+
             <form action="/" method="POST" class="form-inline">
                 <div class="form-group">
                     <label>Nimimerkki:</label>
@@ -146,9 +146,9 @@
                 </div>
                 <button type="submit" class="btn btn-success">Lis&auml;&auml;!</button>
             </form>
-            
+
             <a href="../"><p class="form-group">Takaisin aiheisiin</p></a>                
-            
+
         </section>
 
         <footer class="footer">

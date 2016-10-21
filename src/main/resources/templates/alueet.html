@@ -86,48 +86,48 @@
                 margin-left: 10px;
                 margin-right: 10px;
             }
-            
+
             .img {
                 float: right;
                 margin: 10px 10px;
                 width: 230px;
             }
-            
+
             .form-group {
                 margin-left: 15px;
                 margin-bottom: 15px;
             }
-            
+
             .form-inline {
                 margin-bottom: 10px;
             }
-            
+
             .list-group {
-                
+
             }
-            
+
             .list-group-item-info {
-                
+
             }
-            
+
             .span {
                 margin-left: 25px;
                 margin-bottom: 10px;
                 font-size: 24px;
             }
-            
+
             .form-control {
-                
+
             }
-            
+
             .btn {
-                
+
             }
-            
+
             .btn-success {
-                
+
             }
-            
+
         </style>
     </head>
 
@@ -150,14 +150,14 @@
             <h2 class="h2">Valitse mieleisesi alue:</h2>
             <div class="list-group">
                 <form action="/poistaAlue" method="POST">
-                <p th:each="alue : ${alueet}" class="list-group">
-                    <a href="#" th:href="@{~/{id}(id=${alue.id})}" th:text="${alue.otsikko}" class="list-group-item list-group-item-info">alue</a>
-                    <span th:text="${alue.teksti}" class="span">kuvaus</span>
-                    <button type="submit" class="btn btn-warning">Poista!</button>
-                </p>
+                    <p th:each="alue : ${alueet}" class="list-group">
+                        <a href="#" th:href="@{~/aiheet/{id}(id=${alue.id})}" th:text="${alue.otsikko}" class="list-group-item list-group-item-info">alue</a>
+                        <span th:text="${alue.teksti}" class="span">kuvaus</span>
+                        <button type="submit" class="btn btn-warning">Poista!</button>
+                    </p>
                 </form>
             </div>
-            
+
             <form action="/" method="POST" class="form-inline">
                 <div class="form-group">
                     <label>Lis&auml;&auml; alue:</label>
@@ -169,7 +169,7 @@
                 </div>
                 <button type="submit" class="btn btn-success">Lis&auml;&auml;!</button>
             </form>
-            
+
         </section>
 
         <footer class="footer">

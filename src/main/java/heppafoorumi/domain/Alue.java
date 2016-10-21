@@ -18,7 +18,7 @@ public class Alue extends Kategoria {
     private final String teksti;
 
     private final Database database;
-    
+
     private final int alueId;
 
     private static int getNewAlueId(Database database) throws SQLException {
@@ -76,7 +76,8 @@ public class Alue extends Kategoria {
     public String getTeksti() {
         return this.teksti;
     }
-    
+
+    @Override
     public Integer getId() {
         return this.alueId;
     }

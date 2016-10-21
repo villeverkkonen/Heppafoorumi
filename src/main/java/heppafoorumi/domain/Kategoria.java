@@ -15,13 +15,13 @@ public abstract class Kategoria {
     public Kategoria(int id, Timestamp aikaleima, String teksti) {
         this.id = id;
         this.aikaleima = aikaleima;
-        this.teksti = teksti.substring(Math.min(teksti.length() - 1, TEKSTIN_PITUUS));
+        this.teksti = teksti.substring(0, Math.min(teksti.length(), TEKSTIN_PITUUS));
     }
 
     public Kategoria(int id, String teksti) {
         this.id = id;
         this.aikaleima = new java.sql.Timestamp(new java.util.Date().getTime());
-        this.teksti = teksti.substring(Math.min(teksti.length() - 1, TEKSTIN_PITUUS));
+        this.teksti = teksti.substring(0, Math.min(teksti.length(), TEKSTIN_PITUUS));
     }
 
     public Integer getId() {
@@ -45,7 +45,7 @@ public abstract class Kategoria {
     }
 
     public void setTeksti(String teksti) {
-        this.teksti = teksti.substring(Math.min(teksti.length() - 1, TEKSTIN_PITUUS));
+        this.teksti = teksti.substring(Math.min(teksti.length(), TEKSTIN_PITUUS));
     }
 
     @Override

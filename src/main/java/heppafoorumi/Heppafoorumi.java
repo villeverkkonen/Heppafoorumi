@@ -79,7 +79,7 @@ public class Heppafoorumi {
             return new ModelAndView(data, "alueet");
         }, new ThymeleafTemplateEngine());
 
-        get("/:alue", (req, res) -> {
+        get("/aiheet/:alue", (req, res) -> {
             HashMap<String, Object> data = new HashMap();
 
             int alueId = Integer.parseInt(req.params(":alue"));
@@ -92,16 +92,16 @@ public class Heppafoorumi {
             return new ModelAndView(data, "aiheet");
         }, new ThymeleafTemplateEngine());
 
-        get("/:alue/:aihe", (req, res) -> {
+        get("/viestit/:alue_ja_aihe", (req, res) -> {
             HashMap<String, Object> data = new HashMap();
 
-            int alueId = Integer.parseInt(req.params(":alue"));
-            Alue alue = alueDao.findOne(alueId);
-            data.put("alueet", alue);
+            String alueJaAihe = req.params(":alue_ja_aihe");
+            int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
+            String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
+            int aiheId = Integer.parseInt(aiheString);
 
-            int aiheId = Integer.parseInt(req.params(":aihe"));
             Aihe aihe = aiheDao.findOne(aiheId);
-            data.put("aiheet", aihe);
+            data.put("aihe", aihe);
 
             List<Viesti> viestit = viestiDao.findAll(aiheId);
             data.put("viestit", viestit);
