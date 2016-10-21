@@ -113,7 +113,11 @@
     <body class="body">
 
         <header class="header">
-            <h1 class="h1">Aiheet</h1>
+             
+            <div th:each="alue : ${alueet}">
+                <h1 th:text="${alue.otsikko}" class="h1" >alue</h1>
+            </div>
+    
         </header>
 
         <section class="section">
@@ -121,18 +125,20 @@
             <hr/>
             <div class="list-group">
                 <a th:each="aihe : ${aiheet}" class="list-group">
-                    <a href="#" th:href="@{~/{aiheid}(aiheid=${aihe.id})}" th:text="${aihe.otsikko}" class="list-group-item list-group-item-info">aihe</a>
+                    <a th:each="alue : ${alueet}" class="list-group">
+                        <a href="#" th:href="@{~/{alueid}(alueid=${alue.id}))/{aiheid}(aiheid=${aihe.id})}" th:text="${aihe.otsikko}" class="list-group-item list-group-item-info">aihe</a>
+                    </a>
                 </a>
             </div>
             
-            <form action="/alue.id" method="POST" class="form-inline">
+            <form action="/" method="POST" class="form-inline">
                 <div class="form-group">
                     <label>Nimimerkki:</label>
                     <input type="text" name="nimimerkki" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label>Lis&auml;&auml; aihe:</label>
-                    <input type="text" name="otsikko" class="form-control"/>
+                    <input type="text" name="aihe" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label>Kuvaus:</label>

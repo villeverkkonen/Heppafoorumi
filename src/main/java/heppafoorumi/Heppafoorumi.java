@@ -73,9 +73,8 @@ public class Heppafoorumi {
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
         get("/", (request, response) -> {
-            List<Alue> alueet = new ArrayList();
+            List<Alue> alueet = alueDao.findAll();
             HashMap<String, Object> data = new HashMap();
-            alueet = alueDao.findAll();
             data.put("alueet", alueet);
             return new ModelAndView(data, "alueet");
         }, new ThymeleafTemplateEngine());
@@ -84,7 +83,8 @@ public class Heppafoorumi {
             HashMap<String, Object> data = new HashMap();
 
             int alueId = Integer.parseInt(request.params(":alue"));
-            data.put("alue", data.get(request.params(":alue")));
+            Alue alue = alueDao.findOne(alueId);
+            data.put("alueet", alue);
 
             List<Aihe> aiheet = aiheDao.findAll(alueId);
             data.put("aiheet", aiheet);
@@ -96,10 +96,12 @@ public class Heppafoorumi {
             HashMap<String, Object> data = new HashMap();
 
             int alueId = Integer.parseInt(request.params(":alue"));
-            data.put("alue", data.get(request.params(":alue")));
+            Alue alue = alueDao.findOne(alueId);
+            data.put("alue", alue);
 
             int aiheId = Integer.parseInt(request.params(":aihe"));
-            data.put("aihe", data.get(request.params(":aihe")));
+            Aihe aihe = aiheDao.findOne(aiheId);
+            data.put("aihe", aihe);
 
             List<Aihe> viestit = aiheDao.findAll(aiheId);
             data.put("viestit", viestit);
@@ -122,15 +124,26 @@ public class Heppafoorumi {
         
         post("/:alue", (req, res) -> {
             
-            String nimimerkki = req.queryParams("nimimerkki").trim();
-            String otsikko = req.queryParams("otsikko").trim();
-            String kuvaus = req.queryParams("kuvaus").trim();
+            String nimimerkki = req.queryParams("nimimerkki");
+            String aihe = req.queryParams("aihe");
+            String kuvaus = req.queryParams("kuvaus");
 
-            if (!nimimerkki.isEmpty() && !otsikko.isEmpty() && !kuvaus.isEmpty()) {
-                aiheDao.create(nimimerkki, otsikko, kuvaus);
+            if (!nimimerkki.isEmpty() && !aihe.isEmpty() && !kuvaus.isEmpty()) {
+                int alueId = Integer.parseInt(req.params(":alue"));
+                aiheDao.create(alueId, nimimerkki, aihe, kuvaus);
             }
 
-            res.redirect("/:alue");
+            res.redirect(req.params("/:alue"));
+            return "";
+        });
+        
+        post(":alue/:aihe", (req, res) -> {
+            String nimimerkki = req.queryParams("nimimerkki");
+            String viesti = req.queryParams("viesti");
+            
+            viestiDao.create(Integer.parseInt(req.params(":aihe")), nimimerkki, viesti);
+            
+            res.redirect("/" + req.params(":alue/:aihe"));
             return "";
         });
     }
