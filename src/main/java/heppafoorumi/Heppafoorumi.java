@@ -84,7 +84,7 @@ public class Heppafoorumi {
 
             int alueId = Integer.parseInt(req.params(":alue"));
             Alue alue = alueDao.findOne(alueId);
-            data.put("alueet", alue);
+            data.put("alue", alue);
 
             List<Aihe> aiheet = aiheDao.findAll(alueId);
             data.put("aiheet", aiheet);
