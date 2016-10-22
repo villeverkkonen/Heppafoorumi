@@ -101,7 +101,7 @@ public class Heppafoorumi {
             int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
 
             String alueString = alueJaAihe.substring(0, erotinmerkinIndeksi);
-            data.put("alue", alueString);
+            data.put("alue_string", alueString);
 
             String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
             int aiheId = Integer.parseInt(aiheString);
@@ -140,13 +140,19 @@ public class Heppafoorumi {
             return "";
         });
 
-        post(":alue/:aihe", (req, res) -> {
+        post("/viestit/:alue_ja_aihe", (req, res) -> {
+            String alueJaAihe = req.params(":alue_ja_aihe");
+            int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
+
+            String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
+            int aiheId = Integer.parseInt(aiheString);
+
             String nimimerkki = req.queryParams("nimimerkki");
             String viesti = req.queryParams("viesti");
 
-            viestiDao.create(Integer.parseInt(req.params(":aihe")), nimimerkki, viesti);
+            viestiDao.create(aiheId, nimimerkki, viesti);
 
-            res.redirect("/" + req.params(":alue/:aihe"));
+            res.redirect("/viestit/" + alueJaAihe);
             return "";
         });
 

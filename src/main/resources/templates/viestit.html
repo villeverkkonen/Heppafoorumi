@@ -135,7 +135,7 @@
                 </li>
             </ul>
 
-            <form action="/" method="POST" class="form-inline">
+            <form th:action="@{~/viestit/{alueid}-{aiheid}(alueid=${alue_string}, aiheid=${aihe.id})}" method="POST" class="form-inline">
                 <div class="form-group">
                     <label>Nimimerkki:</label>
                     <input type="text" name="nimimerkki" class="form-control"/>
@@ -147,7 +147,7 @@
                 <button type="submit" class="btn btn-success">Lis&auml;&auml;!</button>
             </form>
 
-            <a href="#" th:href="@{~/aiheet/{alue}(alue=${alue})}"><p class="form-group">Takaisin aiheisiin</p></a>
+            <a href="#" th:href="@{~/aiheet/{alueid}(alueid=${alue_string})}"><p class="form-group">Takaisin aiheisiin</p></a>
 
         </section>
 
