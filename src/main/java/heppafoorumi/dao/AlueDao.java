@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import heppafoorumi.database.Database;
-import static heppafoorumi.domain.Kategoria.korjaaAakkoset;
 import java.sql.Timestamp;
 
 public class AlueDao implements Dao<Alue, Integer> {
