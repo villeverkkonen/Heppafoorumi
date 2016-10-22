@@ -29,6 +29,7 @@
             }
 
             .section {
+                min-height: 400px;
                 width: 80%;
                 height: 100%;
                 background-color: Lavender;
@@ -133,6 +134,7 @@
 
         <section class="section">
             <img class="img" src="/images/hevonen.jpg" alt="Uljas hevonen"></img>
+            <h2 class="h2">Osallistu keskusteluun lis&auml;&auml;m&auml;ll&auml; viesti</h2>
             <ul>
                 <li th:each="viesti : ${viestit}">
                     <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
