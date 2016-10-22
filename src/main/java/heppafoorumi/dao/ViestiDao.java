@@ -191,9 +191,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     public void create(int aiheId, String nimimerkki, String teksti) throws SQLException {
         Connection connection = database.getConnection();
 
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Alue(aihe, aikaleima, nimimerkki, teksti) VALUES(?, ?, ?, ?)");
-        statement.setObject(1, aiheId);
-        statement.setObject(2, new java.sql.Timestamp(new java.util.Date().getTime()));
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Viesti(aikaleima, aihe, nimimerkki, teksti) VALUES(?, ?, ?, ?)");
+
+        statement.setObject(1, new java.sql.Timestamp(new java.util.Date().getTime()));
+        statement.setObject(2, aiheId);
         statement.setObject(3, nimimerkki);
         statement.setObject(4, teksti);
 
