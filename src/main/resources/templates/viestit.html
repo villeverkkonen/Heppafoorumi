@@ -128,10 +128,12 @@
         </header>
 
         <section class="section">
-            <img class="img" src="images/hevonen.jpg" alt="Uljas hevonen"></img>
+            <img class="img" src="/images/hevonen.jpg" alt="Uljas hevonen"></img>
             <ul>
                 <li th:each="viesti : ${viestit}">
-                    <span th:text="${viesti.teksti}"></span>
+                    <span th:text="${viesti.nimimerkki}">nimimerkki</span>
+                    <span th:text="${viesti.teksti}">teksti</span>
+                    <span th:text="${viesti.timestamp}">timestamp</span>
                 </li>
             </ul>
 
