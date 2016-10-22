@@ -27,6 +27,10 @@ public abstract class Kategoria {
     public Integer getId() {
         return this.id;
     }
+    
+    public Timestamp getTimestamp() {
+        return this.aikaleima;
+    }
 
     public final Timestamp getAikaleima() {
         return this.aikaleima;

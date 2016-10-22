@@ -89,7 +89,13 @@
                 text-align: left;
                 font-size: 35px;
                 margin-left: 10px;
-                margin-right: 10px;
+                width: 30%;
+            }
+
+            .img {
+                float: right;
+                margin: 10px 10px;
+                width: 300px;
             }
 
             .form-inline {
@@ -129,6 +135,7 @@
         </header>
 
         <section class="section">
+            <img class="img" src="/images/hevonen.jpg" alt="Uljas hevonen"></img>
             <h2 class="h2">Voit lis&auml;t&auml; uusia aiheita t&auml;lle alueelle tai valita jo valmiiksi olevan</h2>
             <hr/>
             <div th:each="aihe : ${aiheet}" class="list-group">
