@@ -43,7 +43,7 @@ public class Viesti extends Kategoria {
         this.aihe = aiheId;
 
         // tallennetaan enintään 20 ensimmäistä merkkiä syötetystä nimimerkistä.
-        this.nimimerkki = nimimerkki.substring(Math.min(nimimerkki.length() - 1, NIMIMERKIN_PITUUS));
+        this.nimimerkki = nimimerkki.substring(0, Math.min(nimimerkki.length(), NIMIMERKIN_PITUUS));
     }
 
     public Viesti(Database database, Integer id, int aiheId, String nimimerkki, String teksti) {
