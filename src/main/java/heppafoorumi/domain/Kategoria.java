@@ -27,9 +27,10 @@ public abstract class Kategoria {
     public Integer getId() {
         return this.id;
     }
-    
-    public Timestamp getTimestamp() {
-        return this.aikaleima;
+
+    public String getTimestamp() {
+        String aikaleimaString = this.aikaleima.toString();
+        return aikaleimaString.substring(0, aikaleimaString.lastIndexOf('.'));
     }
 
     public final Timestamp getAikaleima() {
