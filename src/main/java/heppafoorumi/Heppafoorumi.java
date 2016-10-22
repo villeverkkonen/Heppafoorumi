@@ -126,17 +126,17 @@ public class Heppafoorumi {
             return "";
         });
 
-        post("/lisaa_aihe/:alue", (req, res) -> {
+        post("/aiheet/:alue", (req, res) -> {
             String nimimerkki = req.queryParams("nimimerkki");
             String aihe = req.queryParams("aihe");
             String kuvaus = req.queryParams("kuvaus");
-            int alueId = Integer.parseInt(req.params("/aiheet/:alue"));
-            
+            int alueId = Integer.parseInt(req.params(":alue"));
+
             if (!nimimerkki.isEmpty() && !aihe.isEmpty() && !kuvaus.isEmpty()) {
                 aiheDao.create(alueId, nimimerkki, aihe, kuvaus);
             }
 
-            res.redirect(req.params("/aiheet/") + alueId);
+            res.redirect("/aiheet/" + alueId);
             return "";
         });
 
