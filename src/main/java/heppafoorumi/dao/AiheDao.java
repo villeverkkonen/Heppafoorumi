@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Alue;
-import static heppafoorumi.domain.Kategoria.korjaaAakkoset;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
