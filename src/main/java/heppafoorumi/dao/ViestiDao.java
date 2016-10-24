@@ -175,6 +175,37 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         return viestit;
     }
+    
+    public List<Viesti> findAlueUusimmat(int alueId) throws SQLException {
+
+        Connection connection = database.getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+                + "viesti.id AS viesti_id, "
+                + "viesti.aikaleima AS viesti_aikaleima, "
+                + "viesti.aihe AS viesti_aihe, "
+                + "viesti.nimimerkki AS viesti_nimimerkki, "
+                + "viesti.teksti AS viesti_teksti "
+                + "FROM Viesti viesti "
+                + "WHERE viesti.aihe = " + alueId);
+
+        List<Viesti> viestit = new ArrayList();
+
+        while (resultSet.next()) {
+            Integer viestiId = resultSet.getInt("viesti_id");
+            Timestamp viestiAikaleima = resultSet.getTimestamp("viesti_aikaleima");
+            String viestiNimimerkki = resultSet.getString("viesti_nimimerkki");
+            String viestiTeksti = resultSet.getString("viesti_teksti");
+
+            Viesti viesti = new Viesti(this.database, viestiId, viestiAikaleima, alueId, viestiNimimerkki, viestiTeksti);
+
+            viestit.add(viesti);
+        }
+
+        resultSet.close();
+        connection.close();
+
+        return viestit;
+    }
 
     @Override
     public void delete(Integer key) throws SQLException {

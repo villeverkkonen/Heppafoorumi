@@ -124,6 +124,11 @@
             .btn-success {
 
             }
+            
+            .collapse {
+                
+            }
+            
         </style>
     </head>
     <body class="body">
@@ -147,6 +152,12 @@
                 </li>
             </ul>
 
+            <button data-toggle="collapse" data-target="#uusimmat" class="btn btn-info">Uusimmat viestit</button>
+            
+            <div th:each="viesti : ${viestit}" id="uusimmat" class="collapse">
+                <span style="color: coral" th:text="${viesti}" >viesti</span>
+            </div>
+            
             <form th:action="@{~/viestit/{alueid}-{aiheid}(alueid=${alue_string}, aiheid=${aihe.id})}" method="POST" class="form-inline">
                 <div class="form-group">
                     <label>Nimimerkki:</label>
