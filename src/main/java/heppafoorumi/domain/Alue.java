@@ -81,4 +81,9 @@ public class Alue extends Kategoria {
     public Integer getId() {
         return this.alueId;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%4d", this.getId()) + " " + this.getAikaleima() + " " + this.otsikko + " " + this.teksti;
+    }
 }
