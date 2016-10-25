@@ -86,7 +86,10 @@ public class Tekstikayttoliittyma {
         while (this.jatketaanko) {
             System.out.print("Olet " + this.missaValikossa + ". Anna komento: ");
             String syote = lukija.nextLine();
-            String[] osat = syote.split(" ");
+
+            // korvataan peräkkäiset välilyönnit yhdellä välilyönnillä,
+            // jotta split(" ") jakaa merkkijonon osiin halutulla tavalla.
+            String[] osat = syote.replaceAll(" +", " ").split(" ");
             if (osat.length == 0
                     || osat[0].equalsIgnoreCase("ohjeet")
                     || osat[0].equalsIgnoreCase("apua")
