@@ -176,6 +176,24 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         return viestit;
     }
     
+    public Viesti findUusinViestiAiheessa(int aiheId) throws SQLException {
+        Connection connection = database.getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM Viesti WHERE aiheId = " + aiheId 
+                + " ORDER BY aikaleima DESC LIMIT 1");
+        
+        Viesti viesti = null;
+        
+        while (resultSet.next()) {
+            Integer viestiId = resultSet.getInt("viesti_id");
+            Timestamp viestiAikaleima = resultSet.getTimestamp("viesti_aikaleima");
+            String viestiNimimerkki = resultSet.getString("viesti_nimimerkki");
+            String viestiTeksti = resultSet.getString("viesti_teksti");
+
+            viesti = new Viesti(this.database, viestiId, viestiAikaleima, aiheId, viestiNimimerkki, viestiTeksti);
+        }
+        return viesti;
+    }
+    
     //metodi sitä varten, että saataisiin joka aiheen viestien määrä
     public int CountAiheViestit(int aiheId) throws SQLException {
 

@@ -106,6 +106,13 @@ public class Heppafoorumi {
             List<Aihe> aiheet = aiheDao.findAll(alueId);
             data.put("aiheet", aiheet);
             
+            //yritys tulostaa joka alueen uusimman viestin timestamp
+            //List<Viesti> uusinViesti = new ArrayList<>();
+            //for (Aihe aihe : aiheet) {
+            //    uusinViesti.add(viestiDao.findUusinViestiAiheessa(aihe.getId()));
+            //}
+            //data.put("uusinViesti", uusinViesti);
+            
             //yritys näyttää jokaisen aiheen kaikkien viestien kokonaismäärä
             //List<String> viestitYhteensa = new ArrayList<>();
             //for (Aihe aihe : aiheet) {
