@@ -133,7 +133,7 @@ public class Heppafoorumi {
             List<Viesti> viestit = viestiDao.findAll(aiheId);
             data.put("viestit", viestit);
             
-            //Kymmenen uusimman viestin näyttäminen
+            //viiden uusimman viestin näyttäminen
             List<Viesti> uusimmat = new ArrayList<>();
             List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
             Collections.reverse(kaanteinenLista);

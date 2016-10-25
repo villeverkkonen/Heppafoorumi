@@ -176,7 +176,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         return viestit;
     }
     
-    //metodi sitä varten, että saataisi etusivulle joka alueen viestien määrä
+    //metodi sitä varten, että saataisiin joka aiheen viestien määrä
     public int CountAiheViestit(int aiheId) throws SQLException {
 
         Connection connection = database.getConnection();
