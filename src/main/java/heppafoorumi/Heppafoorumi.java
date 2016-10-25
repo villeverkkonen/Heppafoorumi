@@ -126,14 +126,16 @@ public class Heppafoorumi {
             List<Viesti> viestit = viestiDao.findAll(aiheId);
             data.put("viestit", viestit);
             
-            List<Viesti> uusimmatViestit = new ArrayList<>();
-            for (Viesti viesti : viestit) {
-                if (uusimmatViestit.size() < 10) {
-                    uusimmatViestit.add(viesti);
+            //Kymmenen uusimman viestin näyttäminen
+            List<Viesti> uusimmat = new ArrayList<>();
+            List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
+            Collections.reverse(kaanteinenLista);
+            for (Viesti viesti : kaanteinenLista) {
+                if (uusimmat.size() < 10) {
+                    uusimmat.add(viesti);
                 }
             }
-            Collections.reverse(uusimmatViestit);
-            data.put("uusimmatViestit", uusimmatViestit);
+            data.put("uusimmat", uusimmat);
 
             return new ModelAndView(data, "viestit");
         }, new ThymeleafTemplateEngine());

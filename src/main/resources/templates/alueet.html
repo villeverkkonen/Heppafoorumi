@@ -152,13 +152,10 @@
 
             <h2 class="h2">Valitse mieleisesi alue:</h2>
             <div class="list-group">
-                <form th:action="@{~/{alueid}(alueid=${alue_string}" method="POST">
                     <div th:each="alue : ${alueet}" class="list-group">
                             <a href="#" th:href="@{~/aiheet/{id}(id=${alue.id})}" th:text="${alue.otsikko}" class="list-group-item list-group-item-info">alue</a>
                             <span th:text="${alue.teksti}" class="span">kuvaus</span>
-                            <button type="submit" class="btn btn-warning">Poista!</button>
                     </div>
-                </form>
             </div>
 
             <form action="/" method="POST" class="form-inline">

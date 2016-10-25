@@ -153,7 +153,7 @@
                 <li th:each="viesti : ${viestit}">
                     <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
                     <span style="color: brown" th:text="${viesti.teksti}" class="span">teksti</span>
-                    <span style="color: blueviolet" th:text="(${viesti.timestamp})" class="span">timestamp</span>
+                    <span style="color: blueviolet" th:text="${(viesti.timestamp)}" class="span">timestamp</span>
                     <button type="submit" class="btn btn-warning">Poista!</button>
                 </li>
             </ul>
@@ -162,8 +162,8 @@
             <button data-toggle="collapse" data-target="#uusimmat" class="btn btn-info">Uusimmat viestit</button>
             
             <div id="uusimmat" class="collapse">
-                <p th:each="viesti : ${uusimmatViestit}">
-                    <span style="color: coral" th:text="${viesti.uusimmat}">viesti</span>
+                <p th:each="uusin : ${uusimmat}">
+                    <span style="color: coral" th:text="${uusin.uusimmat}">viesti</span>
                 </p>
             </div>
             
