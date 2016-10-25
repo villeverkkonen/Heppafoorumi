@@ -177,14 +177,13 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     }
     
     //metodi sitä varten, että saataisi etusivulle joka alueen viestien määrä
-    public int getFindAllCount() throws SQLException {
+    public int CountAiheViestit(int aiheId) throws SQLException {
 
         Connection connection = database.getConnection();
         ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
                 + "COUNT(*) AS viesteja "
                 + "FROM Viesti viesti, Aihe aihe "
-                + "WHERE viesti.aiheId = aihe.id "
-                + "AND aihe.alueId = alue.id");
+                + "WHERE viesti.aiheId = " +aiheId);
         
         int viesteja = 0;
         
@@ -198,11 +197,11 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         return viesteja;
     }
 
-    @Override
-    public void delete(Integer key) throws SQLException {
+    public void delete(int aiheId, int viestiId) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM Viesti WHERE id = ?");
-        statement.setObject(1, key);
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM Viesti WHERE aiheId = ?, id = ?");
+        statement.setObject(1, aiheId);
+        statement.setObject(2, viestiId);
 
         statement.executeUpdate();
 
@@ -224,5 +223,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         statement.close();
         connection.close();
+    }
+
+    @Override
+    public void delete(Integer key) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

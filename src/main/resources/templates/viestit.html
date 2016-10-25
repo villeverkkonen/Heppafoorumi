@@ -148,18 +148,21 @@
                 <img class="img" src="/images/hevonen.jpg" alt="Uljas hevonen"></img>
             </a>
             <h2 class="h2">Osallistu keskusteluun lis&auml;&auml;m&auml;ll&auml; viesti</h2>
-            <form th:action="@{~/viestit/{alueid}-{aiheid}(alueid=${alue_string}, aiheid=${aihe.id})}" method="POST" class="form-inline">
+
+            
             <ul>
                 <li th:each="viesti : ${viestit}">
+                    <form th:action="@{~/viestit/{alueid}-{aiheid}-{viestiid}(alueid=${alue_string}, aiheid=${aihe.id}, viestiid=${viesti.id})}" method="POST" class="form-inline">
                     <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
                     <span style="color: brown" th:text="${viesti.teksti}" class="span">teksti</span>
                     <span style="color: blueviolet" th:text="${(viesti.timestamp)}" class="span">timestamp</span>
                     <button type="submit" class="btn btn-warning">Poista!</button>
+                    </form>
                 </li>
             </ul>
-            </form>
+            
 
-            <button data-toggle="collapse" data-target="#uusimmat" class="btn btn-info">Uusimmat viestit</button>
+            <button data-toggle="collapse" data-target="#uusimmat" class="btn btn-info">Uusimmat 5 viesti&auml;</button>
             
             <div id="uusimmat" class="collapse">
                 <p th:each="uusin : ${uusimmat}">

@@ -105,6 +105,13 @@ public class Heppafoorumi {
 
             List<Aihe> aiheet = aiheDao.findAll(alueId);
             data.put("aiheet", aiheet);
+            
+            //yritys näyttää jokaisen aiheen kaikkien viestien kokonaismäärä
+            //List<String> viestitYhteensa = new ArrayList<>();
+            //for (Aihe aihe : aiheet) {
+            //    viestitYhteensa.add(Integer.toString(viestiDao.CountAiheViestit(aihe.getId())));
+            //}
+            //data.put("viestitYhteensa", viestitYhteensa);
 
             return new ModelAndView(data, "aiheet");
         }, new ThymeleafTemplateEngine());
@@ -131,7 +138,7 @@ public class Heppafoorumi {
             List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
             Collections.reverse(kaanteinenLista);
             for (Viesti viesti : kaanteinenLista) {
-                if (uusimmat.size() < 10) {
+                if (uusimmat.size() < 5) {
                     uusimmat.add(viesti);
                 }
             }
@@ -183,11 +190,21 @@ public class Heppafoorumi {
         });
 
         //yritys delete napille
-        post("/poistaAlue", (req, res) -> {
-            // en tiedä mistä haetaan alueen int id
-            alueDao.delete(5);
+        post("/viestit/:alue_ja_aihe_ja_viesti", (req, res) -> {
+            String alueJaAiheJaViesti = req.params(":alue_ja_aihe_ja_viesti");
+            int erotinmerkinIndeksi = alueJaAiheJaViesti.indexOf('-');
 
-            res.redirect("/");
+            String aiheString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 1, erotinmerkinIndeksi + 2);
+            String viestiString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 3);
+
+            int aiheId = Integer.parseInt(aiheString);
+            int viestiId = Integer.parseInt(viestiString);
+            
+            viestiDao.delete(aiheId, viestiId);
+            
+            String alueJaAihe = alueJaAiheJaViesti.substring(0, 2);
+
+            res.redirect("/viestit/" + alueJaAihe);
             return "";
         });
     }
