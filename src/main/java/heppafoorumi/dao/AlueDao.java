@@ -49,9 +49,8 @@ public class AlueDao implements Dao<Alue, Integer> {
     public List<Alue> findAll() throws SQLException {
 
         Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Alue");
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM Alue");
 
-        ResultSet resultSet = statement.executeQuery();
         List<Alue> alueet = new ArrayList();
         while (resultSet.next()) {
             Integer id = resultSet.getInt("id");
@@ -63,7 +62,6 @@ public class AlueDao implements Dao<Alue, Integer> {
         }
 
         resultSet.close();
-        statement.close();
         connection.close();
 
         return alueet;
