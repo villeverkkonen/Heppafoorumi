@@ -21,30 +21,33 @@ public class Tekstikayttoliittyma {
         this.jatketaanko = true;
     }
 
-    private void alueohjeet() {
+    private void ohjeet() {
         System.out.println("Tämä on Heppafoorumin tekstikäyttöliittymä.\n"
-                + "Tällä hetkellä olet aluevalikossa.\n"
-                + "Käytettävissäsi ovat seuraavat komennot:\n"
-                + "alueet - listaa kaikkien alueiden id:t ja nimet\n"
-                + "lopeta - poistuu tekstikäyttöliittymästä");
-    }
+                + "Tällä hetkellä olet " + this.missaValikossa + ".\n"
+                + "Käytettävissäsi ovat seuraavat komennot:");
 
-    private void aiheohjeet() {
-        System.out.println("Tämä on Heppafoorumin tekstikäyttöliittymä.\n"
-                + "Tällä hetkellä olet aihevalikossa.\n"
-                + "Käytettävissäsi ovat seuraavat komennot:\n"
-                + "viestit - listaa kaikkien viestien id:t ja nimet\n"
-                + "pois - poistuu aihevalikosta\n"
-                + "lopeta - poistuu tekstikäyttöliittymästä");
-
-    }
-
-    private void viestiohjeet() {
-        System.out.println("Tämä on Heppafoorumin tekstikäyttöliittymä.\n"
-                + "Tällä hetkellä olet viestivalikossa.\n"
-                + "Käytettävissäsi ovat seuraavat komennot:\n"
-                + "pois - poistuu viestivalikosta\n"
-                + "lopeta - poistuu tekstikäyttöliittymästä");
+        switch (this.missaValikossa) {
+            case "aluevalikossa":
+                System.out.println(
+                        "alueet - listaa kaikkien alueiden id:t ja nimet\n"
+                        + "lopeta - poistuu tekstikäyttöliittymästä");
+                break;
+            case "aihevalikossa":
+                System.out.println(
+                        "viestit - listaa kaikkien viestien id:t ja nimet\n"
+                        + "pois - poistuu aihevalikosta\n"
+                        + "lopeta - poistuu tekstikäyttöliittymästä");
+                break;
+            case "viestivalikossa":
+                System.out.println(
+                        "pois - poistuu viestivalikosta\n"
+                        + "lopeta - poistuu tekstikäyttöliittymästä");
+                break;
+            default:
+                System.err.println("Virhe Heppafoorumin tekstikäyttöliittymän koodissa.");
+                this.missaValikossa = "aluevalikossa";
+                break;
+        }
     }
 
     private void aluevalikko(String[] osat) {
@@ -63,13 +66,9 @@ public class Tekstikayttoliittyma {
                 // poistutaan tekstikäyttöliitymästä.
                 this.jatketaanko = false;
                 return;
-            case "ohjeet":
-                // tulostetaan aluevalikon ohjeet.
-                alueohjeet();
-                break;
             default:
                 // virheellinen syöte. listataan aluevalikon ohjeet.
-                alueohjeet();
+                ohjeet();
                 break;
         }
     }
@@ -84,38 +83,35 @@ public class Tekstikayttoliittyma {
 
     public void kaynnista() {
         Scanner lukija = new Scanner(System.in);
+        this.ohjeet();
+
         while (this.jatketaanko) {
             System.out.print("Olet " + this.missaValikossa + ". Anna komento: ");
             String syote = lukija.nextLine();
             String[] osat = syote.split(" ");
+            if (osat.length == 0
+                    || osat[0].equalsIgnoreCase("ohjeet")
+                    || osat[0].equalsIgnoreCase("apua")
+                    || osat[0].equalsIgnoreCase("help")) {
+                this.ohjeet();
+                continue;
+            }
+
             switch (this.missaValikossa) {
                 case "aluevalikossa":
-                    if (osat.length == 0) {
-                        this.alueohjeet();
-                        continue;
-                    }
                     this.aluevalikko(osat);
-                    continue;
+                    break;
                 case "aihevalikossa":
-                    if (osat.length == 0) {
-                        this.aiheohjeet();
-                        continue;
-                    }
                     this.aihevalikko(osat);
-                    continue;
+                    break;
                 case "viestivalikossa":
-                    if (osat.length == 0) {
-                        this.viestiohjeet();
-                        continue;
-                    }
                     this.viestivalikko(osat);
-                    continue;
+                    break;
                 default:
                     System.err.println("Virhe Heppafoorumin tekstikäyttöliittymän koodissa.");
                     this.missaValikossa = "aluevalikossa";
                     break;
             }
-
         }
         System.out.println("Poistuit Heppafoorumin tekstikäyttöliittymästä.\n"
                 + "Kiitos ja tervetuloa uudelleen!");
