@@ -33,7 +33,7 @@ public class Tekstikayttoliittyma {
         System.out.println("Tämä on Heppafoorumin tekstikäyttöliittymä.\n"
                 + "Tällä hetkellä olet aihevalikossa.\n"
                 + "Käytettävissäsi ovat seuraavat komennot:\n"
-                + "viestit - listaa kaikkien alueiden id:t ja nimet\n"
+                + "viestit - listaa kaikkien viestien id:t ja nimet\n"
                 + "pois - poistuu aihevalikosta\n"
                 + "lopeta - poistuu tekstikäyttöliittymästä");
 
