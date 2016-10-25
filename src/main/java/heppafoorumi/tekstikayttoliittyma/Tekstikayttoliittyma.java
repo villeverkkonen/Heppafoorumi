@@ -29,25 +29,23 @@ public class Tekstikayttoliittyma {
         switch (this.missaValikossa) {
             case "aluevalikossa":
                 System.out.println(
-                        "alueet - listaa kaikkien alueiden id:t ja nimet\n"
-                        + "lopeta - poistuu tekstikäyttöliittymästä");
+                        "alueet - listaa kaikkien alueiden id:t ja nimet");
                 break;
             case "aihevalikossa":
                 System.out.println(
                         "viestit - listaa kaikkien viestien id:t ja nimet\n"
-                        + "pois - poistuu aihevalikosta\n"
-                        + "lopeta - poistuu tekstikäyttöliittymästä");
+                        + "pois - poistuu aihevalikosta");
                 break;
             case "viestivalikossa":
                 System.out.println(
-                        "pois - poistuu viestivalikosta\n"
-                        + "lopeta - poistuu tekstikäyttöliittymästä");
+                        "pois - poistuu viestivalikosta");
                 break;
             default:
                 System.err.println("Virhe Heppafoorumin tekstikäyttöliittymän koodissa.");
                 this.missaValikossa = "aluevalikossa";
                 break;
         }
+        System.out.println("lopeta - poistuu tekstikäyttöliittymästä");
     }
 
     private void aluevalikko(String[] osat) {
