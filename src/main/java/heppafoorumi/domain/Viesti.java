@@ -19,9 +19,12 @@ public class Viesti extends Kategoria {
     private final int aihe;
 
     private final Database database;
+    private final String teksti;
+    private final Timestamp aikaleima;
 
     // ainoastaan 20 ensimmäistä merkkiä otetaan huomioon.
     private final String nimimerkki;
+    private final int id;
 
     private static int getNewViestiId(Database database) throws SQLException {
         Connection connection = database.getConnection();
@@ -44,6 +47,9 @@ public class Viesti extends Kategoria {
 
         // tallennetaan enintään 20 ensimmäistä merkkiä syötetystä nimimerkistä.
         this.nimimerkki = nimimerkki.substring(0, Math.min(nimimerkki.length(), NIMIMERKIN_PITUUS));
+        this.teksti = teksti;
+        this.aikaleima = aikaleima;
+        this.id = id;
     }
 
     public Viesti(Database database, Integer id, int aiheId, String nimimerkki, String teksti) {
@@ -58,6 +64,8 @@ public class Viesti extends Kategoria {
 //    public Aihe getAihe() {
 //        return this.aihe;
 //    }
+    
+    
     public String getNimimerkki() {
         return this.nimimerkki;
     }
@@ -77,4 +85,16 @@ public class Viesti extends Kategoria {
 
         return this.getId().equals(viesti.getId());
     }
+    
+    public String getUusimmat() {
+        String aikaleimaString = this.aikaleima.toString();
+        aikaleimaString = aikaleimaString.substring(0, aikaleimaString.lastIndexOf(':'));
+        return this.nimimerkki + " " + this.teksti + " (" + aikaleimaString + ")";
+    }
+
+    
+    //yritys saada kaikkien viestien määrät alueittain
+    //public int getViestit() {
+    //    return viestiDao.findAllCount();
+    //}
 }

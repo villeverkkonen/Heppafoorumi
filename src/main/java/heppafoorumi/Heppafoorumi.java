@@ -15,6 +15,8 @@ import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
 import heppafoorumi.domain.Viesti;
+import java.util.ArrayList;
+import java.util.Collections;
 import spark.Spark;
 import static spark.Spark.post;
 
@@ -75,9 +77,22 @@ public class Heppafoorumi {
         // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
         // Heppafoorumin pääsivu.
         get("/", (req, res) -> {
-            List<Alue> alueet = alueDao.findAll();
             HashMap<String, Object> data = new HashMap();
+            
+            List<Alue> alueet = alueDao.findAll();
             data.put("alueet", alueet);
+            
+            //joka alueen viestien kokonaismäärän näyttäminen
+            //List<Integer> viestitYhteensa = new ArrayList<>();
+            //int i = 1;
+            //int alueenViestit = 0;
+            //for (Alue alue : alueet) {
+            //    int alueId = alue.getId();
+            //    alueenViestit = viestiDao.getFindAllCount(alueId);
+            //    viestitYhteensa.add(alueId, alueenViestit);
+            //}
+            //data.put("viestit", viestitYhteensa);
+            
             return new ModelAndView(data, "alueet");
         }, new ThymeleafTemplateEngine());
 
@@ -110,6 +125,15 @@ public class Heppafoorumi {
 
             List<Viesti> viestit = viestiDao.findAll(aiheId);
             data.put("viestit", viestit);
+            
+            List<Viesti> uusimmatViestit = new ArrayList<>();
+            for (Viesti viesti : viestit) {
+                if (uusimmatViestit.size() < 10) {
+                    uusimmatViestit.add(viesti);
+                }
+            }
+            Collections.reverse(uusimmatViestit);
+            data.put("uusimmatViestit", uusimmatViestit);
 
             return new ModelAndView(data, "viestit");
         }, new ThymeleafTemplateEngine());
