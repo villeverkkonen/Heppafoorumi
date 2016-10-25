@@ -55,7 +55,7 @@ public abstract class Kategoria {
 
     @Override
     public String toString() {
-        return this.id + " " + this.aikaleima + " " + this.teksti;
+        return String.format("%4d", this.id) + " " + this.aikaleima + " " + this.teksti;
     }
 
     @Override
