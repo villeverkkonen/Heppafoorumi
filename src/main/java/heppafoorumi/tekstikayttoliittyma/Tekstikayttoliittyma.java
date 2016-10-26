@@ -6,6 +6,7 @@ import heppafoorumi.dao.ViestiDao;
 import heppafoorumi.domain.Aihe;
 import heppafoorumi.domain.Alue;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class Tekstikayttoliittyma {
     final ViestiDao viestiDao;
     String missaValikossa;
     boolean jatketaanko;
+    boolean kaynnistetaankoSpark;
     Alue alue;
     Aihe aihe;
 
@@ -26,6 +28,7 @@ public class Tekstikayttoliittyma {
         this.viestiDao = viestiDao;
         this.missaValikossa = "aluevalikossa"; // alussa ollaan alueet-valikossa
         this.jatketaanko = true;
+        this.kaynnistetaankoSpark = false;
         this.alue = null;
         this.aihe = null;
     }
@@ -54,7 +57,8 @@ public class Tekstikayttoliittyma {
                 this.missaValikossa = "aluevalikossa";
                 break;
         }
-        System.out.println("lopeta - poistuu tekstikäyttöliittymästä");
+        System.out.println("start - käynnistää Spark-palvelimen ja poistuu tekstikäyttöliittymästä"
+                + "lopeta - poistuu tekstikäyttöliittymästä");
     }
 
     private void aluevalikko(String komento, List<String> parametrit) throws SQLException {
@@ -78,15 +82,12 @@ public class Tekstikayttoliittyma {
             case "lisaa":
                 // lisätään alue.komento (
                 if (parametrit.size() >= 2) {
-
+                    alueDao.create(parametrit.get(0), parametrit.get(1));
+                } else {
+                    System.out.println("Annoit liian vähän parametrejä!"
+                            + "Käyttö: lisaa <otsikko> <kuvaus>");
                 }
-                alueDao.create(komento, komento);
-
                 break;
-            case "lopeta":
-                // poistutaan tekstikäyttöliitymästä.
-                this.jatketaanko = false;
-                return;
             default:
                 // virheellinen syöte. listataan aluevalikon ohjeet.
                 ohjeet();
@@ -102,7 +103,7 @@ public class Tekstikayttoliittyma {
         // käsitellään viestivalikon syötteet.
     }
 
-    public void kaynnista() throws SQLException {
+    public boolean kaynnista() throws SQLException {
         Scanner lukija = new Scanner(System.in);
         this.ohjeet();
 
@@ -141,7 +142,7 @@ public class Tekstikayttoliittyma {
                 // Huom. komentoa ei pidä laittaa hipsuihin, kaikki parametrit
                 // sen sijaan kyllä, jos käytetään hipsuja. Vaihtoehtoisesti ei
                 // yhtään hipsua. Tekstikäyttöliittymä ei toistaiseksi
-                // mahdollista hipsuja syöttämistä parametreihin.
+                // mahdollista hipsujen syöttämistä parametreihin.
 
                 osat = syote.split("'");
 
@@ -178,7 +179,18 @@ public class Tekstikayttoliittyma {
             }
 
             String komento = osat[0].trim();
-            List<String> parametrit = Arrays.asList(osat);
+            List<String> parametritList = Arrays.asList(osat);
+            ArrayList<String> parametrit = new ArrayList(parametritList);
+            parametrit.remove(0);
+
+            if (komento.equals("start")) {
+                this.jatketaanko = false;
+                this.kaynnistetaankoSpark = true;
+                continue;
+            } else if (komento.equals("lopeta")) {
+                this.jatketaanko = false;
+                continue;
+            }
 
             switch (this.missaValikossa) {
                 case "aluevalikossa":
@@ -198,5 +210,6 @@ public class Tekstikayttoliittyma {
         }
         System.out.println("Poistuit Heppafoorumin tekstikäyttöliittymästä.\n"
                 + "Kiitos ja tervetuloa uudelleen!");
+        return this.kaynnistetaankoSpark;
     }
 }

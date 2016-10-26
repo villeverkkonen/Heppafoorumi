@@ -79,147 +79,150 @@ public class Heppafoorumi {
         if (tekstikayttoliittymaaKaytossa) {
             // käynnistetään tekstikäyttöliittymä.
             Tekstikayttoliittyma tekstikayttoliittyma = new Tekstikayttoliittyma(alueDao, aiheDao, viestiDao);
-            tekstikayttoliittyma.kaynnista();
-        } else {
-            //        Aihe aihe1 = new Aihe(1, Timestamp.valueOf("2016-01-01 00:00:03"), ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
-            // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
-            // Heppafoorumin pääsivu.
-            get("/", (req, res) -> {
-                HashMap<String, Object> data = new HashMap();
-
-                List<Alue> alueet = alueDao.findAll();
-                data.put("alueet", alueet);
-
-                //joka alueen viestien kokonaismäärän näyttäminen
-                //List<Integer> viestitYhteensa = new ArrayList<>();
-                //int i = 1;
-                //int alueenViestit = 0;
-                //for (Alue alue : alueet) {
-                //    int alueId = alue.getId();
-                //    alueenViestit = viestiDao.getFindAllCount(alueId);
-                //    viestitYhteensa.add(alueId, alueenViestit);
-                //}
-                //data.put("viestit", viestitYhteensa);
-                return new ModelAndView(data, "alueet");
-            }, new ThymeleafTemplateEngine()
-            );
-
-            get("/aiheet/:alue", (req, res) -> {
-                HashMap<String, Object> data = new HashMap();
-
-                int alueId = Integer.parseInt(req.params(":alue"));
-                Alue alue = alueDao.findOne(alueId);
-                data.put("alue", alue);
-
-                List<Aihe> aiheet = aiheDao.findAll(alueId);
-                data.put("aiheet", aiheet);
-
-                //yritys tulostaa joka alueen uusimman viestin timestamp
-                //List<Viesti> uusinViesti = new ArrayList<>();
-                //for (Aihe aihe : aiheet) {
-                //    uusinViesti.add(viestiDao.findUusinViestiAiheessa(aihe.getId()));
-                //}
-                //data.put("uusinViesti", uusinViesti);
-                //yritys näyttää jokaisen aiheen kaikkien viestien kokonaismäärä
-                //List<String> viestitYhteensa = new ArrayList<>();
-                //for (Aihe aihe : aiheet) {
-                //    viestitYhteensa.add(Integer.toString(viestiDao.CountAiheViestit(aihe.getId())));
-                //}
-                //data.put("viestitYhteensa", viestitYhteensa);
-                return new ModelAndView(data, "aiheet");
-            }, new ThymeleafTemplateEngine());
-
-            get("/viestit/:alue_ja_aihe", (req, res) -> {
-                HashMap<String, Object> data = new HashMap();
-
-                String alueJaAihe = req.params(":alue_ja_aihe");
-                int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
-
-                String alueString = alueJaAihe.substring(0, erotinmerkinIndeksi);
-                data.put("alue_string", alueString);
-
-                String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
-                int aiheId = Integer.parseInt(aiheString);
-                Aihe aihe = aiheDao.findOne(aiheId);
-                data.put("aihe", aihe);
-
-                List<Viesti> viestit = viestiDao.findAll(aiheId);
-                data.put("viestit", viestit);
-
-                //viiden uusimman viestin näyttäminen
-                List<Viesti> uusimmat = new ArrayList<>();
-                List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
-                Collections.reverse(kaanteinenLista);
-                for (Viesti viesti : kaanteinenLista) {
-                    if (uusimmat.size() < 5) {
-                        uusimmat.add(viesti);
-                    }
-                }
-                data.put("uusimmat", uusimmat);
-
-                return new ModelAndView(data, "viestit");
-            }, new ThymeleafTemplateEngine());
-
-            post("/", (req, res) -> {
-                String otsikko = req.queryParams("otsikko");
-                String kuvaus = req.queryParams("kuvaus");
-
-                if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
-                    alueDao.create(otsikko, kuvaus);
-                }
-
-                res.redirect("/");
-                return "";
-            });
-
-            post("/aiheet/:alue", (req, res) -> {
-                String nimimerkki = req.queryParams("nimimerkki");
-                String aihe = req.queryParams("aihe");
-                String kuvaus = req.queryParams("kuvaus");
-                int alueId = Integer.parseInt(req.params(":alue"));
-
-                if (!nimimerkki.isEmpty() && !aihe.isEmpty() && !kuvaus.isEmpty()) {
-                    aiheDao.create(alueId, nimimerkki, aihe, kuvaus);
-                }
-
-                res.redirect("/aiheet/" + alueId);
-                return "";
-            });
-
-            post("/viestit/:alue_ja_aihe", (req, res) -> {
-                String alueJaAihe = req.params(":alue_ja_aihe");
-                int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
-
-                String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
-                int aiheId = Integer.parseInt(aiheString);
-
-                String nimimerkki = req.queryParams("nimimerkki");
-                String viesti = req.queryParams("viesti");
-
-                viestiDao.create(aiheId, nimimerkki, viesti);
-
-                res.redirect("/viestit/" + alueJaAihe);
-                return "";
-            });
-
-            //yritys delete napille
-            post("/viestit/:alue_ja_aihe_ja_viesti", (req, res) -> {
-                String alueJaAiheJaViesti = req.params(":alue_ja_aihe_ja_viesti");
-                int erotinmerkinIndeksi = alueJaAiheJaViesti.indexOf('-');
-
-                String aiheString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 1, erotinmerkinIndeksi + 2);
-                String viestiString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 3);
-
-                int aiheId = Integer.parseInt(aiheString);
-                int viestiId = Integer.parseInt(viestiString);
-
-                viestiDao.delete(aiheId, viestiId);
-
-                String alueJaAihe = alueJaAiheJaViesti.substring(0, 2);
-
-                res.redirect("/viestit/" + alueJaAihe);
-                return "";
-            });
+            boolean kaynnistetaankoSpark = tekstikayttoliittyma.kaynnista();
+            if (!kaynnistetaankoSpark) {
+                return;
+            }
         }
+
+        // Aihe aihe1 = new Aihe(1, Timestamp.valueOf("2016-01-01 00:00:03"), ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
+        // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
+        // Heppafoorumin pääsivu.
+        get("/", (req, res) -> {
+            HashMap<String, Object> data = new HashMap();
+
+            List<Alue> alueet = alueDao.findAll();
+            data.put("alueet", alueet);
+
+            //joka alueen viestien kokonaismäärän näyttäminen
+            //List<Integer> viestitYhteensa = new ArrayList<>();
+            //int i = 1;
+            //int alueenViestit = 0;
+            //for (Alue alue : alueet) {
+            //    int alueId = alue.getId();
+            //    alueenViestit = viestiDao.getFindAllCount(alueId);
+            //    viestitYhteensa.add(alueId, alueenViestit);
+            //}
+            //data.put("viestit", viestitYhteensa);
+            return new ModelAndView(data, "alueet");
+        }, new ThymeleafTemplateEngine()
+        );
+
+        get("/aiheet/:alue", (req, res) -> {
+            HashMap<String, Object> data = new HashMap();
+
+            int alueId = Integer.parseInt(req.params(":alue"));
+            Alue alue = alueDao.findOne(alueId);
+            data.put("alue", alue);
+
+            List<Aihe> aiheet = aiheDao.findAll(alueId);
+            data.put("aiheet", aiheet);
+
+            //yritys tulostaa joka alueen uusimman viestin timestamp
+            //List<Viesti> uusinViesti = new ArrayList<>();
+            //for (Aihe aihe : aiheet) {
+            //    uusinViesti.add(viestiDao.findUusinViestiAiheessa(aihe.getId()));
+            //}
+            //data.put("uusinViesti", uusinViesti);
+            //yritys näyttää jokaisen aiheen kaikkien viestien kokonaismäärä
+            //List<String> viestitYhteensa = new ArrayList<>();
+            //for (Aihe aihe : aiheet) {
+            //    viestitYhteensa.add(Integer.toString(viestiDao.CountAiheViestit(aihe.getId())));
+            //}
+            //data.put("viestitYhteensa", viestitYhteensa);
+            return new ModelAndView(data, "aiheet");
+        }, new ThymeleafTemplateEngine());
+
+        get("/viestit/:alue_ja_aihe", (req, res) -> {
+            HashMap<String, Object> data = new HashMap();
+
+            String alueJaAihe = req.params(":alue_ja_aihe");
+            int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
+
+            String alueString = alueJaAihe.substring(0, erotinmerkinIndeksi);
+            data.put("alue_string", alueString);
+
+            String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
+            int aiheId = Integer.parseInt(aiheString);
+            Aihe aihe = aiheDao.findOne(aiheId);
+            data.put("aihe", aihe);
+
+            List<Viesti> viestit = viestiDao.findAll(aiheId);
+            data.put("viestit", viestit);
+
+            //viiden uusimman viestin näyttäminen
+            List<Viesti> uusimmat = new ArrayList<>();
+            List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
+            Collections.reverse(kaanteinenLista);
+            for (Viesti viesti : kaanteinenLista) {
+                if (uusimmat.size() < 5) {
+                    uusimmat.add(viesti);
+                }
+            }
+            data.put("uusimmat", uusimmat);
+
+            return new ModelAndView(data, "viestit");
+        }, new ThymeleafTemplateEngine());
+
+        post("/", (req, res) -> {
+            String otsikko = req.queryParams("otsikko");
+            String kuvaus = req.queryParams("kuvaus");
+
+            if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
+                alueDao.create(otsikko, kuvaus);
+            }
+
+            res.redirect("/");
+            return "";
+        });
+
+        post("/aiheet/:alue", (req, res) -> {
+            String nimimerkki = req.queryParams("nimimerkki");
+            String aihe = req.queryParams("aihe");
+            String kuvaus = req.queryParams("kuvaus");
+            int alueId = Integer.parseInt(req.params(":alue"));
+
+            if (!nimimerkki.isEmpty() && !aihe.isEmpty() && !kuvaus.isEmpty()) {
+                aiheDao.create(alueId, nimimerkki, aihe, kuvaus);
+            }
+
+            res.redirect("/aiheet/" + alueId);
+            return "";
+        });
+
+        post("/viestit/:alue_ja_aihe", (req, res) -> {
+            String alueJaAihe = req.params(":alue_ja_aihe");
+            int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
+
+            String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
+            int aiheId = Integer.parseInt(aiheString);
+
+            String nimimerkki = req.queryParams("nimimerkki");
+            String viesti = req.queryParams("viesti");
+
+            viestiDao.create(aiheId, nimimerkki, viesti);
+
+            res.redirect("/viestit/" + alueJaAihe);
+            return "";
+        });
+
+        //yritys delete napille
+        post("/viestit/:alue_ja_aihe_ja_viesti", (req, res) -> {
+            String alueJaAiheJaViesti = req.params(":alue_ja_aihe_ja_viesti");
+            int erotinmerkinIndeksi = alueJaAiheJaViesti.indexOf('-');
+
+            String aiheString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 1, erotinmerkinIndeksi + 2);
+            String viestiString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 3);
+
+            int aiheId = Integer.parseInt(aiheString);
+            int viestiId = Integer.parseInt(viestiString);
+
+            viestiDao.delete(aiheId, viestiId);
+
+            String alueJaAihe = alueJaAiheJaViesti.substring(0, 2);
+
+            res.redirect("/viestit/" + alueJaAihe);
+            return "";
+        });
     }
 }
