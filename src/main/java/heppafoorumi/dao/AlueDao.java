@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import heppafoorumi.database.Database;
+import heppafoorumi.domain.Aihe;
+import heppafoorumi.domain.Alueraportti;
+import heppafoorumi.domain.Viesti;
 import java.sql.Timestamp;
 
 public class AlueDao implements Dao<Alue, Integer> {
@@ -65,6 +68,37 @@ public class AlueDao implements Dao<Alue, Integer> {
         connection.close();
 
         return alueet;
+    }
+
+    public List<Alueraportti> findTarpeellisetTiedot() throws SQLException {
+        Connection connection = database.getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery(
+                "SELECT * FROM Alue AS alue "
+                + "    LEFT JOIN Aihe AS aihe "
+                + "    ON aihe.alue = alue.id "
+                + "    WHERE aihe.id = "
+                + "        (SELECT MAX(aihe.id) FROM aihe AS uusin_aihe "
+                + "        WHERE uusin_aihe.alue = alue.id)");
+
+        List<Alueraportti> raporttilista = new ArrayList();
+
+        while (resultSet.next()) {
+            Integer aiheId = resultSet.getInt("aihe.id");
+            Timestamp aiheAikaleima = resultSet.getTimestamp("aihe.aikaleima");
+            Integer aiheAlue = resultSet.getInt("aihe.alue");
+            String aiheNimimerkki = resultSet.getString("aihe.nimimerkki");
+            String aiheOtsikko = resultSet.getString("aihe.otsikko");
+            String aiheTeksti = resultSet.getString("aihe.teksti");
+
+            Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, aiheAlue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+            Viesti viesti = null; // TODO!
+            raporttilista.add(new Alueraportti(aihe, viesti));
+        }
+
+        resultSet.close();
+        connection.close();
+
+        return raporttilista;
     }
 
     @Override
