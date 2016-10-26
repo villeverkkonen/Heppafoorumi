@@ -65,27 +65,46 @@ public class Tekstikayttoliittyma {
         // käsitellään aluevalikon syötteet.
 
         switch (komento) {
+            case "alue":
+                if (parametrit.isEmpty() || parametrit.size() != 1) {
+                    System.out.println("Virhe: komento alue ottaa yhden parametrin!\n"
+                            + "Käyttö: alue <alueId>");
+                    this.ohjeet();
+                    return;
+                }
+                int alueId = Integer.parseInt(parametrit.get(0));
+
+                Alue valittuAlue = alueDao.findOne(alueId);
+
+                if (valittuAlue == null) {
+                    System.out.println("Virhe: Ei löydetty aluetta, jonka alueId on " + alueId + "!");
+                    break;
+                }
+
+                this.missaValikossa = "aihevalikossa";
+                this.alue = valittuAlue;
+                break;
             case "alueet":
-                String parametrimerkkijono = String.join("", parametrit);
-                if (!parametrimerkkijono.isEmpty()) {
-//                    System.out.println("Virhe: komento alueet ei ota parametreja!");
-//                    this.ohjeet();
-//                    return;
+                if (!parametrit.isEmpty()) {
+                    System.out.println("Virhe: komento alueet ei ota parametreja!\n"
+                            + "Käyttö: alueet");
+                    this.ohjeet();
+                    return;
                 }
                 // listataan alueet.
-                System.out.println("  id aikaleima             otsikko ja kuvaus");
+                System.out.println("  id aikaleima             otsikko ##### kuvaus");
                 List<Alue> alueet = alueDao.findAll();
                 for (Alue alue : alueet) {
                     System.out.println(alue);
                 }
                 break;
             case "lisaa":
-                // lisätään alue.komento (
+                // lisätään alue.
                 if (parametrit.size() >= 2) {
                     alueDao.create(parametrit.get(0), parametrit.get(1));
                 } else {
-                    System.out.println("Annoit liian vähän parametrejä!"
-                            + "Käyttö: lisaa <otsikko> <kuvaus>");
+                    System.out.println("Annoit liian vähän parametrejä!\n"
+                            + "Käyttö: lisaa <otsikko> <teksti>");
                 }
                 break;
             default:
@@ -97,6 +116,32 @@ public class Tekstikayttoliittyma {
 
     private void aihevalikko(String komento, List<String> parametrit) throws SQLException {
         // käsitellään aihevalikon syötteet.
+
+        switch (komento) {
+            case "aiheet":
+                if (!parametrit.isEmpty()) {
+                    System.out.println("Virhe: komento aiheet ei ota parametreja!\n"
+                            + "Käyttö: aiheet");
+                    this.ohjeet();
+                    return;
+                }
+                // listataan aiheet.
+                System.out.println("id aikaleima             nimimerkki ##### otsikko ##### kuvaus");
+                List<Aihe> aiheet = aiheDao.findAll(this.alue.getId());
+                for (Aihe aihe : aiheet) {
+                    System.out.println(aihe);
+                }
+            case "lisaa":
+                // lisätään aihe.
+                if (parametrit.size() >= 3) {
+                    aiheDao.create(this.alue.getId(), parametrit.get(0), parametrit.get(1), parametrit.get(2));
+                } else {
+                    System.out.println("Annoit liian vähän parametrejä!\n"
+                            + "Käyttö: lisaa <nimimerkki> <otsikko> <teksti>");
+                }
+                break;
+            default:
+        }
     }
 
     private void viestivalikko(String komento, List<String> parametrit) throws SQLException {
