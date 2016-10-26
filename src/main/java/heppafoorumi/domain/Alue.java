@@ -84,6 +84,6 @@ public class Alue extends Kategoria {
 
     @Override
     public String toString() {
-        return String.format("%4d", this.getId()) + " " + this.getAikaleima() + " " + this.otsikko + " " + this.teksti;
+        return String.format("%4d", this.getId()) + " " + this.getAikaleima() + " " + this.otsikko + " ##### " + this.teksti;
     }
 }

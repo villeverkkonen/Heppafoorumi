@@ -85,7 +85,7 @@ public class Aihe extends Kategoria {
 
     @Override
     public String toString() {
-        return this.nimimerkki + ": " + super.toString();
+        return String.format("%4d", this.getId()) + " " + this.getAikaleima() + " " + this.nimimerkki + " ##### " + this.otsikko + " ##### " + this.getTeksti();
     }
 
     @Override

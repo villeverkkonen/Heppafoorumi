@@ -79,6 +79,7 @@ public class Heppafoorumi {
         if (tekstikayttoliittymaaKaytossa) {
             // käynnistetään tekstikäyttöliittymä.
             Tekstikayttoliittyma tekstikayttoliittyma = new Tekstikayttoliittyma(alueDao, aiheDao, viestiDao);
+
             tekstikayttoliittyma.kaynnista();
         } else {
             //        Aihe aihe1 = new Aihe(1, Timestamp.valueOf("2016-01-01 00:00:03"), ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
@@ -158,69 +159,68 @@ public class Heppafoorumi {
                 }
                 data.put("uusimmatViestit", uusimmatViestit);
 
-                return new ModelAndView(data, "viestit");
-            }, new ThymeleafTemplateEngine());
+            return new ModelAndView(data, "viestit");
+        }, new ThymeleafTemplateEngine());
 
-            post("/", (req, res) -> {
-                String otsikko = req.queryParams("otsikko");
-                String kuvaus = req.queryParams("kuvaus");
+        post("/", (req, res) -> {
+            String otsikko = req.queryParams("otsikko");
+            String kuvaus = req.queryParams("kuvaus");
 
-                if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
-                    alueDao.create(otsikko, kuvaus);
-                }
+            if (!otsikko.isEmpty() && !kuvaus.isEmpty()) {
+                alueDao.create(otsikko, kuvaus);
+            }
 
-                res.redirect("/");
-                return "";
-            });
+            res.redirect("/");
+            return "";
+        });
 
-            post("/aiheet/:alue", (req, res) -> {
-                String nimimerkki = req.queryParams("nimimerkki");
-                String aihe = req.queryParams("aihe");
-                String kuvaus = req.queryParams("kuvaus");
-                int alueId = Integer.parseInt(req.params(":alue"));
+        post("/aiheet/:alue", (req, res) -> {
+            String nimimerkki = req.queryParams("nimimerkki");
+            String aihe = req.queryParams("aihe");
+            String kuvaus = req.queryParams("kuvaus");
+            int alueId = Integer.parseInt(req.params(":alue"));
 
-                if (!nimimerkki.isEmpty() && !aihe.isEmpty() && !kuvaus.isEmpty()) {
-                    aiheDao.create(alueId, nimimerkki, aihe, kuvaus);
-                }
+            if (!nimimerkki.isEmpty() && !aihe.isEmpty() && !kuvaus.isEmpty()) {
+                aiheDao.create(alueId, nimimerkki, aihe, kuvaus);
+            }
 
-                res.redirect("/aiheet/" + alueId);
-                return "";
-            });
+            res.redirect("/aiheet/" + alueId);
+            return "";
+        });
 
-            post("/viestit/:alue_ja_aihe", (req, res) -> {
-                String alueJaAihe = req.params(":alue_ja_aihe");
-                int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
+        post("/viestit/:alue_ja_aihe", (req, res) -> {
+            String alueJaAihe = req.params(":alue_ja_aihe");
+            int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
 
-                String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
-                int aiheId = Integer.parseInt(aiheString);
+            String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
+            int aiheId = Integer.parseInt(aiheString);
 
-                String nimimerkki = req.queryParams("nimimerkki");
-                String viesti = req.queryParams("viesti");
+            String nimimerkki = req.queryParams("nimimerkki");
+            String viesti = req.queryParams("viesti");
 
-                viestiDao.create(aiheId, nimimerkki, viesti);
+            viestiDao.create(aiheId, nimimerkki, viesti);
 
-                res.redirect("/viestit/" + alueJaAihe);
-                return "";
-            });
+            res.redirect("/viestit/" + alueJaAihe);
+            return "";
+        });
 
-            //yritys delete napille
-            post("/viestit/:alue_ja_aihe_ja_viesti", (req, res) -> {
-                String alueJaAiheJaViesti = req.params(":alue_ja_aihe_ja_viesti");
-                int erotinmerkinIndeksi = alueJaAiheJaViesti.indexOf('-');
+        //yritys delete napille
+        post("/viestit/:alue_ja_aihe_ja_viesti", (req, res) -> {
+            String alueJaAiheJaViesti = req.params(":alue_ja_aihe_ja_viesti");
+            int erotinmerkinIndeksi = alueJaAiheJaViesti.indexOf('-');
 
-                String aiheString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 1, erotinmerkinIndeksi + 2);
-                String viestiString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 3);
+            String aiheString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 1, erotinmerkinIndeksi + 2);
+            String viestiString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 3);
 
-                int aiheId = Integer.parseInt(aiheString);
-                int viestiId = Integer.parseInt(viestiString);
+            int aiheId = Integer.parseInt(aiheString);
+            int viestiId = Integer.parseInt(viestiString);
 
-                viestiDao.delete(aiheId, viestiId);
+            viestiDao.delete(aiheId, viestiId);
 
-                String alueJaAihe = alueJaAiheJaViesti.substring(0, 2);
+            String alueJaAihe = alueJaAiheJaViesti.substring(0, 2);
 
-                res.redirect("/viestit/" + alueJaAihe);
-                return "";
-            });
-        }
+            res.redirect("/viestit/" + alueJaAihe);
+            return "";
+        });
     }
 }

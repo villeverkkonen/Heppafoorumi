@@ -6,6 +6,7 @@ import heppafoorumi.dao.ViestiDao;
 import heppafoorumi.domain.Aihe;
 import heppafoorumi.domain.Alue;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -17,6 +18,7 @@ public class Tekstikayttoliittyma {
     final ViestiDao viestiDao;
     String missaValikossa;
     boolean jatketaanko;
+    boolean kaynnistetaankoSpark;
     Alue alue;
     Aihe aihe;
 
@@ -26,6 +28,7 @@ public class Tekstikayttoliittyma {
         this.viestiDao = viestiDao;
         this.missaValikossa = "aluevalikossa"; // alussa ollaan alueet-valikossa
         this.jatketaanko = true;
+        this.kaynnistetaankoSpark = false;
         this.alue = null;
         this.aihe = null;
     }
@@ -54,39 +57,56 @@ public class Tekstikayttoliittyma {
                 this.missaValikossa = "aluevalikossa";
                 break;
         }
-        System.out.println("lopeta - poistuu tekstikäyttöliittymästä");
+        System.out.println("start - käynnistää Spark-palvelimen ja poistuu tekstikäyttöliittymästä"
+                + "lopeta - poistuu tekstikäyttöliittymästä");
     }
 
     private void aluevalikko(String komento, List<String> parametrit) throws SQLException {
         // käsitellään aluevalikon syötteet.
 
         switch (komento) {
+            case "alue":
+                if (parametrit.isEmpty() || parametrit.size() != 1) {
+                    System.out.println("Virhe: komento alue ottaa yhden parametrin!\n"
+                            + "Käyttö: alue <alueId>");
+                    this.ohjeet();
+                    return;
+                }
+                int alueId = Integer.parseInt(parametrit.get(0));
+
+                Alue valittuAlue = alueDao.findOne(alueId);
+
+                if (valittuAlue == null) {
+                    System.out.println("Virhe: Ei löydetty aluetta, jonka alueId on " + alueId + "!");
+                    break;
+                }
+
+                this.missaValikossa = "aihevalikossa";
+                this.alue = valittuAlue;
+                break;
             case "alueet":
-                String parametrimerkkijono = String.join("", parametrit);
-                if (!parametrimerkkijono.isEmpty()) {
-//                    System.out.println("Virhe: komento alueet ei ota parametreja!");
-//                    this.ohjeet();
-//                    return;
+                if (!parametrit.isEmpty()) {
+                    System.out.println("Virhe: komento alueet ei ota parametreja!\n"
+                            + "Käyttö: alueet");
+                    this.ohjeet();
+                    return;
                 }
                 // listataan alueet.
-                System.out.println("  id aikaleima             otsikko ja kuvaus");
+                System.out.println("  id aikaleima             otsikko ##### kuvaus");
                 List<Alue> alueet = alueDao.findAll();
                 for (Alue alue : alueet) {
                     System.out.println(alue);
                 }
                 break;
             case "lisaa":
-                // lisätään alue.komento (
+                // lisätään alue.
                 if (parametrit.size() >= 2) {
-
+                    alueDao.create(parametrit.get(0), parametrit.get(1));
+                } else {
+                    System.out.println("Annoit liian vähän parametrejä!\n"
+                            + "Käyttö: lisaa <otsikko> <teksti>");
                 }
-                alueDao.create(komento, komento);
-
                 break;
-            case "lopeta":
-                // poistutaan tekstikäyttöliitymästä.
-                this.jatketaanko = false;
-                return;
             default:
                 // virheellinen syöte. listataan aluevalikon ohjeet.
                 ohjeet();
@@ -96,13 +116,39 @@ public class Tekstikayttoliittyma {
 
     private void aihevalikko(String komento, List<String> parametrit) throws SQLException {
         // käsitellään aihevalikon syötteet.
+
+        switch (komento) {
+            case "aiheet":
+                if (!parametrit.isEmpty()) {
+                    System.out.println("Virhe: komento aiheet ei ota parametreja!\n"
+                            + "Käyttö: aiheet");
+                    this.ohjeet();
+                    return;
+                }
+                // listataan aiheet.
+                System.out.println("id aikaleima             nimimerkki ##### otsikko ##### kuvaus");
+                List<Aihe> aiheet = aiheDao.findAll(this.alue.getId());
+                for (Aihe aihe : aiheet) {
+                    System.out.println(aihe);
+                }
+            case "lisaa":
+                // lisätään aihe.
+                if (parametrit.size() >= 3) {
+                    aiheDao.create(this.alue.getId(), parametrit.get(0), parametrit.get(1), parametrit.get(2));
+                } else {
+                    System.out.println("Annoit liian vähän parametrejä!\n"
+                            + "Käyttö: lisaa <nimimerkki> <otsikko> <teksti>");
+                }
+                break;
+            default:
+        }
     }
 
     private void viestivalikko(String komento, List<String> parametrit) throws SQLException {
         // käsitellään viestivalikon syötteet.
     }
 
-    public void kaynnista() throws SQLException {
+    public boolean kaynnista() throws SQLException {
         Scanner lukija = new Scanner(System.in);
         this.ohjeet();
 
@@ -141,7 +187,7 @@ public class Tekstikayttoliittyma {
                 // Huom. komentoa ei pidä laittaa hipsuihin, kaikki parametrit
                 // sen sijaan kyllä, jos käytetään hipsuja. Vaihtoehtoisesti ei
                 // yhtään hipsua. Tekstikäyttöliittymä ei toistaiseksi
-                // mahdollista hipsuja syöttämistä parametreihin.
+                // mahdollista hipsujen syöttämistä parametreihin.
 
                 osat = syote.split("'");
 
@@ -178,7 +224,18 @@ public class Tekstikayttoliittyma {
             }
 
             String komento = osat[0].trim();
-            List<String> parametrit = Arrays.asList(osat);
+            List<String> parametritList = Arrays.asList(osat);
+            ArrayList<String> parametrit = new ArrayList(parametritList);
+            parametrit.remove(0);
+
+            if (komento.equals("start")) {
+                this.jatketaanko = false;
+                this.kaynnistetaankoSpark = true;
+                continue;
+            } else if (komento.equals("lopeta")) {
+                this.jatketaanko = false;
+                continue;
+            }
 
             switch (this.missaValikossa) {
                 case "aluevalikossa":
@@ -198,5 +255,6 @@ public class Tekstikayttoliittyma {
         }
         System.out.println("Poistuit Heppafoorumin tekstikäyttöliittymästä.\n"
                 + "Kiitos ja tervetuloa uudelleen!");
+        return this.kaynnistetaankoSpark;
     }
 }
