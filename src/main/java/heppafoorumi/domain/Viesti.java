@@ -88,7 +88,7 @@ public class Viesti extends Kategoria {
     
     public String getUusimmat() {
         String aikaleimaString = this.aikaleima.toString();
-        aikaleimaString = aikaleimaString.substring(0, aikaleimaString.lastIndexOf(':'));
+        aikaleimaString = aikaleimaString.substring(0, aikaleimaString.lastIndexOf('.'));
         return this.nimimerkki + " " + this.teksti + " (" + aikaleimaString + ")";
     }
 
