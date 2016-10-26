@@ -176,21 +176,37 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         return viestit;
     }
     
-    public Viesti findUusinViestiAiheessa(int aiheId) throws SQLException {
-        Connection connection = database.getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM Viesti WHERE aiheId = " + aiheId 
-                + " ORDER BY aikaleima DESC LIMIT 1");
-        
-        Viesti viesti = null;
-        
-        while (resultSet.next()) {
-            Integer viestiId = resultSet.getInt("viesti_id");
-            Timestamp viestiAikaleima = resultSet.getTimestamp("viesti_aikaleima");
-            String viestiNimimerkki = resultSet.getString("viesti_nimimerkki");
-            String viestiTeksti = resultSet.getString("viesti_teksti");
+    public Viesti findAiheenUusinViesti(int aiheId) throws SQLException {
 
-            viesti = new Viesti(this.database, viestiId, viestiAikaleima, aiheId, viestiNimimerkki, viestiTeksti);
+        Connection connection = database.getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+                + "viesti.id AS viesti_id, "
+                + "viesti.aikaleima AS viesti_aikaleima, "
+                + "viesti.aihe AS viesti_aihe, "
+                + "viesti.nimimerkki AS viesti_nimimerkki, "
+                + "viesti.teksti AS viesti_teksti "
+                + "FROM Viesti viesti "
+                + "WHERE viesti_aihe = " + aiheId
+                + " GROUP BY viesti_aikaleima DESC LIMIT 1");
+
+        Integer viestiId = null;
+        Timestamp viestiAikaleima = null;
+        String viestiNimimerkki = null;
+        String viestiTeksti = null;
+
+        while (resultSet.next()) {
+            viestiId = resultSet.getInt("viesti_id");
+            viestiAikaleima = resultSet.getTimestamp("viesti_aikaleima");
+            viestiNimimerkki = resultSet.getString("viesti_nimimerkki");
+            viestiTeksti = resultSet.getString("viesti_teksti");
+
         }
+        
+        Viesti viesti = new Viesti(this.database, viestiId, viestiAikaleima, aiheId, viestiNimimerkki, viestiTeksti);
+
+        resultSet.close();
+        connection.close();
+
         return viesti;
     }
     

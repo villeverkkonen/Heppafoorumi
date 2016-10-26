@@ -162,11 +162,11 @@
             </ul>
             
 
-            <button data-toggle="collapse" data-target="#uusimmat" class="btn btn-info">Uusimmat 5 viesti&auml;</button>
+            <button data-toggle="collapse" data-target="#uusimmatViestit" class="btn btn-info">Uusimmat 5 viesti&auml;</button>
             
-            <div id="uusimmat" class="collapse">
-                <p th:each="uusin : ${uusimmat}">
-                    <span style="color: coral" th:text="${uusin.uusimmat}">viesti</span>
+            <div id="uusimmatViestit" class="collapse">
+                <p th:each="uusinViesti : ${uusimmatViestit}">
+                    <span style="color: coral" th:text="${uusinViesti.uusimmat}">viesti</span>
                 </p>
             </div>
             

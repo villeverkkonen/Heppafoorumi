@@ -114,12 +114,13 @@ public class Heppafoorumi {
                 List<Aihe> aiheet = aiheDao.findAll(alueId);
                 data.put("aiheet", aiheet);
 
-                //yritys tulostaa joka alueen uusimman viestin timestamp
-                //List<Viesti> uusinViesti = new ArrayList<>();
-                //for (Aihe aihe : aiheet) {
-                //    uusinViesti.add(viestiDao.findUusinViestiAiheessa(aihe.getId()));
-                //}
-                //data.put("uusinViesti", uusinViesti);
+                //yritys tulostaa joka aiheen uusimman viestin timestamp
+                List<Viesti> uusinViesti = new ArrayList<>();
+                for (Aihe aihe : aiheet) {
+                    uusinViesti.add(viestiDao.findAiheenUusinViesti(aihe.getId()));
+                }
+                data.put("uusinViesti", uusinViesti);
+                
                 //yritys näyttää jokaisen aiheen kaikkien viestien kokonaismäärä
                 //List<String> viestitYhteensa = new ArrayList<>();
                 //for (Aihe aihe : aiheet) {
@@ -147,15 +148,15 @@ public class Heppafoorumi {
                 data.put("viestit", viestit);
 
                 //viiden uusimman viestin näyttäminen
-                List<Viesti> uusimmat = new ArrayList<>();
+                List<Viesti> uusimmatViestit = new ArrayList<>();
                 List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
                 Collections.reverse(kaanteinenLista);
                 for (Viesti viesti : kaanteinenLista) {
-                    if (uusimmat.size() < 5) {
-                        uusimmat.add(viesti);
+                    if (uusimmatViestit.size() < 5) {
+                        uusimmatViestit.add(viesti);
                     }
                 }
-                data.put("uusimmat", uusimmat);
+                data.put("uusimmatViestit", uusimmatViestit);
 
                 return new ModelAndView(data, "viestit");
             }, new ThymeleafTemplateEngine());

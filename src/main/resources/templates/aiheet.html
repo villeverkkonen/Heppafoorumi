@@ -151,7 +151,7 @@
                 
                 <a href="#" th:href="@{~/viestit/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aihe.id})}"
                    th:text="${aihe.otsikko}" class="list-group-item list-group-item-info">aihe</a>
-                <!--<p th:each="viesti : ${uusinViesti}"> Uusin viesti <span th:text="${viesti.timestamp}" class="span">aikaleima</span> </p>-->
+                <p th:each="viesti : ${uusinViesti}"> Uusin viesti: <span th:text="${viesti.timestamp}" class="span">aikaleima</span> </p>
                 <span th:text="${aihe.kuvaus}" class="span">kuvaus</span>
                 
             </div>
