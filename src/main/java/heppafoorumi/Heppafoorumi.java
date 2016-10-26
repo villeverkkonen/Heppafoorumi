@@ -116,11 +116,15 @@ public class Heppafoorumi {
                 data.put("aiheet", aiheet);
 
                 //yritys tulostaa joka aiheen uusimman viestin timestamp
-                List<Viesti> uusinViesti = new ArrayList<>();
-                for (Aihe aihe : aiheet) {
-                    uusinViesti.add(viestiDao.findAiheenUusinViesti(aihe.getId()));
+                List<Viesti> uusimmatViestit = new ArrayList<>();
+                for (Aihe aihe : aiheet) {                                                              //käydään läpi kaikki alueen aiheet, jotta saadaan kunkin aiheen id
+                    List<Viesti> lista = viestiDao.findAiheidenUusimmatViestit(alueId, aihe.getId());   //Kutsutaan metodia, jonka pitäisi ainakin palauttaa joka aiheen uusimman viestin
+                    for (Viesti viesti : lista) {                                                       //käydään lista läpi, siellä pitäisi olla kerrallaan aina vain yksi Viesti-olio,
+                        uusimmatViestit.add(viesti);                                                    //eli uusimmatViestit.add(lista.get(0)); pitäisi must toimia myös mut sillon räjähtää,
+                    }                                                                                   //koska valittaa että indexOutOfBounds, tyhjä lista, ei saada getattua.
+                    
                 }
-                data.put("uusinViesti", uusinViesti);
+                data.put("uusinViesti", uusimmatViestit);
                 
                 //yritys näyttää jokaisen aiheen kaikkien viestien kokonaismäärä
                 //List<String> viestitYhteensa = new ArrayList<>();
@@ -222,5 +226,6 @@ public class Heppafoorumi {
             res.redirect("/viestit/" + alueJaAihe);
             return "";
         });
+        }
     }
 }
