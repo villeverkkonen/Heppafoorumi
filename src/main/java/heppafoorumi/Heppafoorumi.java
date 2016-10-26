@@ -157,15 +157,10 @@ public class Heppafoorumi {
             List<Viesti> viestit = viestiDao.findAll(aiheId);
             data.put("viestit", viestit);
 
-            //viiden uusimman viestin näyttäminen
-            List<Viesti> uusimmatViestit = new ArrayList<>();
-            List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
+            // viiden uusimman viestin näyttäminen
+            List<Viesti> kaanteinenLista = new ArrayList(viestit);
             Collections.reverse(kaanteinenLista);
-            for (Viesti viesti : kaanteinenLista) {
-                if (uusimmatViestit.size() < 5) {
-                    uusimmatViestit.add(viesti);
-                }
-            }
+            List<Viesti> uusimmatViestit = viestit.subList(0, 5);
             data.put("uusimmatViestit", uusimmatViestit);
 
             return new ModelAndView(data, "viestit");
