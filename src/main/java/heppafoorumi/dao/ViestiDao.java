@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import heppafoorumi.database.Database;
-import heppafoorumi.domain.Aihe;
-import heppafoorumi.domain.Alue;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 
