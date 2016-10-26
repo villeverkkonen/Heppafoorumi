@@ -148,12 +148,12 @@
             <h2 class="h2">Voit lis&auml;t&auml; uusia aiheita t&auml;lle alueelle tai valita jo valmiiksi olevan</h2>
             <hr/>
             <div th:each="aihe : ${aiheet}" class="list-group">
-                
+                <p th:each="viesti : ${uusimmatViestit}">
                 <a href="#" th:href="@{~/viestit/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aihe.id})}"
                    th:text="${aihe.otsikko}" class="list-group-item list-group-item-info">aihe</a>
-                <p th:each="viesti : ${uusimmatViestit}"> Uusin viesti: <span th:text="${viesti.timestamp}" class="span">aikaleima</span> </p>
+                Uusin viesti: <span th:text="${viesti.timestamp}" class="span">aikaleima</span>
                 <span th:text="${aihe.kuvaus}" class="span">kuvaus</span>
-                
+                </p>
             </div>
 
             <form th:action="@{~/aiheet/{alueid}(alueid=${alue.id})}" method="POST" class="form-inline">

@@ -124,7 +124,7 @@ public class Heppafoorumi {
                     }                                                                                   //koska valittaa että indexOutOfBounds, tyhjä lista, ei saada getattua.
                     
                 }
-                data.put("uusinViesti", uusimmatViestit);
+                data.put("uusimmatViestit", uusimmatViestit);
                 
                 //yritys näyttää jokaisen aiheen kaikkien viestien kokonaismäärä
                 //List<String> viestitYhteensa = new ArrayList<>();
