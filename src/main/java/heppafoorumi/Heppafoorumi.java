@@ -160,7 +160,7 @@ public class Heppafoorumi {
             // viiden uusimman viestin näyttäminen
             List<Viesti> kaanteinenLista = new ArrayList(viestit);
             Collections.reverse(kaanteinenLista);
-            List<Viesti> uusimmatViestit = viestit.subList(0, 5);
+            List<Viesti> uusimmatViestit = kaanteinenLista.subList(0, Math.min(kaanteinenLista.size(), 5));
             data.put("uusimmatViestit", uusimmatViestit);
 
             return new ModelAndView(data, "viestit");
