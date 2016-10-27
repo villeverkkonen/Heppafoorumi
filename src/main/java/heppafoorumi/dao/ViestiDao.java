@@ -13,9 +13,19 @@ import java.sql.Timestamp;
 public class ViestiDao implements Dao<Viesti, Integer> {
 
     private final Database database;
+    private KaikkiDao kaikkiDao;
 
     public ViestiDao(Database database) {
         this.database = database;
+        this.kaikkiDao = null;
+    }
+
+    public KaikkiDao getKaikkiDao() {
+        return kaikkiDao;
+    }
+
+    public void setKaikkiDao(KaikkiDao kaikkiDao) {
+        this.kaikkiDao = kaikkiDao;
     }
 
     @Override

@@ -83,6 +83,10 @@ public class Heppafoorumi {
         kaikkiDao.setAiheDao(aiheDao);
         kaikkiDao.setViestiDao(viestiDao);
 
+        alueDao.setKaikkiDao(kaikkiDao);
+        aiheDao.setKaikkiDao(kaikkiDao);
+        viestiDao.setKaikkiDao(kaikkiDao);
+
         if (tekstikayttoliittymaaKaytossa) {
             // käynnistetään tekstikäyttöliittymä.
             Tekstikayttoliittyma tekstikayttoliittyma = new Tekstikayttoliittyma(alueDao, aiheDao, viestiDao);

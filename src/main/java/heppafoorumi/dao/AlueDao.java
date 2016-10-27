@@ -16,9 +16,19 @@ import java.sql.Timestamp;
 public class AlueDao implements Dao<Alue, Integer> {
 
     private final Database database;
+    private KaikkiDao kaikkiDao;
 
     public AlueDao(Database database) {
         this.database = database;
+        this.kaikkiDao = null;
+    }
+
+    public KaikkiDao getKaikkiDao() {
+        return kaikkiDao;
+    }
+
+    public void setKaikkiDao(KaikkiDao kaikkiDao) {
+        this.kaikkiDao = kaikkiDao;
     }
 
     @Override
