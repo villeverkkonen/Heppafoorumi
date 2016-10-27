@@ -82,7 +82,7 @@
                 text-align: left;
                 margin-left: 10px;
             }
-            
+
             .span {
                 font-size: 24px;
             }
@@ -124,15 +124,15 @@
             .btn-success {
 
             }
-            
+
             .collapse {
-                
+
             }
-            
+
             .btn-info {
-                
+
             }
-            
+
         </style>
     </head>
     <body class="body">
@@ -147,29 +147,28 @@
             <a href="../">
                 <img class="img" src="/images/hevonen.jpg" alt="Uljas hevonen"></img>
             </a>
-            <h2 class="h2">Osallistu keskusteluun lis&auml;&auml;m&auml;ll&auml; viesti</h2>
-
-            
-            <ul>
-                <li th:each="viesti : ${viestit}">
-                    <form th:action="@{~/viestit/{alueid}-{aiheid}-{viestiid}(alueid=${alue_string}, aiheid=${aihe.id}, viestiid=${viesti.id})}" method="POST" class="form-inline">
-                    <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
-                    <span style="color: brown" th:text="${viesti.teksti}" class="span">teksti</span>
-                    <span style="color: blueviolet" th:text="${(viesti.timestamp)}" class="span">timestamp</span>
-                    <button type="submit" class="btn btn-warning">Poista!</button>
-                    </form>
-                </li>
-            </ul>
-            
 
             <button data-toggle="collapse" data-target="#uusimmatViestit" class="btn btn-info">Uusimmat 5 viesti&auml;</button>
-            
+
             <div id="uusimmatViestit" class="collapse">
                 <p th:each="uusinViesti : ${uusimmatViestit}">
                     <span style="color: coral" th:text="${uusinViesti.uusimmat}">viesti</span>
                 </p>
             </div>
-            
+
+            <h2 class="h2">Osallistu keskusteluun lis&auml;&auml;m&auml;ll&auml; viesti</h2>
+
+            <ul>
+                <li th:each="viesti : ${viestit}">
+                    <form th:action="@{~/viestit/{alueid}-{aiheid}-{viestiid}(alueid=${alue_string}, aiheid=${aihe.id}, viestiid=${viesti.id})}" method="POST" class="form-inline">
+                        <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
+                        <span style="color: brown" th:text="${viesti.teksti}" class="span">teksti</span>
+                        <span style="color: blueviolet" th:text="${(viesti.timestamp)}" class="span">timestamp</span>
+                        <button type="submit" class="btn btn-warning">Poista!</button>
+                    </form>
+                </li>
+            </ul>
+
             <form th:action="@{~/viestit/{alueid}-{aiheid}(alueid=${alue_string}, aiheid=${aihe.id})}" method="POST" class="form-inline">
                 <div class="form-group">
                     <label>Nimimerkki:</label>

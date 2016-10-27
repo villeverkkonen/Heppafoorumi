@@ -14,7 +14,11 @@ import static spark.Spark.get;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
+<<<<<<< HEAD
 import heppafoorumi.domain.AiheTiedot;
+=======
+import heppafoorumi.domain.Alueraportti;
+>>>>>>> 8d9a548ca9200eac01f5b332f97b43229059c338
 import heppafoorumi.domain.Viesti;
 import heppafoorumi.tekstikayttoliittyma.Tekstikayttoliittyma;
 import java.util.ArrayList;
@@ -81,8 +85,12 @@ public class Heppafoorumi {
             // käynnistetään tekstikäyttöliittymä.
             Tekstikayttoliittyma tekstikayttoliittyma = new Tekstikayttoliittyma(alueDao, aiheDao, viestiDao);
 
-            tekstikayttoliittyma.kaynnista();
-        } else {
+            boolean kaynnistetaanko = tekstikayttoliittyma.kaynnista();
+
+            if (!kaynnistetaanko) {
+                return;
+            }
+        }
             //        Aihe aihe1 = new Aihe(1, Timestamp.valueOf("2016-01-01 00:00:03"), ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
             // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
             // Heppafoorumin pääsivu.
@@ -254,6 +262,5 @@ public class Heppafoorumi {
             res.redirect("/viestit/" + alueJaAihe);
             return "";
         });
-        }
     }
 }

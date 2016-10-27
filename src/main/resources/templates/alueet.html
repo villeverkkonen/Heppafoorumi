@@ -152,10 +152,12 @@
 
             <h2 class="h2">Valitse mieleisesi alue:</h2>
             <div class="list-group">
-                    <div th:each="alue : ${alueet}" class="list-group">
-                            <a href="#" th:href="@{~/aiheet/{id}(id=${alue.id})}" th:text="${alue.otsikko}" class="list-group-item list-group-item-info">alue</a>
-                            <span th:text="${alue.teksti}" class="span">kuvaus</span>
-                    </div>
+                <div th:each="alueraportti : ${alueraportit}" class="list-group">
+                    <a href="#" th:href="@{~/aiheet/{id}(id=${alueraportti.alueId})}" th:text="${alueraportti.alueOtsikko}" class="list-group-item list-group-item-info">alue</a>
+                    <span th:text="${alueraportti.alueTeksti}" class="span">kuvaus</span>
+                    <span>Uusin aihe: </span>
+                    <span><a href="#" th:href="@{~/viestit/{alueid}-{aiheid}(alueid=${alueraportti.alueId}, aiheid=${alueraportti.aiheId})}" th:text="${alueraportti.aiheNimimerkki}" class="span">aikaleima</a></span>
+                </div>
             </div>
 
             <form action="/" method="POST" class="form-inline">

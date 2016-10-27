@@ -19,6 +19,7 @@ public class Aihe extends Kategoria {
     // FOREIGN KEY(alue) REFERENCES Alue(id);
     private final int alue;
     private final String otsikko;
+    private final Timestamp aikaleima;
 
     private final Database database;
 
@@ -50,6 +51,7 @@ public class Aihe extends Kategoria {
         this.nimimerkki = nimimerkki.substring(0, Math.min(nimimerkki.length(), NIMIMERKIN_PITUUS));
         this.otsikko = otsikko.substring(0, Math.min(otsikko.length(), OTSIKON_PITUUS));
         this.kuvaus = teksti;
+        this.aikaleima = aikaleima;
         this.aiheId = id;
     }
 
