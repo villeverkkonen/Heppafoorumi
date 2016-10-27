@@ -160,7 +160,7 @@
 
             <ul>
                 <li th:each="viesti : ${viestit}">
-                    <form th:action="@{~/aihe/{alueid}-{aiheid}-{viestiid}(alueid=${alue_string}, aiheid=${aihe.id}, viestiid=${viesti.id})}" method="POST" class="form-inline">
+                    <form th:action="@{~/aihe/{viestiid}-{alueid}-{aiheid}(viestiid=${viesti.id}, alueid=${alue_string}, aiheid=${aihe.id})}" method="POST" class="form-inline">
                         <p>
                         <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
                         <span class="span">(<span style="color: blueviolet" th:text="(${viesti.timestamp})" class="span">timestamp</span>)</span>

@@ -155,7 +155,8 @@
             <div class="list-group">
                 <div th:each="aiheraportti : ${aiheraportit}" class="list-group">
                     <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aihe</a>
-                    <span th:text="${aiheraportti.aiheTeksti}" class="span">kuvaus</span>
+                    <span class="span">Aloittaja:</span><span th:text="${aiheraportti.aiheNimimerkki}" class="span" style="color: red">nimimerkki</span>
+                    <span class="span">Kuvaus:</span><span th:text="${aiheraportti.aiheTeksti}" class="span" style="color: brown">kuvaus</span>
                     <p class="p">
                         <span>Uusin viesti: </span>
                         <span th:if="${aiheraportti.viestiId == null}" th:text="Ei viestejä">Ei viestejä</span>

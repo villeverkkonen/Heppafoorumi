@@ -165,7 +165,7 @@ public class Heppafoorumi {
                 aiheDao.create(alueId, nimimerkki, aihe, kuvaus);
             }
 
-            res.redirect("/aiheet/" + alueId);
+            res.redirect("/alue/" + alueId);
             return "";
         });
 
@@ -181,26 +181,25 @@ public class Heppafoorumi {
 
             viestiDao.create(aiheId, nimimerkki, viesti);
 
-            res.redirect("/viestit/" + alueJaAihe);
+            res.redirect("/aihe/" + alueJaAihe);
             return "";
         });
 
         //yritys delete napille
-        post("/aihe/:alue_ja_aihe_ja_viesti", (req, res) -> {
-            String alueJaAiheJaViesti = req.params(":alue_ja_aihe_ja_viesti");
-            int erotinmerkinIndeksi = alueJaAiheJaViesti.indexOf('-');
+        post("/aihe/:viesti_ja_alue_ja_aihe", (req, res) -> {
+            String viestiJaAlueJaAihe = req.params(":viesti_ja_alue_ja_aihe");
 
-            String aiheString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 1, erotinmerkinIndeksi + 2);
-            String viestiString = alueJaAiheJaViesti.substring(erotinmerkinIndeksi + 3);
+            String aiheString = viestiJaAlueJaAihe.substring(4);
+            String viestiString = viestiJaAlueJaAihe.substring(0);
 
             int aiheId = Integer.parseInt(aiheString);
             int viestiId = Integer.parseInt(viestiString);
 
             viestiDao.delete(aiheId, viestiId);
 
-            String alueJaAihe = alueJaAiheJaViesti.substring(0, 2);
+            String alueJaAihe = viestiJaAlueJaAihe.substring(2, 4);
 
-            res.redirect("/viestit/" + alueJaAihe);
+            res.redirect("/aihe/" + alueJaAihe);
             return "";
         });
     }

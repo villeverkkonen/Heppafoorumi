@@ -173,7 +173,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
     public void delete(int aiheId, int viestiId) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM Viesti WHERE aiheId = ?, id = ?");
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM Viesti WHERE aihe = ? AND id = ?");
         statement.setObject(1, aiheId);
         statement.setObject(2, viestiId);
 
