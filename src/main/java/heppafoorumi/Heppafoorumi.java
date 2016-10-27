@@ -115,8 +115,12 @@ public class Heppafoorumi {
             Alue alue = alueDao.findOne(alueId);
             data.put("alue", alue);
 
-            List<Aiheraportti> aiheraportit = aiheDao.findTarpeellisetTiedot(alueId);
-            data.put("aiheraportit", aiheraportit);
+            List<Aiheraportti> apuLista = aiheDao.findTarpeellisetTiedot(alueId);
+            List<Aiheraportti> kymmenenAihetta = apuLista.subList(0, Math.min(apuLista.size(), 10));
+            data.put("kymmenenAihetta", kymmenenAihetta);
+            
+            List<Aiheraportti> kaikkiAiheet = aiheDao.findTarpeellisetTiedot(alueId);
+            data.put("kaikkiAiheet", kaikkiAiheet);
 
             return new ModelAndView(data, "aiheet");
         }, new ThymeleafTemplateEngine());
@@ -138,12 +142,12 @@ public class Heppafoorumi {
             List<Viesti> viestit = viestiDao.findAll(aiheId);
             data.put("viestit", viestit);
 
-            //viiden uusimman viestin näyttäminen
+            //kymmenen uusimman viestin näyttäminen
             List<Viesti> uusimmatViestit = new ArrayList<>();
             List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
             Collections.reverse(kaanteinenLista);
             for (Viesti viesti : kaanteinenLista) {
-                if (uusimmatViestit.size() < 5) {
+                if (uusimmatViestit.size() < 10) {
                     uusimmatViestit.add(viesti);
                 }
             }

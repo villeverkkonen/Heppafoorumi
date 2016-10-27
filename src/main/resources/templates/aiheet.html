@@ -151,10 +151,20 @@
             </a>
             <h2 class="h2">Voit lis&auml;t&auml; uusia aiheita t&auml;lle alueelle tai valita jo valmiiksi olevan</h2>
             <hr/>
-
+            
+            <button data-toggle="collapse" data-target="#uusimmatAiheet" class="btn btn-info">Uusimmat 10 aihetta</button>
+            <br/>
+            <div id="uusimmatAiheet" class="collapse">
+                <p th:each="aiheraportti : ${kaikkiAiheet}">
+                    <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aiheraportti</a>
+                    <span class="span">Aloittaja:</span><span th:text="${aiheraportti.aiheNimimerkki}" class="span" style="color: red">nimimerkki</span>
+                    <span class="span">Kuvaus:</span><span th:text="${aiheraportti.aiheTeksti}" class="span" style="color: brown" style="margin-left: 25px">kuvaus</span>
+                </p>
+            </div>
+            <br/>
             <div class="list-group">
-                <div th:each="aiheraportti : ${aiheraportit}" class="list-group">
-                    <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aihe</a>
+                <div th:each="aiheraportti : ${kymmenenAihetta}" class="list-group">
+                    <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aiheraportti</a>
                     <span class="span">Aloittaja:</span><span th:text="${aiheraportti.aiheNimimerkki}" class="span" style="color: red">nimimerkki</span>
                     <span class="span">Kuvaus:</span><span th:text="${aiheraportti.aiheTeksti}" class="span" style="color: brown">kuvaus</span>
                     <p class="p">
@@ -162,7 +172,7 @@
                         <span th:if="${aiheraportti.viestiId == null}" th:text="Ei viestejä">Ei viestejä</span>
                         <span th:if="${aiheraportti.viestiNimimerkki != null}" th:text="${aiheraportti.viestiNimimerkki}" style="color: red">viestiNimimerkki</span>
                         <span th:if="${aiheraportti.viestiTeksti != null}" th:text="${aiheraportti.viestiTeksti}" style="color: brown">viestiTeksti</span>
-                        <span th:if="${aiheraportti.viestiAikaleima != null}" th:text="${aiheraportti.viestiAikaleima}" style="color: blueviolet">aiheAikaleima</span>
+                        <span th:if="${aiheraportti.viestiAikaleima != null}" th:text="${aiheraportti.viestiAikaleima}" style="color: blueviolet">aiheraporttiAikaleima</span>
                     </p>
                 </div>
             </div>
@@ -173,8 +183,8 @@
                     <input type="text" name="nimimerkki" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <label>Lis&auml;&auml; aihe:</label>
-                    <input type="text" name="aihe" class="form-control"/>
+                    <label>Lis&auml;&auml; aiheraportti:</label>
+                    <input type="text" name="aiheraportti" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label>Kuvaus:</label>
