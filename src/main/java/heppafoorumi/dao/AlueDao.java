@@ -90,7 +90,7 @@ public class AlueDao implements Dao<Alue, Integer> {
                 + "        ON (viesti.aihe = aihe.id) "
                 + "    WHERE (viesti.id = "
                 + "        (SELECT MAX(id) FROM viesti AS uusin_viesti "
-                + "            WHERE uusin_viesti.aihe = aihe.id)"
+                + "            WHERE uusin_viesti.aihe = aihe.id) "
                 + "        OR viesti.id IS NULL) "
                 + "    AND (aihe.id = "
                 + "        (SELECT MAX(id) FROM aihe AS uusin_aihe "

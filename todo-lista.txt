@@ -21,7 +21,7 @@ SQL-injektioiden tekemiseen.
 Tämän lisäksi on hyvä rajoittaa sivun toiminnallisuutta siten,
 että käyttäjä ei voi syöttää HTML-koodia tietokantaan
 
-- 
+- delete nappi viesteissä, ei pakollinen
 
 Tehdyt työt: 
 
