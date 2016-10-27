@@ -7,8 +7,6 @@ joka ei ole uusin.
 - alueet.html ja aiheet.html -sivuilla timestamp tulostuu millisekunnin tarkkuudella,
 sekunnin tarkkuudella riittää.
 
-- Viestien kokonaismäärän tulostaminen alueet.html ja aiheet.html
-
 - Alueet tulee järjestää alueen nimen perusteella
 
 - Rajoittakaa keskustelunavausten määrää niin, että aihealuekohtaisella listalla
@@ -36,3 +34,5 @@ Tehdyt työt:
 
 - Rajoittakaa keskustelunavausten määrää niin, että aihealuekohtaisella listalla
 näytetään aina kymmenen uusinta keskustelunavausta
+
+- Viestien kokonaismäärän tulostaminen alueet.html ja aiheet.html
