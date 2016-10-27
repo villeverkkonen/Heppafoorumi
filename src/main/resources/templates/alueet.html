@@ -167,6 +167,12 @@
             <div class="list-group">
                 <div th:each="alueraportti : ${alueraportit}" class="list-group">
                     <a href="#" th:href="@{~/alue/{id}(id=${alueraportti.alueId})}" th:text="${alueraportti.alueOtsikko}" class="list-group-item list-group-item-info">alue</a>
+                    <p>
+                        <span class="span">Aiheiden lukumäärä:</span><span th:text="${alueraportti.aiheidenLkm}" class="span">nimimerkki</span>
+                    </p>
+                    <p>
+                        <span class="span">Viestien lukumäärä:</span><span th:text="${alueraportti.viestienLkm}" class="span">nimimerkki</span>
+                    </p>
                     <span class="span">Kuvaus:</span><span th:text="${alueraportti.alueTeksti}" style="color: brown" class="span">kuvaus</span>
                     <p class="p">
                         <span>Uusin aihe: </span>
