@@ -9,7 +9,6 @@ import java.util.List;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Alue;
 import heppafoorumi.domain.Aiheraportti;
-import heppafoorumi.domain.Alueraportti;
 import heppafoorumi.domain.Viesti;
 import java.sql.PreparedStatement;
 import java.sql.Timestamp;
@@ -150,40 +149,39 @@ public class AiheDao implements Dao<Aihe, Integer> {
         return aiheet;
     }
 
-    public List<Aiheraportti> findTarpeellisetTiedot() throws SQLException {
-//        Connection connection = database.getConnection();
-//        ResultSet resultSet = connection.createStatement().executeQuery(
-//                "SELECT * FROM Alue AS alue "
-//                + "    LEFT JOIN Aihe AS aihe "
-//                + "    ON (aihe.alue = alue.id) "
-//                + "    WHERE (aihe.id = "
-//                + "        (SELECT MAX(id) FROM aihe AS uusin_aihe "
-//                + "            WHERE uusin_aihe.alue = alue.id) "
-//                + "        OR aihe.id IS NULL)");
+    public List<Aiheraportti> findTarpeellisetTiedot(int aiheId) throws SQLException {
+        Connection connection = database.getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery(
+                "SELECT * FROM Aihe AS aihe "
+                + "    LEFT JOIN Viesti AS viesti "
+                + "    ON (viesti.aihe = aihe.id) "
+                + "    WHERE (viesti.id = "
+                + "        (SELECT MAX(id) FROM viesti AS uusin_viesti "
+                + "            WHERE uusin_viesti.aihe = aihe.id) "
+                + "        OR viesti.id IS NULL) "
+                + "        AND aihe.id = " + aiheId);
 
         List<Aiheraportti> raporttilista = new ArrayList();
 
-//        while (resultSet.next()) {
-//            Integer alueId = resultSet.getInt("alue.id");
-//            Timestamp alueAikaleima = resultSet.getTimestamp("alue.aikaleima");
-//            String alueOtsikko = resultSet.getString("alue.otsikko");
-//            String alueTeksti = resultSet.getString("alue.teksti");
-//
-//            Integer aiheId = resultSet.getInt("aihe.id");
-//            Timestamp aiheAikaleima = resultSet.getTimestamp("aihe.aikaleima");
-//            Integer aiheAlue = resultSet.getInt("aihe.alue");
-//            String aiheNimimerkki = resultSet.getString("aihe.nimimerkki");
-//            String aiheOtsikko = resultSet.getString("aihe.otsikko");
-//            String aiheTeksti = resultSet.getString("aihe.teksti");
-//
-//            Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
-//            Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, aiheAlue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
-//            Viesti viesti = null; // TODO!
-//            raporttilista.add(new Alueraportti(alue, aihe, viesti));
-//        }
-//
-//        resultSet.close();
-//        connection.close();
+        while (resultSet.next()) {
+            Timestamp aiheAikaleima = resultSet.getTimestamp("aihe.aikaleima");
+            Integer aiheAlue = resultSet.getInt("aihe.alue");
+            String aiheNimimerkki = resultSet.getString("aihe.nimimerkki");
+            String aiheOtsikko = resultSet.getString("aihe.otsikko");
+            String aiheTeksti = resultSet.getString("aihe.teksti");
+
+            Integer viestiId = resultSet.getInt("viesti.id");
+            Timestamp viestiAikaleima = resultSet.getTimestamp("viesti.aikaleima");
+            String viestiNimimerkki = resultSet.getString("viesti.nimimerkki");
+            String viestiTeksti = resultSet.getString("viesti.teksti");
+
+            Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, aiheAlue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+            Viesti viesti = new Viesti(this.database, viestiId, viestiAikaleima, aiheId, viestiNimimerkki, viestiTeksti);
+            raporttilista.add(new Aiheraportti(aihe, viesti));
+        }
+
+        resultSet.close();
+        connection.close();
         return raporttilista;
     }
 
