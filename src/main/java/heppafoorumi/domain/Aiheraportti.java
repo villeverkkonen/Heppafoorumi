@@ -6,11 +6,23 @@ public class Aiheraportti {
 
     private final Aihe aihe;
     private final Viesti viesti;
+    private final Integer viestienLkm;
+    private final Timestamp uusinViestiAikaleima;
 
     // Raporttiluokka aluenäkymän luontia varten.
-    public Aiheraportti(Aihe aihe, Viesti viesti) {
+    public Aiheraportti(Aihe aihe, Viesti viesti, Integer viestienLkm, Timestamp uusinViestiAikaleima) {
         this.aihe = aihe;
         this.viesti = viesti;
+        this.viestienLkm = viestienLkm;
+        this.uusinViestiAikaleima = uusinViestiAikaleima;
+    }
+
+    public Integer getViestienLkm() {
+        return viestienLkm;
+    }
+
+    public Timestamp getUusinViestiAikaleima() {
+        return uusinViestiAikaleima;
     }
 
     public Integer getAiheId() {

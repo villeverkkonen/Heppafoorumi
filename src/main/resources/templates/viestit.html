@@ -87,6 +87,11 @@
                 font-size: 24px;
             }
 
+            .span-margin {
+                font-size: 24px;
+                margin: 25px;
+            }
+
             .list-group {
                 width: 20%;
                 text-align: left;
@@ -158,16 +163,20 @@
 
             <h2 class="h2">Osallistu keskusteluun lis&auml;&auml;m&auml;ll&auml; viesti</h2>
 
+            <div>
+                <span class="span-margin">Viestien lukumäärä: </span><span th:text="${viestien_lkm}" class="span"></span>
+            </div>
+
             <ul>
                 <li th:each="viesti : ${viestit}">
                     <form th:action="@{~/aihe/{viestiid}-{alueid}-{aiheid}(viestiid=${viesti.id}, alueid=${alue_string}, aiheid=${aihe.id})}" method="POST" class="form-inline">
                         <p>
-                        <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
-                        <span class="span">(<span style="color: blueviolet" th:text="(${viesti.timestamp})" class="span">timestamp</span>)</span>
+                            <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
+                            <span class="span">(<span style="color: blueviolet" th:text="(${viesti.timestamp})" class="span">timestamp</span>)</span>
                         </p>
                         <p>
-                        <span style="color: brown" th:text="${viesti.teksti}" class="span">teksti</span>
-                        <button type="submit" class="btn btn-warning">Poista!</button>
+                            <span style="color: brown" th:text="${viesti.teksti}" class="span">teksti</span>
+                            <button type="submit" class="btn btn-warning">Poista!</button>
                         </p>
                     </form>
                 </li>

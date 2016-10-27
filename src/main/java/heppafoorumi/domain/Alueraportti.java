@@ -7,12 +7,37 @@ public class Alueraportti {
     private final Alue alue;
     private final Aihe aihe;
     private final Viesti viesti;
+    private final Integer aiheidenLkm;
+    private final Integer viestienLkm;
+    private final Timestamp uusinAiheAikaleima;
+    private final Timestamp uusinViestiAikaleima;
 
     // Raporttiluokka aluenäkymän luontia varten.
-    public Alueraportti(Alue alue, Aihe aihe, Viesti viesti) {
+    public Alueraportti(
+            Alue alue, Aihe aihe, Viesti viesti, Integer aiheidenLkm, Integer viestienLkm, Timestamp uusinAiheAikaleima, Timestamp uusinViestiAikaleima) {
         this.alue = alue;
         this.aihe = aihe;
         this.viesti = viesti;
+        this.aiheidenLkm = aiheidenLkm;
+        this.viestienLkm = viestienLkm;
+        this.uusinAiheAikaleima = uusinAiheAikaleima;
+        this.uusinViestiAikaleima = uusinViestiAikaleima;
+    }
+
+    public Integer getAiheidenLkm() {
+        return aiheidenLkm;
+    }
+
+    public Integer getViestienLkm() {
+        return viestienLkm;
+    }
+
+    public Timestamp getUusinAiheAikaleima() {
+        return uusinAiheAikaleima;
+    }
+
+    public Timestamp getUusinViestiAikaleima() {
+        return uusinViestiAikaleima;
     }
 
     public Integer getAlueId() {
@@ -81,13 +106,5 @@ public class Alueraportti {
             return null;
         }
         return this.viesti.getAikaleima();
-    }
-    
-    public int getAiheidenLkm() {
-        return 0;
-    }
-    
-    public int getAlueidenLkm() {
-        return 0;
     }
 }
