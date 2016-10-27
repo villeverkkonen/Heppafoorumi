@@ -88,85 +88,85 @@ public class Heppafoorumi {
             }
         }
             //        Aihe aihe1 = new Aihe(1, Timestamp.valueOf("2016-01-01 00:00:03"), ponialue, "trolli", "Ponit on perseestä!!!", "En tykkää poneista.");
-            // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
-            // Heppafoorumin pääsivu.
-            get("/", (req, res) -> {
-                HashMap<String, Object> data = new HashMap();
+        // lambda-lausekkeet HTTP-pyyntöjen käsittelyä varten.
+        // Heppafoorumin pääsivu.
+        get("/", (req, res) -> {
+            HashMap<String, Object> data = new HashMap();
 
-                List<Alue> alueet = alueDao.findAll();
-                data.put("alueet", alueet);
+            List<Alueraportti> alueraportit = alueDao.findTarpeellisetTiedot();
+            data.put("alueraportit", alueraportit);
 
-                //joka alueen viestien kokonaismäärän näyttäminen
-                //List<Integer> viestitYhteensa = new ArrayList<>();
-                //int i = 1;
-                //int alueenViestit = 0;
-                //for (Alue alue : alueet) {
-                //    int alueId = alue.getId();
-                //    alueenViestit = viestiDao.getFindAllCount(alueId);
-                //    viestitYhteensa.add(alueId, alueenViestit);
-                //}
-                //data.put("viestit", viestitYhteensa);
-                return new ModelAndView(data, "alueet");
-            }, new ThymeleafTemplateEngine()
-            );
+            //joka alueen viestien kokonaismäärän näyttäminen
+            //List<Integer> viestitYhteensa = new ArrayList<>();
+            //int i = 1;
+            //int alueenViestit = 0;
+            //for (Alue alue : alueet) {
+            //    int alueId = alue.getId();
+            //    alueenViestit = viestiDao.getFindAllCount(alueId);
+            //    viestitYhteensa.add(alueId, alueenViestit);
+            //}
+            //data.put("viestit", viestitYhteensa);
+            return new ModelAndView(data, "alueet");
+        }, new ThymeleafTemplateEngine()
+        );
 
-            get("/aiheet/:alue", (req, res) -> {
-                HashMap<String, Object> data = new HashMap();
+        get("/aiheet/:alue", (req, res) -> {
+            HashMap<String, Object> data = new HashMap();
 
-                int alueId = Integer.parseInt(req.params(":alue"));
-                Alue alue = alueDao.findOne(alueId);
-                data.put("alue", alue);
+            int alueId = Integer.parseInt(req.params(":alue"));
+            Alue alue = alueDao.findOne(alueId);
+            data.put("alue", alue);
 
-                List<Aihe> aiheet = aiheDao.findAll(alueId);
-                data.put("aiheet", aiheet);
+            List<Aihe> aiheet = aiheDao.findAll(alueId);
+            data.put("aiheet", aiheet);
 
-                //yritys tulostaa joka aiheen uusimman viestin timestamp
-                List<Viesti> uusimmatViestit = new ArrayList<>();
-                for (Aihe aihe : aiheet) {                                                              //käydään läpi kaikki alueen aiheet, jotta saadaan kunkin aiheen id
-                    List<Viesti> lista = viestiDao.findAiheidenUusimmatViestit(alueId, aihe.getId());   //Kutsutaan metodia, jonka pitäisi ainakin palauttaa joka aiheen uusimman viestin
-                    for (Viesti viesti : lista) {                                                       //käydään lista läpi, siellä pitäisi olla kerrallaan aina vain yksi Viesti-olio,
-                        uusimmatViestit.add(viesti);                                                    //eli uusimmatViestit.add(lista.get(0)); pitäisi must toimia myös mut sillon räjähtää,
-                    }                                                                                   //koska valittaa että indexOutOfBounds, tyhjä lista, ei saada getattua.
-                    
-                }
-                data.put("uusimmatViestit", uusimmatViestit);
-                
+            //yritys tulostaa joka aiheen uusimman viestin timestamp
+            List<Viesti> uusimmatViestit = new ArrayList<>();
+            for (Aihe aihe : aiheet) {                                                              //käydään läpi kaikki alueen aiheet, jotta saadaan kunkin aiheen id
+                List<Viesti> lista = viestiDao.findAiheidenUusimmatViestit(alueId, aihe.getId());   //Kutsutaan metodia, jonka pitäisi ainakin palauttaa joka aiheen uusimman viestin
+                for (Viesti viesti : lista) {                                                       //käydään lista läpi, siellä pitäisi olla kerrallaan aina vain yksi Viesti-olio,
+                    uusimmatViestit.add(viesti);                                                    //eli uusimmatViestit.add(lista.get(0)); pitäisi must toimia myös mut sillon räjähtää,
+                }                                                                                   //koska valittaa että indexOutOfBounds, tyhjä lista, ei saada getattua.
+
+            }
+            data.put("uusimmatViestit", uusimmatViestit);
+
                 //yritys näyttää jokaisen aiheen kaikkien viestien kokonaismäärä
-                //List<String> viestitYhteensa = new ArrayList<>();
-                //for (Aihe aihe : aiheet) {
-                //    viestitYhteensa.add(Integer.toString(viestiDao.CountAiheViestit(aihe.getId())));
-                //}
-                //data.put("viestitYhteensa", viestitYhteensa);
-                return new ModelAndView(data, "aiheet");
-            }, new ThymeleafTemplateEngine());
+            //List<String> viestitYhteensa = new ArrayList<>();
+            //for (Aihe aihe : aiheet) {
+            //    viestitYhteensa.add(Integer.toString(viestiDao.CountAiheViestit(aihe.getId())));
+            //}
+            //data.put("viestitYhteensa", viestitYhteensa);
+            return new ModelAndView(data, "aiheet");
+        }, new ThymeleafTemplateEngine());
 
-            get("/viestit/:alue_ja_aihe", (req, res) -> {
-                HashMap<String, Object> data = new HashMap();
+        get("/viestit/:alue_ja_aihe", (req, res) -> {
+            HashMap<String, Object> data = new HashMap();
 
-                String alueJaAihe = req.params(":alue_ja_aihe");
-                int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
+            String alueJaAihe = req.params(":alue_ja_aihe");
+            int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
 
-                String alueString = alueJaAihe.substring(0, erotinmerkinIndeksi);
-                data.put("alue_string", alueString);
+            String alueString = alueJaAihe.substring(0, erotinmerkinIndeksi);
+            data.put("alue_string", alueString);
 
-                String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
-                int aiheId = Integer.parseInt(aiheString);
-                Aihe aihe = aiheDao.findOne(aiheId);
-                data.put("aihe", aihe);
+            String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
+            int aiheId = Integer.parseInt(aiheString);
+            Aihe aihe = aiheDao.findOne(aiheId);
+            data.put("aihe", aihe);
 
-                List<Viesti> viestit = viestiDao.findAll(aiheId);
-                data.put("viestit", viestit);
+            List<Viesti> viestit = viestiDao.findAll(aiheId);
+            data.put("viestit", viestit);
 
-                //viiden uusimman viestin näyttäminen
-                List<Viesti> uusimmatViestit = new ArrayList<>();
-                List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
-                Collections.reverse(kaanteinenLista);
-                for (Viesti viesti : kaanteinenLista) {
-                    if (uusimmatViestit.size() < 5) {
-                        uusimmatViestit.add(viesti);
-                    }
+            //viiden uusimman viestin näyttäminen
+            List<Viesti> uusimmatViestit = new ArrayList<>();
+            List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
+            Collections.reverse(kaanteinenLista);
+            for (Viesti viesti : kaanteinenLista) {
+                if (uusimmatViestit.size() < 5) {
+                    uusimmatViestit.add(viesti);
                 }
-                data.put("uusimmatViestit", uusimmatViestit);
+            }
+            data.put("uusimmatViestit", uusimmatViestit);
 
             return new ModelAndView(data, "viestit");
         }, new ThymeleafTemplateEngine());
