@@ -36,3 +36,12 @@ näytetään aina kymmenen uusinta keskustelunavausta
 
 - alueet.html ja aiheet.html -sivuilla timestamp tulostuu millisekunnin tarkkuudella,
 sekunnin tarkkuudella riittää.
+
+- alueet.html Uusin viesti: -kohta tulostaa tällä hetkellä vain
+uusimman aiheen uusimman viestin. Ei kuitenkaan uusinta viestiä aiheesta
+joka ei ole uusin.
+
+- Lisätkää sovellukseen mahdollisuus rajata kerrallaan näytettävien viestien määrää.
+Huom! On mahdollista lisätä osoitteisiin esimerkiksi parametri “sivu=1”,
+jolloin kerrotaan, että tulee näyttää ensimmäinen sivu.
+Näytettävät viestit saa selville parametrin arvon, limit-komennon, sekä kertolaskun avulla.
