@@ -133,6 +133,15 @@
             .p {
                 margin-left: 25px;
             }
+            
+            hr {
+                display: block;
+                height: 3px;
+                border: 0;
+                border-top: 1px solid black;
+                margin: 1em 0;
+                padding: 0; 
+            }
 
         </style>
     </head>
@@ -149,21 +158,25 @@
             <a href="../">
                 <img class="img" src="/images/hevonen.jpg" alt="Uljas hevonen"></img>
             </a>
-            <h2 class="h2">Voit lis&auml;t&auml; uusia aiheraporttiita t&auml;lle alueelle tai valita jo valmiiksi olevan</h2>
-            <hr/>
+
+            <h2 class="h2">Voit lis&auml;t&auml; uusia aiheita t&auml;lle alueelle tai valita jo valmiiksi olevan</h2>
 
             <button data-toggle="collapse" data-target="#uusimmatAiheet" class="btn btn-info">Uusimmat 10 aihetta</button>
             <br/>
             <div id="uusimmatAiheet" class="collapse">
-                <p th:each="aiheraportti : ${kaikkiAiheet}">
+                <p th:each="aiheraportti : ${kymmenenAihetta}">
                     <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aiheraportti</a>
                     <span class="span">Aloittaja:</span><span th:text="${aiheraportti.aiheNimimerkki}" class="span" style="color: red">nimimerkki</span>
                     <span class="span">Kuvaus:</span><span th:text="${aiheraportti.aiheTeksti}" class="span" style="color: brown">kuvaus</span>
                 </p>
             </div>
+            
             <br/>
+            <hr/>
+            
+            <span class="span">Kaikki aiheet:</span>
             <div class="list-group">
-                <div th:each="aiheraportti : ${kymmenenAihetta}" class="list-group">
+                <div th:each="aiheraportti : ${kaikkiAiheet}" class="list-group">
                     <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aiheraportti</a>
                     <p>
                         <span class="span">Viestien lukumäärä:</span><span th:text="${aiheraportti.viestienLkm}" class="span">nimimerkki</span>
@@ -186,8 +199,8 @@
                     <input type="text" name="nimimerkki" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <label>Lis&auml;&auml; aiheraportti:</label>
-                    <input type="text" name="aiheraportti" class="form-control"/>
+                    <label>Lis&auml;&auml; aihe:</label>
+                    <input type="text" name="aihe" class="form-control"/>
                 </div>
                 <div class="form-group">
                     <label>Kuvaus:</label>

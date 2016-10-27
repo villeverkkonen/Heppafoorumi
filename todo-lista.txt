@@ -33,3 +33,6 @@ Tehdyt työt:
 - Alueet tulee järjestää alueen nimen perusteella
 
 - Keskustelunavaukset tulee järjestää uusimman viestin perusteella
+
+- Rajoittakaa keskustelunavausten määrää niin, että aihealuekohtaisella listalla
+näytetään aina kymmenen uusinta keskustelunavausta
