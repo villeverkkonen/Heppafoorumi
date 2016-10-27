@@ -82,4 +82,12 @@ public class Alueraportti {
         }
         return this.viesti.getAikaleima();
     }
+    
+    public int getAiheidenLkm() {
+        return 0;
+    }
+    
+    public int getAlueidenLkm() {
+        return 0;
+    }
 }
