@@ -14,7 +14,7 @@ sekunnin tarkkuudella riittää.
 - Rajoittakaa keskustelunavausten määrää niin, että aihealuekohtaisella listalla
 näytetään aina kymmenen uusinta keskustelunavausta
 
-- Keskustelunavaukset tulee järjestää uusimman viestin perusteella.
+- Keskustelunavaukset tulee järjestää uusimman viestin perusteella
 
 - Lisätkää sovellukseen mahdollisuus rajata kerrallaan näytettävien viestien määrää.
 Huom! On mahdollista lisätä osoitteisiin esimerkiksi parametri “sivu=1”,
@@ -31,3 +31,5 @@ että käyttäjä ei voi syöttää HTML-koodia tietokantaan
 Tehdyt työt: 
 
 - Alueet tulee järjestää alueen nimen perusteella
+
+- Keskustelunavaukset tulee järjestää uusimman viestin perusteella

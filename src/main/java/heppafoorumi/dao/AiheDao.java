@@ -169,7 +169,8 @@ public class AiheDao implements Dao<Aihe, Integer> {
                 + "        (SELECT MAX(id) FROM viesti AS uusin_viesti "
                 + "            WHERE uusin_viesti.aihe = aihe.id) "
                 + "        OR viesti.id IS NULL) "
-                + "        AND aihe.alue = " + alueId);
+                + "        AND aihe.alue = " + alueId
+                + "    ORDER BY viesti.id DESC");
 
         List<Aiheraportti> raporttilista = new ArrayList();
 
