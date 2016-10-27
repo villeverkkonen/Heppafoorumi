@@ -4,13 +4,27 @@ import java.sql.Timestamp;
 
 public class Alueraportti {
 
+    private final Alue alue;
     private final Aihe aihe;
     private final Viesti viesti;
 
     // Raporttiluokka aluenäkymän luontia varten.
-    public Alueraportti(Aihe aihe, Viesti viesti) {
+    public Alueraportti(Alue alue, Aihe aihe, Viesti viesti) {
+        this.alue = alue;
         this.aihe = aihe;
         this.viesti = viesti;
+    }
+
+    public Integer getAlueId() {
+        return this.alue.getId();
+    }
+
+    public String getAlueOtsikko() {
+        return this.alue.getOtsikko();
+    }
+
+    public String getAlueTeksti() {
+        return this.alue.getTeksti();
     }
 
     public Integer getAiheId() {

@@ -64,8 +64,6 @@ public class Viesti extends Kategoria {
 //    public Aihe getAihe() {
 //        return this.aihe;
 //    }
-    
-    
     public String getNimimerkki() {
         return this.nimimerkki;
     }
@@ -85,14 +83,13 @@ public class Viesti extends Kategoria {
 
         return this.getId().equals(viesti.getId());
     }
-    
+
     public String getUusimmat() {
         String aikaleimaString = this.aikaleima.toString();
         aikaleimaString = aikaleimaString.substring(0, aikaleimaString.lastIndexOf('.'));
         return this.nimimerkki + " " + this.teksti + " (" + aikaleimaString + ")";
     }
 
-    
     //yritys saada kaikkien viestien määrät alueittain
     //public int getViestit() {
     //    return viestiDao.findAllCount();

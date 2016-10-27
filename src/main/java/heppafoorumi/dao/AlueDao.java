@@ -75,14 +75,19 @@ public class AlueDao implements Dao<Alue, Integer> {
         ResultSet resultSet = connection.createStatement().executeQuery(
                 "SELECT * FROM Alue AS alue "
                 + "    LEFT JOIN Aihe AS aihe "
-                + "    ON aihe.alue = alue.id "
+                + "    ON (aihe.alue = alue.id) "
                 + "    WHERE aihe.id = "
-                + "        (SELECT MAX(aihe.id) FROM aihe AS uusin_aihe "
+                + "        (SELECT MAX(id) FROM aihe AS uusin_aihe "
                 + "        WHERE uusin_aihe.alue = alue.id)");
 
         List<Alueraportti> raporttilista = new ArrayList();
 
         while (resultSet.next()) {
+            Integer alueId = resultSet.getInt("alue.id");
+            Timestamp alueAikaleima = resultSet.getTimestamp("alue.aikaleima");
+            String alueOtsikko = resultSet.getString("alue.otsikko");
+            String alueTeksti = resultSet.getString("alue.teksti");
+
             Integer aiheId = resultSet.getInt("aihe.id");
             Timestamp aiheAikaleima = resultSet.getTimestamp("aihe.aikaleima");
             Integer aiheAlue = resultSet.getInt("aihe.alue");
@@ -90,9 +95,10 @@ public class AlueDao implements Dao<Alue, Integer> {
             String aiheOtsikko = resultSet.getString("aihe.otsikko");
             String aiheTeksti = resultSet.getString("aihe.teksti");
 
+            Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
             Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, aiheAlue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
             Viesti viesti = null; // TODO!
-            raporttilista.add(new Alueraportti(aihe, viesti));
+            raporttilista.add(new Alueraportti(alue, aihe, viesti));
         }
 
         resultSet.close();
