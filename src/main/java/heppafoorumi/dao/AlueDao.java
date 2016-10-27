@@ -85,7 +85,8 @@ public class AlueDao implements Dao<Alue, Integer> {
                 + "    AND (aihe.id = "
                 + "        (SELECT MAX(id) FROM aihe AS uusin_aihe "
                 + "            WHERE uusin_aihe.alue = alue.id) "
-                + "        OR aihe.id IS NULL)");
+                + "        OR aihe.id IS NULL) "
+                + "        ORDER BY alue.otsikko");
 
         List<Alueraportti> raporttilista = new ArrayList();
 
