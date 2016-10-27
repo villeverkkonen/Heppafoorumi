@@ -76,9 +76,10 @@ public class AlueDao implements Dao<Alue, Integer> {
                 "SELECT * FROM Alue AS alue "
                 + "    LEFT JOIN Aihe AS aihe "
                 + "    ON (aihe.alue = alue.id) "
-                + "    WHERE aihe.id = "
+                + "    WHERE (aihe.id = "
                 + "        (SELECT MAX(id) FROM aihe AS uusin_aihe "
-                + "        WHERE uusin_aihe.alue = alue.id)");
+                + "        WHERE uusin_aihe.alue = alue.id) "
+                + "        OR aihe.id IS NULL)");
 
         List<Alueraportti> raporttilista = new ArrayList();
 
