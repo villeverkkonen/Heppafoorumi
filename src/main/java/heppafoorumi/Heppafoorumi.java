@@ -104,30 +104,13 @@ public class Heppafoorumi {
         get("/aiheet/:alue", (req, res) -> {
             HashMap<String, Object> data = new HashMap();
 
-            int alueId = Integer.parseInt(req.params(":alue"));
+            Integer alueId = Integer.parseInt(req.params(":alue"));
             Alue alue = alueDao.findOne(alueId);
             data.put("alue", alue);
 
-            List<Aihe> aiheet = aiheDao.findAll(alueId);
-            data.put("aiheet", aiheet);
+            List<Aiheraportti> aiheraportit = aiheDao.findTarpeellisetTiedot(alueId);
+            data.put("aiheraportit", aiheraportit);
 
-            //yritys tulostaa joka aiheen uusimman viestin timestamp
-            List<Viesti> uusimmatViestit = new ArrayList<>();
-            for (Aihe aihe : aiheet) {                                                              //käydään läpi kaikki alueen aiheet, jotta saadaan kunkin aiheen id
-                List<Viesti> lista = viestiDao.findAiheidenUusimmatViestit(alueId, aihe.getId());   //Kutsutaan metodia, jonka pitäisi ainakin palauttaa joka aiheen uusimman viestin
-                for (Viesti viesti : lista) {                                                       //käydään lista läpi, siellä pitäisi olla kerrallaan aina vain yksi Viesti-olio,
-                    uusimmatViestit.add(viesti);                                                    //eli uusimmatViestit.add(lista.get(0)); pitäisi must toimia myös mut sillon räjähtää,
-                }                                                                                   //koska valittaa että indexOutOfBounds, tyhjä lista, ei saada getattua.
-
-            }
-            data.put("uusimmatViestit", uusimmatViestit);
-
-                //yritys näyttää jokaisen aiheen kaikkien viestien kokonaismäärä
-            //List<String> viestitYhteensa = new ArrayList<>();
-            //for (Aihe aihe : aiheet) {
-            //    viestitYhteensa.add(Integer.toString(viestiDao.CountAiheViestit(aihe.getId())));
-            //}
-            //data.put("viestitYhteensa", viestitYhteensa);
             return new ModelAndView(data, "aiheet");
         }, new ThymeleafTemplateEngine());
 
