@@ -88,21 +88,21 @@ public class Alueraportti {
     }
 
     public String getViestiNimimerkki() {
-        if (this.aihe == null) {
+        if (this.viesti == null) {
             return "";
         }
         return this.viesti.getNimimerkki();
     }
 
     public String getViestiTeksti() {
-        if (this.aihe == null) {
+        if (this.viesti == null) {
             return null;
         }
         return this.viesti.getTeksti();
     }
 
     public String getViestiAikaleima() {
-        if (this.aihe == null) {
+        if (this.viesti == null) {
             return null;
         }
         return this.viesti.getAikaleima();
