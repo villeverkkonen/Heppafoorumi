@@ -92,7 +92,7 @@
                 text-align: left;
                 font-size: 35px;
                 margin-left: 10px;
-                width: 30%;
+                width: 50%;
             }
 
             .img {
@@ -115,7 +115,8 @@
             }
 
             .btn {
-
+                margin-left: 20px;
+                margin-top: 5px;
             }
 
             .btn-success {
@@ -158,9 +159,7 @@
             <a href="../">
                 <img class="img" src="/images/hevonen.jpg" alt="Uljas hevonen"></img>
             </a>
-
-            <h2 class="h2">Voit lis&auml;t&auml; uusia aiheita t&auml;lle alueelle tai valita jo valmiiksi olevan</h2>
-
+            <p></p>
             <button data-toggle="collapse" data-target="#uusimmatAiheet" class="btn btn-info">Uusimmat 10 aihetta</button>
             <br/>
             <div id="uusimmatAiheet" class="collapse">
@@ -170,7 +169,7 @@
                     <span class="span">Kuvaus:</span><span th:text="${aiheraportti.aiheTeksti}" class="span" style="color: brown">kuvaus</span>
                 </p>
             </div>
-            
+            <h2 class="h2">Voit lis&auml;t&auml; uusia aiheita t&auml;lle alueelle tai valita jo valmiiksi olevan</h2>
             <br/>
             <hr/>
             
