@@ -158,8 +158,9 @@
             <a href="../">
                 <img class="img" src="/images/hevonen.jpg" alt="Uljas hevonen"></img>
             </a>
+
             <h2 class="h2">Voit lis&auml;t&auml; uusia aiheita t&auml;lle alueelle tai valita jo valmiiksi olevan</h2>
-            
+
             <button data-toggle="collapse" data-target="#uusimmatAiheet" class="btn btn-info">Uusimmat 10 aihetta</button>
             <br/>
             <div id="uusimmatAiheet" class="collapse">
@@ -177,6 +178,9 @@
             <div class="list-group">
                 <div th:each="aiheraportti : ${kaikkiAiheet}" class="list-group">
                     <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aiheraportti</a>
+                    <p>
+                        <span class="span">Viestien lukumäärä:</span><span th:text="${aiheraportti.viestienLkm}" class="span">nimimerkki</span>
+                    </p>
                     <span class="span">Aloittaja:</span><span th:text="${aiheraportti.aiheNimimerkki}" class="span" style="color: red">nimimerkki</span>
                     <span class="span">Kuvaus:</span><span th:text="${aiheraportti.aiheTeksti}" class="span" style="color: brown">kuvaus</span>
                     <p class="p">
