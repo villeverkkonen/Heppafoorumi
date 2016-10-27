@@ -46,7 +46,11 @@ public class Viesti extends Kategoria {
         this.aihe = aiheId;
 
         // tallennetaan enintään 20 ensimmäistä merkkiä syötetystä nimimerkistä.
-        this.nimimerkki = nimimerkki.substring(0, Math.min(nimimerkki.length(), NIMIMERKIN_PITUUS));
+        if (nimimerkki == null) {
+            this.nimimerkki = "";
+        } else {
+            this.nimimerkki = nimimerkki.substring(0, Math.min(nimimerkki.length(), NIMIMERKIN_PITUUS));
+        }
         this.teksti = teksti;
         this.aikaleima = aikaleima;
         this.id = id;
