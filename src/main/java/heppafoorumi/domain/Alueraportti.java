@@ -80,6 +80,6 @@ public class Alueraportti {
         if (this.aihe == null) {
             return null;
         }
-        return this.aihe.getAikaleima();
+        return this.viesti.getAikaleima();
     }
 }
