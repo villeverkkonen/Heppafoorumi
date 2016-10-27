@@ -14,6 +14,7 @@ import static spark.Spark.get;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
+import heppafoorumi.domain.AiheTiedot;
 import heppafoorumi.domain.Viesti;
 import heppafoorumi.tekstikayttoliittyma.Tekstikayttoliittyma;
 import java.util.ArrayList;
@@ -114,17 +115,44 @@ public class Heppafoorumi {
 
                 List<Aihe> aiheet = aiheDao.findAll(alueId);
                 data.put("aiheet", aiheet);
-
-                //yritys tulostaa joka aiheen uusimman viestin timestamp
+                
                 List<Viesti> uusimmatViestit = new ArrayList<>();
-                for (Aihe aihe : aiheet) {                                                              //käydään läpi kaikki alueen aiheet, jotta saadaan kunkin aiheen id
-                    List<Viesti> lista = viestiDao.findAiheidenUusimmatViestit(alueId, aihe.getId());   //Kutsutaan metodia, jonka pitäisi ainakin palauttaa joka aiheen uusimman viestin
-                    for (Viesti viesti : lista) {                                                       //käydään lista läpi, siellä pitäisi olla kerrallaan aina vain yksi Viesti-olio,
-                        uusimmatViestit.add(viesti);                                                    //eli uusimmatViestit.add(lista.get(0)); pitäisi must toimia myös mut sillon räjähtää,
-                    }                                                                                   //koska valittaa että indexOutOfBounds, tyhjä lista, ei saada getattua.
-                    
+                List<Viesti> apuLista = new ArrayList<>();
+                for (Aihe aihe : aiheet) {
+                    apuLista = viestiDao.findAiheidenUusimmatViestit(alueId, aihe.getId());
+                    for (Viesti viesti : apuLista) {
+                        uusimmatViestit.add(viesti);
+                    }
                 }
                 data.put("uusimmatViestit", uusimmatViestit);
+
+                //Elikkäs yritin luoda AlueTiedot-olioita, jotka koostuu Alueesta ja Viestistä, mutta tulee nullPointerExceptionia
+                //tai sitten aiheet.html näkyy vain sellaiset aiheet, joissa on viesti
+                
+                //List<AiheTiedot> aiheTiedot = new ArrayList<>();
+                //for (Aihe aihe : aiheet) {
+                //    int aiheId = aihe.getId();
+                //    List<Viesti> viestit = viestiDao.findAiheidenUusimmatViestit(alueId, aiheId);
+                //    if (viestit.isEmpty()) {
+                //        viestit.add(new Viesti(database, null, aiheId, null, null));
+                //    }
+                //    for (Viesti viesti : viestit) {
+                //        AiheTiedot aiheTieto = new AiheTiedot(aihe, viesti);
+                //        aiheTiedot.add(aiheTieto);
+                //    }
+                //}
+                //data.put("aiheTiedot", aiheTiedot);
+                
+                //yritys tulostaa joka aiheen uusimman viestin timestamp
+                //List<Viesti> uusimmatViestit = new ArrayList<>();
+                //for (Aihe aihe : aiheet) {                                                              //käydään läpi kaikki alueen aiheet, jotta saadaan kunkin aiheen id
+                //    List<Viesti> lista = viestiDao.findAiheidenUusimmatViestit(alueId, aihe.getId());   //Kutsutaan metodia, jonka pitäisi ainakin palauttaa joka aiheen uusimman viestin
+                //    for (Viesti viesti : lista) {                                                       //käydään lista läpi, siellä pitäisi olla kerrallaan aina vain yksi Viesti-olio,
+                //        uusimmatViestit.add(viesti);                                                    //eli uusimmatViestit.add(lista.get(0)); pitäisi must toimia myös mut sillon räjähtää,
+                //    }                                                                                   //koska valittaa että indexOutOfBounds, tyhjä lista, ei saada getattua.
+                    
+                //}
+                //data.put("uusimmatViestit", uusimmatViestit);
                 
                 //yritys näyttää jokaisen aiheen kaikkien viestien kokonaismäärä
                 //List<String> viestitYhteensa = new ArrayList<>();
