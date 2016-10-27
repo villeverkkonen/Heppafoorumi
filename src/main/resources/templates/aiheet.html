@@ -150,10 +150,10 @@
 
             <div class="list-group">
                 <div th:each="aiheraportti : ${aiheraportit}" class="list-group">
-                    <a href="#" th:href="@{~/aiheet/{id}(id=${aiheraportti.alueId})}" th:text="${aiheraportti.alueOtsikko}" class="list-group-item list-group-item-info">alue</a>
-                    <span th:text="${aiheraportti.alueTeksti}" class="span">kuvaus</span>
+                    <a href="#" th:href="@{~/viestit/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aihe</a>
+                    <span th:text="${aiheraportti.aiheTeksti}" class="span">kuvaus</span>
                     <span>Uusin viesti: </span>
-                    <span><a href="#" th:if="${aiheraportti.viestiId != null}" th:href="@{~/viestit/{alueid}-{aiheid}(alueid=${alueId}, aiheid=${aiheraportti.viestiId})}" th:text="${aiheraportti.aiheNimimerkki}" class="span">aikaleima</a></span>
+                    <span th:if="${aiheraportti.viestiId != null}" th:text="${aiheraportti.viestiNimimerkki}" class="span">aikaleima</span>
                     <span th:if="${aiheraportti.viestiId == null}">Ei aiheita</span>
                 </div>
             </div>
