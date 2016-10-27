@@ -161,13 +161,13 @@
                     <span th:text="${alueraportti.alueTeksti}" class="span">kuvaus</span>
                     <p class="p">
                         <span>Uusin aihe: </span>
-                        <span th:text="${alueraportti.aiheNimimerkki}" style="color: peru">aiheNimimerkki</span>
+                        <span th:if="${alueraportti.aiheNimimerkki != null}" th:text="${alueraportti.aiheNimimerkki}" style="color: peru">aiheNimimerkki</span>
                         <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alueraportti.alueId}, aiheid=${alueraportti.aiheId})}" th:text="${alueraportti.aiheOtsikko}">uusin aihe</a>
-                        <span th:text="${alueraportti.aiheAikaleima}" style="color: peru">aiheAikaleima</span>
+                        <span th:if="${alueraportti.aiheAikaleima != null}" th:text="${alueraportti.aiheAikaleima}" style="color: peru">aiheAikaleima</span>
 
                         <span>Uusin viesti: </span>
-                        <span th:text="${alueraportti.viestiNimimerkki}" style="color: red">aiheNimimerkki</span>
-                        <span th:text="${alueraportti.viestiAikaleima}" style="color: blueviolet">aiheAikaleima</span>
+                        <span th:if="${alueraportti.viestiNimimerkki != null}" th:text="${alueraportti.viestiNimimerkki}" style="color: red">aiheNimimerkki</span>
+                        <span th:if="${alueraportti.viestiAikaleima != null}" th:text="${alueraportti.viestiAikaleima}" style="color: blueviolet">aiheAikaleima</span>
                     </p>
                 </div>
             </div>

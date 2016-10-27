@@ -152,7 +152,7 @@
 
             <div id="uusimmatViestit" class="collapse">
                 <p th:each="uusinViesti : ${uusimmatViestit}">
-                    <span style="color: coral" th:text="${uusinViesti.uusimmat}">viesti</span>
+                    <span style="color: darkorange" th:text="${uusinViesti.uusimmat}">viesti</span>
                 </p>
             </div>
 
@@ -161,10 +161,14 @@
             <ul>
                 <li th:each="viesti : ${viestit}">
                     <form th:action="@{~/aihe/{alueid}-{aiheid}-{viestiid}(alueid=${alue_string}, aiheid=${aihe.id}, viestiid=${viesti.id})}" method="POST" class="form-inline">
+                        <p>
                         <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
+                        <span class="span">(<span style="color: blueviolet" th:text="(${viesti.timestamp})" class="span">timestamp</span>)</span>
+                        </p>
+                        <p>
                         <span style="color: brown" th:text="${viesti.teksti}" class="span">teksti</span>
-                        <span style="color: blueviolet" th:text="${(viesti.timestamp)}" class="span">timestamp</span>
                         <button type="submit" class="btn btn-warning">Poista!</button>
+                        </p>
                     </form>
                 </li>
             </ul>
