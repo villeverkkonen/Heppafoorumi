@@ -2,6 +2,7 @@ package heppafoorumi;
 
 import heppafoorumi.dao.AiheDao;
 import heppafoorumi.dao.AlueDao;
+import heppafoorumi.dao.KaikkiDao;
 import heppafoorumi.dao.ViestiDao;
 import heppafoorumi.domain.Alue;
 import java.io.File;
@@ -77,6 +78,10 @@ public class Heppafoorumi {
         AlueDao alueDao = new AlueDao(database);
         AiheDao aiheDao = new AiheDao(database);
         ViestiDao viestiDao = new ViestiDao(database);
+        KaikkiDao kaikkiDao = new KaikkiDao();
+        kaikkiDao.setAlueDao(alueDao);
+        kaikkiDao.setAiheDao(aiheDao);
+        kaikkiDao.setViestiDao(viestiDao);
 
         if (tekstikayttoliittymaaKaytossa) {
             // käynnistetään tekstikäyttöliittymä.
