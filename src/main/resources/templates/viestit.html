@@ -153,8 +153,8 @@
                 <img class="img" src="/images/hevonen.jpg" alt="Uljas hevonen"></img>
             </a>
 
-            <button data-toggle="collapse" data-target="#uusimmatViestit" class="btn btn-info">Uusimmat 5 viesti&auml;</button>
-
+            <button data-toggle="collapse" data-target="#uusimmatViestit" class="btn btn-info">Uusimmat 10 viesti&auml;</button>
+            <br/>
             <div id="uusimmatViestit" class="collapse">
                 <p th:each="uusinViesti : ${uusimmatViestit}">
                     <span style="color: darkorange" th:text="${uusinViesti.uusimmat}">viesti</span>
