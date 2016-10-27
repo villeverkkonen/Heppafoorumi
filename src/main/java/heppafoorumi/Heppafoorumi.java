@@ -14,6 +14,7 @@ import static spark.Spark.get;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
+import heppafoorumi.domain.Aiheraportti;
 import heppafoorumi.domain.Alueraportti;
 import heppafoorumi.domain.Viesti;
 import heppafoorumi.tekstikayttoliittyma.Tekstikayttoliittyma;
@@ -96,16 +97,6 @@ public class Heppafoorumi {
             List<Alueraportti> alueraportit = alueDao.findTarpeellisetTiedot();
             data.put("alueraportit", alueraportit);
 
-            //joka alueen viestien kokonaismäärän näyttäminen
-            //List<Integer> viestitYhteensa = new ArrayList<>();
-            //int i = 1;
-            //int alueenViestit = 0;
-            //for (Alue alue : alueet) {
-            //    int alueId = alue.getId();
-            //    alueenViestit = viestiDao.getFindAllCount(alueId);
-            //    viestitYhteensa.add(alueId, alueenViestit);
-            //}
-            //data.put("viestit", viestitYhteensa);
             return new ModelAndView(data, "alueet");
         }, new ThymeleafTemplateEngine()
         );
