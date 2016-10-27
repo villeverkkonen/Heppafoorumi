@@ -9,7 +9,7 @@ INSERT INTO Aihe (aikaleima, alue, nimimerkki, otsikko, teksti) VALUES ('2016-10
 INSERT INTO Aihe (aikaleima, alue, nimimerkki, otsikko, teksti) VALUES ('2016-10-20 01:07:07', 1, 'nuorzi', 'Ponit on söpöjä!!!', 'Onks kaikki samaa mieltä???');
 INSERT INTO Aihe (aikaleima, alue, nimimerkki, otsikko, teksti) VALUES ('2016-10-21 19:19:23', 4, 'nuorzi', 'Yks juttu mikä tuli mieleen',
     'Eilen Helsingin sisäisessä bussissa yks lapsi selitti vaarilleen mikä on Pokemon. Siinä on kai jotain poke-palloja, joita heitetään.');
-INSERT INTO Aihe (aikaleima, alue, nimimerkki, otsikko, teksti) VALUES ('2016-10-26 12:58:10', 2, 'nuorzi', 'Kiinnostunut', 'Vieläkö on villihevosia?');
+INSERT INTO Aihe (aikaleima, alue, nimimerkki, otsikko, teksti) VALUES ('2016-10-26 12:58:10', 2, 'nuorzi', 'Vieläkö on villihevosia?', 'Pohdiskelua villihevosten olemassaolosta');
 INSERT INTO Aihe (aikaleima, alue, nimimerkki, otsikko, teksti) VALUES ('2016-10-26 12:58:16', 4, 'nuorzi', 'Harrastaaks joku muu täällä ohjelmointia?', 'Ai niin ja millä kielillä koodaatte?');
 INSERT INTO Viesti (aikaleima, aihe, nimimerkki, teksti) VALUES ('2016-10-20 01:07:08', 3, 'zille', 'Charmander on paras Pokemon-poni');
 INSERT INTO Viesti (aikaleima, aihe, nimimerkki, teksti) VALUES ('2016-10-20 01:07:09', 2, 'zille', 'En tykkää islanninhevosista...');
