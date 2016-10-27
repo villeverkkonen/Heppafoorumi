@@ -120,11 +120,17 @@ public class AlueDao implements Dao<Alue, Integer> {
             String viestiTeksti = resultSet.getString("viesti.teksti");
 
             Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
-            Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, aiheAlue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
+            Aihe uusinAihe = new Aihe(this.database, aiheId, aiheAikaleima, aiheAlue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
             Viesti viesti = new Viesti(this.database, viestiId, viestiAikaleima, viestiAihe, viestiNimimerkki, viestiTeksti);
             List<Aihe> aiheet = this.kaikkiDao.getAiheDao().findAll(alueId);
 
-            raporttilista.add(new Alueraportti(alue, aihe, viesti, aiheet.size(), null, null, null));
+            int alueenViestienLkm = 0;
+
+            for (Aihe aihe : this.getKaikkiDao().getAiheDao().findAll(alueId)) {
+                alueenViestienLkm += this.kaikkiDao.getViestiDao().findAll(aihe.getId()).size();
+            }
+
+            raporttilista.add(new Alueraportti(alue, uusinAihe, viesti, aiheet.size(), alueenViestienLkm, null, null));
         }
 
         resultSet.close();
