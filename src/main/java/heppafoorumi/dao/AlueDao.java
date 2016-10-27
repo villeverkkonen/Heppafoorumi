@@ -75,15 +75,17 @@ public class AlueDao implements Dao<Alue, Integer> {
         ResultSet resultSet = connection.createStatement().executeQuery(
                 "SELECT * FROM Alue AS alue "
                 + "    LEFT JOIN Aihe AS aihe "
-                + "    ON (aihe.alue = alue.id) "
-                + "    WHERE (aihe.id = "
+                + "        ON (aihe.alue = alue.id) "
+                + "    LEFT JOIN Viesti AS viesti "
+                + "        ON (viesti.aihe = aihe.id) "
+                + "    WHERE (viesti.id = "
+                + "        (SELECT MAX(id) FROM viesti AS uusin_viesti "
+                + "            WHERE uusin_viesti.aihe = aihe.id)"
+                + "        OR viesti.id IS NULL) "
+                + "    AND (aihe.id = "
                 + "        (SELECT MAX(id) FROM aihe AS uusin_aihe "
                 + "            WHERE uusin_aihe.alue = alue.id) "
-                + "        OR aihe.id IS NULL) "
-                + "    LEFT JOIN Viesti AS viesti "
-                + "    ON (viesti.aihe = aihe.id) "
-                + "        (SELECT MAX(id) FROM viesti AS uusin_viesti "
-                + "            WHERE uusin_viesti.aihe = aihe.id");
+                + "        OR aihe.id IS NULL)");
 
         List<Alueraportti> raporttilista = new ArrayList();
 
