@@ -101,7 +101,7 @@ public class Heppafoorumi {
         }, new ThymeleafTemplateEngine()
         );
 
-        get("/aiheet/:alue", (req, res) -> {
+        get("/alue/:alue", (req, res) -> {
             HashMap<String, Object> data = new HashMap();
 
             Integer alueId = Integer.parseInt(req.params(":alue"));
@@ -114,7 +114,7 @@ public class Heppafoorumi {
             return new ModelAndView(data, "aiheet");
         }, new ThymeleafTemplateEngine());
 
-        get("/viestit/:alue_ja_aihe", (req, res) -> {
+        get("/aihe/:alue_ja_aihe", (req, res) -> {
             HashMap<String, Object> data = new HashMap();
 
             String alueJaAihe = req.params(":alue_ja_aihe");
@@ -157,7 +157,7 @@ public class Heppafoorumi {
             return "";
         });
 
-        post("/aiheet/:alue", (req, res) -> {
+        post("/alue/:alue", (req, res) -> {
             String nimimerkki = req.queryParams("nimimerkki");
             String aihe = req.queryParams("aihe");
             String kuvaus = req.queryParams("kuvaus");
@@ -171,7 +171,7 @@ public class Heppafoorumi {
             return "";
         });
 
-        post("/viestit/:alue_ja_aihe", (req, res) -> {
+        post("/aihe/:alue_ja_aihe", (req, res) -> {
             String alueJaAihe = req.params(":alue_ja_aihe");
             int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
 
@@ -188,7 +188,7 @@ public class Heppafoorumi {
         });
 
         //yritys delete napille
-        post("/viestit/:alue_ja_aihe_ja_viesti", (req, res) -> {
+        post("/aihe/:alue_ja_aihe_ja_viesti", (req, res) -> {
             String alueJaAiheJaViesti = req.params(":alue_ja_aihe_ja_viesti");
             int erotinmerkinIndeksi = alueJaAiheJaViesti.indexOf('-');
 

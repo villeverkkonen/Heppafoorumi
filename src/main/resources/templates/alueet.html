@@ -153,11 +153,11 @@
             <h2 class="h2">Valitse mieleisesi alue:</h2>
             <div class="list-group">
                 <div th:each="alueraportti : ${alueraportit}" class="list-group">
-                    <a href="#" th:href="@{~/aiheet/{id}(id=${alueraportti.alueId})}" th:text="${alueraportti.alueOtsikko}" class="list-group-item list-group-item-info">alue</a>
+                    <a href="#" th:href="@{~/alue/{id}(id=${alueraportti.alueId})}" th:text="${alueraportti.alueOtsikko}" class="list-group-item list-group-item-info">alue</a>
                     <span th:text="${alueraportti.alueTeksti}" class="span">kuvaus</span>
                     <span>Uusin aihe: </span>
                     <span th:text="${alueraportti.aiheNimimerkki}">aiheNimimerkki</span>
-                    <a href="#" th:href="@{~/viestit/{alueid}-{aiheid}(alueid=${alueraportti.alueId}, aiheid=${alueraportti.aiheId})}" th:text="${alueraportti.aiheOtsikko}" class="span">uusin aihe</a>
+                    <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alueraportti.alueId}, aiheid=${alueraportti.aiheId})}" th:text="${alueraportti.aiheOtsikko}" class="span">uusin aihe</a>
                     <span th:text="${alueraportti.aiheAikaleima}">aiheAikaleima</span>
                 </div>
             </div>

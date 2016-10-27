@@ -150,7 +150,7 @@
 
             <div class="list-group">
                 <div th:each="aiheraportti : ${aiheraportit}" class="list-group">
-                    <a href="#" th:href="@{~/viestit/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aihe</a>
+                    <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aihe</a>
                     <span th:text="${aiheraportti.aiheTeksti}" class="span">kuvaus</span>
                     <span>Uusin viesti: </span>
                     <span th:if="${aiheraportti.viestiId != null}" th:text="${aiheraportti.viestiNimimerkki}" class="span">aikaleima</span>
@@ -158,7 +158,7 @@
                 </div>
             </div>
 
-            <form th:action="@{~/aiheet/{alueid}(alueid=${alue.id})}" method="POST" class="form-inline">
+            <form th:action="@{~/alue/{alueid}(alueid=${alue.id})}" method="POST" class="form-inline">
                 <div class="form-group">
                     <label>Nimimerkki:</label>
                     <input type="text" name="nimimerkki" class="form-control"/>
