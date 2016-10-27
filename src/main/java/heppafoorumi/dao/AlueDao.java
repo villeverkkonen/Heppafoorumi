@@ -86,13 +86,7 @@ public class AlueDao implements Dao<Alue, Integer> {
                 "SELECT * FROM Alue AS alue "
                 + "    LEFT JOIN Aihe AS aihe "
                 + "        ON (aihe.alue = alue.id) "
-                + "    LEFT JOIN Viesti AS viesti "
-                + "        ON (viesti.aihe = aihe.id) "
-                + "    WHERE (viesti.id = "
-                + "        (SELECT MAX(id) FROM viesti AS uusin_viesti "
-                + "            WHERE uusin_viesti.aihe = aihe.id) "
-                + "        OR viesti.id IS NULL) "
-                + "    AND (aihe.id = "
+                + "    WHERE (aihe.id = "
                 + "        (SELECT MAX(id) FROM aihe AS uusin_aihe "
                 + "            WHERE uusin_aihe.alue = alue.id) "
                 + "        OR aihe.id IS NULL) "
@@ -113,16 +107,26 @@ public class AlueDao implements Dao<Alue, Integer> {
             String aiheOtsikko = resultSet.getString("aihe.otsikko");
             String aiheTeksti = resultSet.getString("aihe.teksti");
 
-            Integer viestiId = resultSet.getInt("viesti.id");
-            Timestamp viestiAikaleima = resultSet.getTimestamp("viesti.aikaleima");
-            Integer viestiAihe = resultSet.getInt("viesti.aihe");
-            String viestiNimimerkki = resultSet.getString("viesti.nimimerkki");
-            String viestiTeksti = resultSet.getString("viesti.teksti");
+            // Etsitään nykyisen aiheen uusin viesti.
+            int viestiId = Integer.MIN_VALUE;
+            Viesti uusinViesti = null;
+
+            List<Aihe> aiheet = this.kaikkiDao.getAiheDao().findAll(alueId);
+
+            for (Aihe aihe : aiheet) {
+
+                List<Viesti> viestit = this.kaikkiDao.getViestiDao().findAll(aihe.getId());
+
+                for (Viesti viesti : viestit) {
+                    if (viesti.getId() > viestiId) {
+                        viestiId = viesti.getId();
+                        uusinViesti = viesti;
+                    }
+                }
+            }
 
             Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
             Aihe uusinAihe = new Aihe(this.database, aiheId, aiheAikaleima, aiheAlue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
-            Viesti viesti = new Viesti(this.database, viestiId, viestiAikaleima, viestiAihe, viestiNimimerkki, viestiTeksti);
-            List<Aihe> aiheet = this.kaikkiDao.getAiheDao().findAll(alueId);
 
             int alueenViestienLkm = 0;
 
@@ -130,7 +134,7 @@ public class AlueDao implements Dao<Alue, Integer> {
                 alueenViestienLkm += this.kaikkiDao.getViestiDao().findAll(aihe.getId()).size();
             }
 
-            raporttilista.add(new Alueraportti(alue, uusinAihe, viesti, aiheet.size(), alueenViestienLkm, null, null));
+            raporttilista.add(new Alueraportti(alue, uusinAihe, uusinViesti, aiheet.size(), alueenViestienLkm, null, null));
         }
 
         resultSet.close();
