@@ -153,8 +153,9 @@
                     <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aihe</a>
                     <span th:text="${aiheraportti.aiheTeksti}" class="span">kuvaus</span>
                     <span>Uusin viesti: </span>
-                    <span th:if="${aiheraportti.viestiId != null}" th:text="${aiheraportti.viestiNimimerkki}" class="span">aikaleima</span>
-                    <span th:if="${aiheraportti.viestiId == null}">Ei aiheita</span>
+                    <span th:text="${aiheraportti.viestiNimimerkki}">viestiNimimerkki</span>
+                    <span th:text="${aiheraportti.viestiTeksti}">viestiTeksti</span>
+                    <span th:text="${aiheraportti.viestiAikaleima}">aiheAikaleima</span>
                 </div>
             </div>
 

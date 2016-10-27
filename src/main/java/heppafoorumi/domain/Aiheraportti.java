@@ -70,9 +70,9 @@ public class Aiheraportti {
     }
 
     public Timestamp getViestiAikaleima() {
-        if (this.aihe == null) {
+        if (this.viesti == null) {
             return null;
         }
-        return this.aihe.getAikaleima();
+        return this.viesti.getAikaleima();
     }
 }
