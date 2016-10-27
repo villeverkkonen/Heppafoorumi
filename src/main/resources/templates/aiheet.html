@@ -130,6 +130,10 @@
 
             }
 
+            .p {
+                margin-left: 25px;
+            }
+
         </style>
     </head>
 
@@ -152,10 +156,12 @@
                 <div th:each="aiheraportti : ${aiheraportit}" class="list-group">
                     <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aiheraportti.aiheId})}" th:text="${aiheraportti.aiheOtsikko}" class="list-group-item list-group-item-info">aihe</a>
                     <span th:text="${aiheraportti.aiheTeksti}" class="span">kuvaus</span>
-                    <span>Uusin viesti: </span>
-                    <span th:text="${aiheraportti.viestiNimimerkki}">viestiNimimerkki</span>
-                    <span th:text="${aiheraportti.viestiTeksti}">viestiTeksti</span>
-                    <span th:text="${aiheraportti.viestiAikaleima}">aiheAikaleima</span>
+                    <p class="p">
+                        <span>Uusin viesti: </span>
+                        <span th:text="${aiheraportti.viestiNimimerkki}">viestiNimimerkki</span>
+                        <span th:text="${aiheraportti.viestiTeksti}">viestiTeksti</span>
+                        <span th:text="${aiheraportti.viestiAikaleima}">aiheAikaleima</span>
+                    </p>
                 </div>
             </div>
 
