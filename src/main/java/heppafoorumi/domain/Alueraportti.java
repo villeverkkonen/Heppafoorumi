@@ -13,6 +13,13 @@ public class Alueraportti {
         this.viesti = viesti;
     }
 
+    public Integer getAiheId() {
+        if (this.aihe == null) {
+            return null;
+        }
+        return this.aihe.getId();
+    }
+
     public String getAiheNimimerkki() {
         if (this.aihe == null) {
             return null;
@@ -27,11 +34,11 @@ public class Alueraportti {
         return this.aihe.getOtsikko();
     }
 
-    public String getAiheKuvaus() {
+    public String getAiheTeksti() {
         if (this.aihe == null) {
             return null;
         }
-        return this.aihe.getKuvaus();
+        return this.aihe.getTeksti();
     }
 
     public Timestamp getAiheAikaleima() {
@@ -48,7 +55,7 @@ public class Alueraportti {
         return this.viesti.getNimimerkki();
     }
 
-    public String getViestiOtsikko() {
+    public String getViestiTeksti() {
         if (this.aihe == null) {
             return null;
         }

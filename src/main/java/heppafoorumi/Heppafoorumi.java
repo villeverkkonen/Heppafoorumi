@@ -14,6 +14,7 @@ import static spark.Spark.get;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 import heppafoorumi.database.Database;
 import heppafoorumi.domain.Aihe;
+import heppafoorumi.domain.Alueraportti;
 import heppafoorumi.domain.Viesti;
 import heppafoorumi.tekstikayttoliittyma.Tekstikayttoliittyma;
 import java.util.ArrayList;
@@ -93,8 +94,8 @@ public class Heppafoorumi {
         get("/", (req, res) -> {
             HashMap<String, Object> data = new HashMap();
 
-            List<Alue> alueet = alueDao.findAll();
-            data.put("alueet", alueet);
+            List<Alueraportti> alueraportit = alueDao.findTarpeellisetTiedot();
+            data.put("alueraportit", alueraportit);
 
             //joka alueen viestien kokonaismäärän näyttäminen
             //List<Integer> viestitYhteensa = new ArrayList<>();
