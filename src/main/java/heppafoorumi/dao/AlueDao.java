@@ -122,7 +122,7 @@ public class AlueDao implements Dao<Alue, Integer> {
             Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
             Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, aiheAlue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
             Viesti viesti = new Viesti(this.database, viestiId, viestiAikaleima, viestiAihe, viestiNimimerkki, viestiTeksti);
-            raporttilista.add(new Alueraportti(alue, aihe, viesti));
+            raporttilista.add(new Alueraportti(alue, aihe, viesti, null, null, null, null));
         }
 
         resultSet.close();
