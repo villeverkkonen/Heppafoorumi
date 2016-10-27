@@ -80,7 +80,7 @@ public class Alueraportti {
         return this.aihe.getTeksti();
     }
 
-    public Timestamp getAiheAikaleima() {
+    public String getAiheAikaleima() {
         if (this.aihe == null) {
             return null;
         }
@@ -101,7 +101,7 @@ public class Alueraportti {
         return this.viesti.getTeksti();
     }
 
-    public Timestamp getViestiAikaleima() {
+    public String getViestiAikaleima() {
         if (this.aihe == null) {
             return null;
         }

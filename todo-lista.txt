@@ -4,9 +4,6 @@ Työn alla olevia asioita:
 uusimman aiheen uusimman viestin. Ei kuitenkaan uusinta viestiä aiheesta
 joka ei ole uusin.
 
-- alueet.html ja aiheet.html -sivuilla timestamp tulostuu millisekunnin tarkkuudella,
-sekunnin tarkkuudella riittää.
-
 - Alueet tulee järjestää alueen nimen perusteella
 
 - Rajoittakaa keskustelunavausten määrää niin, että aihealuekohtaisella listalla
@@ -36,3 +33,6 @@ Tehdyt työt:
 näytetään aina kymmenen uusinta keskustelunavausta
 
 - Viestien kokonaismäärän tulostaminen alueet.html ja aiheet.html
+
+- alueet.html ja aiheet.html -sivuilla timestamp tulostuu millisekunnin tarkkuudella,
+sekunnin tarkkuudella riittää.

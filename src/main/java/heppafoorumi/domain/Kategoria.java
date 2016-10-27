@@ -37,12 +37,15 @@ public abstract class Kategoria {
     }
 
     public String getTimestamp() {
+        if (this.aikaleima == null) {
+            return null;
+        }
         String aikaleimaString = this.aikaleima.toString();
         return aikaleimaString.substring(0, aikaleimaString.lastIndexOf('.'));
     }
 
-    public final Timestamp getAikaleima() {
-        return this.aikaleima;
+    public String getAikaleima() {
+        return this.getTimestamp();
     }
 
     public String getTeksti() {
