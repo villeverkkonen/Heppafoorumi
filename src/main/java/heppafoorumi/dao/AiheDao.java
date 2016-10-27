@@ -189,7 +189,9 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
             Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, aiheAlue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
             Viesti viesti = new Viesti(this.database, viestiId, viestiAikaleima, aiheId, viestiNimimerkki, viestiTeksti);
-            raporttilista.add(new Aiheraportti(aihe, viesti, null, null));
+            List<Viesti> viestit = this.kaikkiDao.getViestiDao().findAll(aiheId);
+
+            raporttilista.add(new Aiheraportti(aihe, viesti, viestit.size(), null));
         }
 
         resultSet.close();

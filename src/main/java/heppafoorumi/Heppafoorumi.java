@@ -138,6 +138,8 @@ public class Heppafoorumi {
             List<Viesti> viestit = viestiDao.findAll(aiheId);
             data.put("viestit", viestit);
 
+            data.put("viestien_lkm", viestit.size());
+
             //viiden uusimman viestin näyttäminen
             List<Viesti> uusimmatViestit = new ArrayList<>();
             List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
