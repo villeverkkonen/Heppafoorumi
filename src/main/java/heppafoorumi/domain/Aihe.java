@@ -48,8 +48,16 @@ public class Aihe extends Kategoria {
         this.alue = alueId;
 
         // tallennetaan enintään 20 ensimmäistä merkkiä syötetystä nimimerkistä.
-        this.nimimerkki = nimimerkki.substring(0, Math.min(nimimerkki.length(), NIMIMERKIN_PITUUS));
-        this.otsikko = otsikko.substring(0, Math.min(otsikko.length(), OTSIKON_PITUUS));
+        if (nimimerkki == null) {
+            this.nimimerkki = "";
+        } else {
+            this.nimimerkki = nimimerkki.substring(0, Math.min(nimimerkki.length(), NIMIMERKIN_PITUUS));
+        }
+        if (otsikko == null) {
+            this.otsikko = "";
+        } else {
+            this.otsikko = otsikko.substring(0, Math.min(otsikko.length(), OTSIKON_PITUUS));
+        }
         this.kuvaus = teksti;
         this.aikaleima = aikaleima;
         this.aiheId = id;
