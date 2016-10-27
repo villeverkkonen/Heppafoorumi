@@ -3,6 +3,7 @@ package heppafoorumi.domain;
 import java.sql.Timestamp;
 
 public class Aiheraportti {
+
     private final Aihe aihe;
     private final Viesti viesti;
 
@@ -45,6 +46,13 @@ public class Aiheraportti {
             return null;
         }
         return this.aihe.getAikaleima();
+    }
+
+    public Integer getViestiId() {
+        if (this.viesti == null) {
+            return null;
+        }
+        return this.viesti.getId();
     }
 
     public String getViestiNimimerkki() {
