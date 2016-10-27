@@ -148,12 +148,13 @@
             <h2 class="h2">Voit lis&auml;t&auml; uusia aiheita t&auml;lle alueelle tai valita jo valmiiksi olevan</h2>
             <hr/>
 
-            <div th:each="aihe : ${aiheet}" class="list-group">
-                <div th:each="viesti : ${uusimmatViestit}">
-                    <a href="#" th:href="@{~/viestit/{alueid}-{aiheid}(alueid=${alue.id}, aiheid=${aihe.id})}"
-                       th:text="${aihe.otsikko}" class="list-group-item list-group-item-info">aihe</a>
-                    <span>Uusin viesti: </span><span th:text="${viesti.timestamp}" class="span">aikaleima</span>
-                    <span th:text="${aihe.kuvaus}" class="span">kuvaus</span>
+            <div class="list-group">
+                <div th:each="aiheraportti : ${aiheraportit}" class="list-group">
+                    <a href="#" th:href="@{~/aiheet/{id}(id=${aiheraportti.alueId})}" th:text="${aiheraportti.alueOtsikko}" class="list-group-item list-group-item-info">alue</a>
+                    <span th:text="${aiheraportti.alueTeksti}" class="span">kuvaus</span>
+                    <span>Uusin viesti: </span>
+                    <span><a href="#" th:if="${aiheraportti.viestiId != null}" th:href="@{~/viestit/{alueid}-{aiheid}(alueid=${alueId}, aiheid=${aiheraportti.viestiId})}" th:text="${aiheraportti.aiheNimimerkki}" class="span">aikaleima</a></span>
+                    <span th:if="${aiheraportti.viestiId == null}">Ei aiheita</span>
                 </div>
             </div>
 
