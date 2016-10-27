@@ -126,10 +126,12 @@ public class ViestiDao implements Dao<Viesti, Integer> {
                 + "viesti.aihe AS viesti_aihe, "
                 + "viesti.nimimerkki AS viesti_nimimerkki, "
                 + "viesti.teksti AS viesti_teksti "
-                + "FROM Viesti viesti, Aihe aihe "
+                + "FROM Viesti viesti "
+                + "LEFT JOIN Aihe aihe "
+                + "ON aihe.id = viesti.aihe "
                 + "WHERE viesti.aihe = " + aiheId
                 + "AND aihe.alue = " + alueId
-                + " ORDER BY viesti_aikaleima DESC LIMIT 1");
+                + " ORDER BY viesti.aikaleima DESC LIMIT 1");
 
         List<Viesti> viestit = new ArrayList();
 
