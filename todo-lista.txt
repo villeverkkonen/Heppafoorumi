@@ -1,0 +1,33 @@
+Työn alla olevia asioita:
+
+- alueet.html Uusin viesti: -kohta tulostaa tällä hetkellä vain
+uusimman aiheen uusimman viestin. Ei kuitenkaan uusinta viestiä aiheesta
+joka ei ole uusin.
+
+- alueet.html ja aiheet.html -sivuilla timestamp tulostuu millisekunnin tarkkuudella,
+sekunnin tarkkuudella riittää.
+
+- Viestien kokonaismäärän tulostaminen alueet.html ja aiheet.html
+
+- Alueet tulee järjestää alueen nimen perusteella
+
+- Rajoittakaa keskustelunavausten määrää niin, että aihealuekohtaisella listalla
+näytetään aina kymmenen uusinta keskustelunavausta
+
+- Keskustelunavaukset tulee järjestää uusimman viestin perusteella.
+
+- Lisätkää sovellukseen mahdollisuus rajata kerrallaan näytettävien viestien määrää.
+Huom! On mahdollista lisätä osoitteisiin esimerkiksi parametri “sivu=1”,
+jolloin kerrotaan, että tulee näyttää ensimmäinen sivu.
+Näytettävät viestit saa selville parametrin arvon, limit-komennon, sekä kertolaskun avulla.
+
+- tarkistakaa vielä kerran, ettei sovelluksessa ole mahdollisuuksia
+SQL-injektioiden tekemiseen.
+Tämän lisäksi on hyvä rajoittaa sivun toiminnallisuutta siten,
+että käyttäjä ei voi syöttää HTML-koodia tietokantaan
+
+- 
+
+Tehdyt työt: 
+
+- Alueet tulee järjestää alueen nimen perusteella
