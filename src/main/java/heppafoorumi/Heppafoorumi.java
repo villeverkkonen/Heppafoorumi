@@ -27,13 +27,13 @@ import static spark.Spark.post;
 public class Heppafoorumi {
 
     private static boolean onkoLinux() {
-        Spark.staticFileLocation("public");
         // http://stackoverflow.com/questions/3282498/how-can-i-detect-a-unix-like-os-in-java/3282597#3282597
         // Oletetaan että jos ei ole Windows, niin on Linux.
         return (!(System.getProperty("os.name").startsWith("Windows")));
     }
 
     public static void main(String[] args) throws Exception {
+        Spark.staticFileLocation("public");
         boolean tekstikayttoliittymaaKaytossa = false;
 
         // alla oleva koodi on kehityksen nopeuttamiseksi,
