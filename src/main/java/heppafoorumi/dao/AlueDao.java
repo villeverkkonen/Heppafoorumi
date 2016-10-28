@@ -38,9 +38,11 @@ public class AlueDao implements Dao<Alue, Integer> {
         statement.setObject(1, key);
 
         ResultSet resultSet = statement.executeQuery();
-        boolean hasOne = resultSet.next();
 
-        if (!hasOne) {
+        if (!resultSet.next()) {
+            resultSet.close();
+            statement.close();
+            connection.close();
             return null;
         }
 
