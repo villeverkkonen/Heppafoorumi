@@ -139,7 +139,7 @@
             .btn-info {
 
             }
-            
+
             hr {
                 display: block;
                 height: 3px;
@@ -178,7 +178,7 @@
             <div>
                 <span class="span-margin">Viestien lukum&auml;&auml;r&auml;:</span><span th:text="${viestien_lkm}" class="span"></span>
             </div>
-            
+
             <button data-toggle="collapse" data-target="#kaikkiViestitt" class="btn btn-info">Kaikki viestit</button>
             <span>Paina nappia piilottaaksesi kaikki viestit</span>
             <div id="kaikkiViestitt" class="collapse in">
@@ -198,7 +198,7 @@
                     </li>
                 </ul>
             </div>
-                
+
             <form th:action="@{~/aihe/{alueid}-{aiheid}(alueid=${alue_id}, aiheid=${aihe.id})}" method="POST" class="form-inline">
                 <div class="form-group">
                     <label>Nimimerkki:</label>
