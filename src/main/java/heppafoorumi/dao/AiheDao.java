@@ -101,9 +101,11 @@ public class AiheDao implements Dao<Aihe, Integer> {
     public Integer findLkm(int alueId) throws SQLException {
 
         Connection connection = database.getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery(
+        PreparedStatement statement = connection.prepareStatement(
                 " SELECT COUNT(id) AS lkm FROM Aihe "
-                + " WHERE Aihe.alue = " + alueId);
+                + " WHERE Aihe.alue = ?");
+        statement.setObject(1, alueId);
+        ResultSet resultSet = statement.executeQuery();
 
         Integer lkm = null;
 
@@ -119,7 +121,7 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
     public List<Aihe> findAll(int alueId) throws SQLException {
         Connection connection = database.getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+        PreparedStatement statement = connection.prepareStatement("SELECT "
                 + "aihe.id AS aihe_id, "
                 + "aihe.aikaleima AS aihe_aikaleima, "
                 + "aihe.alue AS aihe_alue, "
@@ -127,7 +129,9 @@ public class AiheDao implements Dao<Aihe, Integer> {
                 + "aihe.otsikko AS aihe_otsikko, "
                 + "aihe.teksti AS aihe_teksti "
                 + "FROM Aihe aihe "
-                + "WHERE aihe.alue = " + alueId);
+                + "WHERE aihe.alue = ?");
+        statement.setObject(1, alueId);
+        ResultSet resultSet = statement.executeQuery();
 
         List<Aihe> aiheet = new ArrayList();
         while (resultSet.next()) {
@@ -185,7 +189,7 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
     public List<Aiheraportti> findTarpeellisetTiedot(int alueId) throws SQLException {
         Connection connection = database.getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery(
+        PreparedStatement statement = connection.prepareStatement(
                 "SELECT * FROM Aihe AS aihe "
                 + "    LEFT JOIN Viesti AS viesti "
                 + "    ON (viesti.aihe = aihe.id) "
@@ -193,8 +197,10 @@ public class AiheDao implements Dao<Aihe, Integer> {
                 + "        (SELECT MAX(id) FROM viesti AS uusin_viesti "
                 + "            WHERE uusin_viesti.aihe = aihe.id) "
                 + "        OR viesti.id IS NULL) "
-                + "        AND aihe.alue = " + alueId
+                + "        AND aihe.alue = ? "
                 + "    ORDER BY viesti.id DESC");
+        statement.setObject(1, alueId);
+        ResultSet resultSet = statement.executeQuery();
 
         List<Aiheraportti> raporttilista = new ArrayList();
 
