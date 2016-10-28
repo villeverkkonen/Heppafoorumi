@@ -175,6 +175,7 @@ public class AiheDao implements Dao<Aihe, Integer> {
         ResultSet resultSet = statement.executeQuery();
 
         List<Aihe> aiheet = new ArrayList();
+
         while (resultSet.next()) {
             Integer aiheId = resultSet.getInt("aihe_id");
             Timestamp aiheAikaleima = resultSet.getTimestamp("aihe_aikaleima");
@@ -188,8 +189,8 @@ public class AiheDao implements Dao<Aihe, Integer> {
             aiheet.add(aihe);
         }
 
-        resultSet.close();
         statement.close();
+        resultSet.close();
         connection.close();
 
         return aiheet;
