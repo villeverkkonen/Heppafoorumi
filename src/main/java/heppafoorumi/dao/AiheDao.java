@@ -96,6 +96,25 @@ public class AiheDao implements Dao<Aihe, Integer> {
         return aiheet;
     }
 
+    public Integer findLkm(int alueId) throws SQLException {
+
+        Connection connection = database.getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery(
+                " SELECT COUNT(id) AS lkm FROM Aihe "
+                + " WHERE Aihe.alue = " + alueId);
+
+        Integer lkm = null;
+
+        if (resultSet.next()) {
+            lkm = resultSet.getInt("lkm");
+        }
+
+        resultSet.close();
+        connection.close();
+
+        return lkm;
+    }
+
     public List<Aihe> findAll(int alueId) throws SQLException {
         Connection connection = database.getConnection();
         ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
