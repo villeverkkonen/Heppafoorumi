@@ -153,8 +153,8 @@ public class AiheDao implements Dao<Aihe, Integer> {
             aiheet.add(aihe);
         }
 
-        statement.close();
         resultSet.close();
+        statement.close();
         connection.close();
 
         return aiheet;
