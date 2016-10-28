@@ -48,9 +48,13 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
         ResultSet resultSet = statement.executeQuery();
 
-        if (resultSet == null || !resultSet.next()) {
+        if (!resultSet.next()) {
+            resultSet.close();
+            statement.close();
+            connection.close();
             return null;
         }
+
         Integer aiheId = resultSet.getInt("aihe_id");
         Timestamp aiheAikaleima = resultSet.getTimestamp("aihe_aikaleima");
         Integer aiheAlue = resultSet.getInt("aihe_alue");
@@ -59,6 +63,7 @@ public class AiheDao implements Dao<Aihe, Integer> {
         String aiheTeksti = resultSet.getString("aihe_teksti");
 
         resultSet.close();
+        statement.close();
         connection.close();
 
         Aihe aihe = new Aihe(this.database, aiheId, aiheAikaleima, aiheAlue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
