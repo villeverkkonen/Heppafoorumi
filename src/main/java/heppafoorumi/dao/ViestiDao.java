@@ -126,7 +126,40 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         return viestit;
     }
-    
+
+    public Viesti findUusinViesti(int alueId) throws SQLException {
+
+        Connection connection = database.getConnection();
+        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+                + "aihe.id AS aihe_id, "
+                + "viesti.id AS viesti_id, "
+                + "viesti.aikaleima AS viesti_aikaleima, "
+                + "viesti.aihe AS viesti_aihe, "
+                + "viesti.nimimerkki AS viesti_nimimerkki, "
+                + "viesti.teksti AS viesti_teksti "
+                + "FROM Aihe aihe, Viesti "
+                + "WHERE viesti.aihe = aihe.id "
+                + "AND aihe.alue = " + alueId + " "
+                + "ORDER BY viesti.id DESC LIMIT 1");
+
+        Viesti uusinViesti = null;
+
+        if (resultSet.next()) {
+            Integer viestiId = resultSet.getInt("viesti_id");
+            Timestamp viestiAikaleima = resultSet.getTimestamp("viesti_aikaleima");
+            Integer viestiAihe = resultSet.getInt("viesti_aihe");
+            String viestiNimimerkki = resultSet.getString("viesti_nimimerkki");
+            String viestiTeksti = resultSet.getString("viesti_teksti");
+
+            uusinViesti = new Viesti(this.database, viestiId, viestiAikaleima, viestiAihe, viestiNimimerkki, viestiTeksti);
+        }
+
+        resultSet.close();
+        connection.close();
+
+        return uusinViesti;
+    }
+
     public List<Viesti> findAiheidenUusimmatViestit(int alueId, int aiheId) throws SQLException {
 
         Connection connection = database.getConnection();
