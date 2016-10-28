@@ -192,7 +192,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         return viestit;
     }
-    
+
     //metodi sitä varten, että saataisiin joka aiheen viestien määrä
     public int CountAiheViestit(int aiheId) throws SQLException {
 
@@ -200,10 +200,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
                 + "COUNT(*) AS viesteja "
                 + "FROM Viesti viesti, Aihe aihe "
-                + "WHERE viesti.aiheId = " +aiheId);
-        
+                + "WHERE viesti.aiheId = " + aiheId);
+
         int viesteja = 0;
-        
+
         while (resultSet.next()) {
             viesteja = resultSet.getInt("viesteja");
         }
