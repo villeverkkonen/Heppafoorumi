@@ -125,6 +125,7 @@
             .btn {
                 margin-left: 20px;
                 margin-top: 5px;
+                margin-bottom: 5px;
             }
 
             .btn-success {
@@ -166,9 +167,10 @@
             <button data-toggle="collapse" data-target="#uusimmatViestit" class="btn btn-info">Uusimmat 10 viesti&auml;</button>
             <br/>
             <div id="uusimmatViestit" class="collapse">
-                <p th:each="uusinViesti : ${uusimmatViestit}">
-                    <span style="color: darkorange" th:text="${uusinViesti.uusimmat}" class="span">viesti</span>
-                </p>
+                <div th:each="uusinViesti : ${uusimmatViestit}">
+                    <span style="color: grey" th:text="${uusinViesti.uusimmat}" class="span">viesti</span>
+                    <hr/>
+                </div>
             </div>
 
             <h2 class="h2">Osallistu keskusteluun lis&auml;&auml;m&auml;ll&auml; viesti</h2>
@@ -203,13 +205,13 @@
                     <input type="text" name="nimimerkki" class="form-control"/>
                 </div>
                 <div class="form-group">
-                    <label>Lis&auml;&auml; viesti:</label>
-                    <input type="text" name="viesti" class="form-control"/>
+                    <label for="viesti">Lis&auml;&auml; viesti:</label>
+                    <textarea rows="6" class="form-control" name="viesti"></textarea>
                 </div>
                 <button type="submit" class="btn btn-success">Lis&auml;&auml;!</button>
             </form>
 
-            <a href="#" th:href="@{~/alue/{alueid}(alueid=${alue_string})}"><p class="form-group">Takaisin aiheisiin</p></a>
+            <button class="btn btn-primary"><a href="#" th:href="@{~/alue/{alueid}(alueid=${alue_string})}"><span style="color: gold">Takaisin aiheisiin</span></a></button>
 
         </section>
 
