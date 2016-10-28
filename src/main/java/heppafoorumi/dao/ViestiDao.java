@@ -137,7 +137,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     public Viesti findUusinViesti(int alueId) throws SQLException {
 
         Connection connection = database.getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+        PreparedStatement statement = connection.prepareStatement("SELECT "
                 + "aihe.id AS aihe_id, "
                 + "viesti.id AS viesti_id, "
                 + "viesti.aikaleima AS viesti_aikaleima, "
@@ -146,8 +146,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
                 + "viesti.teksti AS viesti_teksti "
                 + "FROM Aihe aihe, Viesti "
                 + "WHERE viesti.aihe = aihe.id "
-                + "AND aihe.alue = " + alueId + " "
+                + "AND aihe.alue = ? "
                 + "ORDER BY viesti.id DESC LIMIT 1");
+        statement.setObject(1, alueId);
+        ResultSet resultSet = statement.executeQuery();
 
         Viesti uusinViesti = null;
 
@@ -162,6 +164,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         }
 
         resultSet.close();
+        statement.close();
         connection.close();
 
         return uusinViesti;
