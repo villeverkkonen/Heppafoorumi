@@ -31,17 +31,22 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     @Override
     public Viesti findOne(Integer key) throws SQLException {
         Connection connection = database.getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+        PreparedStatement statement = connection.prepareStatement("SELECT "
                 + "viesti.id AS viesti_id, "
                 + "viesti.aikaleima AS viesti_aikaleima, "
                 + "viesti.aihe AS viesti_aihe, "
                 + "viesti.nimimerkki AS viesti_nimimerkki, "
                 + "viesti.teksti AS viesti_teksti "
                 + "FROM Viesti viesti "
-                + "WHERE viesti.id = " + key);
+                + "WHERE viesti.id = ?");
+        statement.setObject(1, key);
 
-        boolean hasOne = resultSet.next();
-        if (!hasOne) {
+        ResultSet resultSet = statement.executeQuery();
+
+        if (!resultSet.next()) {
+            resultSet.close();
+            statement.close();
+            connection.close();
             return null;
         }
 
@@ -52,12 +57,10 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         String viestiTeksti = resultSet.getString("viesti_teksti");
 
         resultSet.close();
+        statement.close();
         connection.close();
 
         Viesti viesti = new Viesti(this.database, viestiId, viestiAikaleima, viestiAihe, viestiNimimerkki, viestiTeksti);
-
-        resultSet.close();
-        connection.close();
 
         return viesti;
     }
