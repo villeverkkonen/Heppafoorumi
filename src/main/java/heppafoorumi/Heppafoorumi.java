@@ -118,7 +118,7 @@ public class Heppafoorumi {
             List<Aiheraportti> apuLista = aiheDao.findTarpeellisetTiedot(alueId);
             List<Aiheraportti> kymmenenAihetta = apuLista.subList(0, Math.min(apuLista.size(), 10));
             data.put("kymmenenAihetta", kymmenenAihetta);
-            
+
             List<Aiheraportti> kaikkiAiheet = aiheDao.findTarpeellisetTiedot(alueId);
             data.put("kaikkiAiheet", kaikkiAiheet);
 
@@ -141,10 +141,10 @@ public class Heppafoorumi {
 
             List<Viesti> viestit = viestiDao.findAll(aiheId);
             data.put("viestit", viestit);
-            
-            data.put("viestien_lkm", (Integer)viestit.size());
 
-            //kymmenen uusimman viestin näyttäminen
+            data.put("viestien_lkm", (Integer) viestit.size());
+
+            // Kymmenen uusimman viestin näyttäminen.
             List<Viesti> uusimmatViestit = new ArrayList<>();
             List<Viesti> kaanteinenLista = new ArrayList<>(viestit);
             Collections.reverse(kaanteinenLista);
