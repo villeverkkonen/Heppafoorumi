@@ -102,14 +102,17 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     public List<Viesti> findAll(int aiheId) throws SQLException {
 
         Connection connection = database.getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+        PreparedStatement statement = connection.prepareStatement("SELECT "
                 + "viesti.id AS viesti_id, "
                 + "viesti.aikaleima AS viesti_aikaleima, "
                 + "viesti.aihe AS viesti_aihe, "
                 + "viesti.nimimerkki AS viesti_nimimerkki, "
                 + "viesti.teksti AS viesti_teksti "
                 + "FROM Viesti viesti "
-                + "WHERE viesti.aihe = " + aiheId);
+                + "WHERE viesti.aihe = ?");
+        statement.setObject(1, aiheId);
+
+        ResultSet resultSet = statement.executeQuery();
 
         List<Viesti> viestit = new ArrayList();
 
@@ -125,6 +128,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         }
 
         resultSet.close();
+        statement.close();
         connection.close();
 
         return viestit;
