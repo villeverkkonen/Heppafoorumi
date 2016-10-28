@@ -107,23 +107,8 @@ public class AlueDao implements Dao<Alue, Integer> {
             String aiheOtsikko = resultSet.getString("aihe.otsikko");
             String aiheTeksti = resultSet.getString("aihe.teksti");
 
-            // Etsitään nykyisen aiheen uusin viesti.
-            int viestiId = Integer.MIN_VALUE;
-            Viesti uusinViesti = null;
-
-            List<Aihe> aiheet = this.kaikkiDao.getAiheDao().findAll(alueId);
-
-            for (Aihe aihe : aiheet) {
-
-                List<Viesti> viestit = this.kaikkiDao.getViestiDao().findAll(aihe.getId());
-
-                for (Viesti viesti : viestit) {
-                    if (viesti.getId() > viestiId) {
-                        viestiId = viesti.getId();
-                        uusinViesti = viesti;
-                    }
-                }
-            }
+            // Etsitään nykyisen alueen uusin viesti.
+            Viesti uusinViesti = this.kaikkiDao.getViestiDao().findUusinViesti(alueId);
 
             Alue alue = new Alue(this.database, alueId, alueAikaleima, alueOtsikko, alueTeksti);
             Aihe uusinAihe = new Aihe(this.database, aiheId, aiheAikaleima, aiheAlue, aiheNimimerkki, aiheOtsikko, aiheTeksti);
