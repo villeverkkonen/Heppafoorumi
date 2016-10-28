@@ -80,8 +80,6 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
         List<Aihe> aiheet = new ArrayList();
         while (resultSet.next()) {
-            Integer alueId = resultSet.getInt("alue_id");
-
             Integer aiheId = resultSet.getInt("aihe_id");
             Timestamp aiheAikaleima = resultSet.getTimestamp("aihe_aikaleima");
             Integer aiheAlue = resultSet.getInt("aihe_alue");
