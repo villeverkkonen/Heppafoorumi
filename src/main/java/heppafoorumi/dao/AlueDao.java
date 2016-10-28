@@ -119,7 +119,8 @@ public class AlueDao implements Dao<Alue, Integer> {
                 alueenViestienLkm += this.kaikkiDao.getViestiDao().findAll(aihe.getId()).size();
             }
 
-            raporttilista.add(new Alueraportti(alue, uusinAihe, uusinViesti, aiheet.size(), alueenViestienLkm, null, null));
+            Integer aiheidenLkm = this.kaikkiDao.getAiheDao().findLkm(alueId);
+            raporttilista.add(new Alueraportti(alue, uusinAihe, uusinViesti, aiheidenLkm, alueenViestienLkm, null, null));
         }
 
         resultSet.close();
