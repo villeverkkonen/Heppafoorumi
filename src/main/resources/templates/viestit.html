@@ -188,7 +188,7 @@
 
             <ul>
                 <li th:each="viesti : ${viestit}">
-                    <form th:action="@{~/aihe/{viestiid}-{alueid}-{aiheid}(viestiid=${viesti.id}, alueid=${alue_string}, aiheid=${aihe.id})}" method="POST" class="form-inline">
+                    <form th:action="@{~/aihe/{viestiid}-{alueid}-{aiheid}(viestiid=${viesti.id}, alueid=${alue_id}, aiheid=${aihe.id})}" method="POST" class="form-inline">
                         <p>
                             <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
                             <span class="span">(<span style="color: blueviolet" th:text="(${viesti.timestamp})" class="span">timestamp</span>)</span>
@@ -202,7 +202,7 @@
             </ul>
             </div>
                 
-            <form th:action="@{~/aihe/{alueid}-{aiheid}(alueid=${alue_string}, aiheid=${aihe.id})}" method="POST" class="form-inline">
+            <form th:action="@{~/aihe/{alueid}-{aiheid}(alueid=${alue_id}, aiheid=${aihe.id})}" method="POST" class="form-inline">
                 <div class="form-group">
                     <label>Nimimerkki:</label>
                     <input type="text" name="nimimerkki" class="form-control"/>
@@ -214,7 +214,7 @@
                 <button type="submit" class="btn btn-success">Lis&auml;&auml;!</button>
             </form>
 
-            <button class="btn btn-primary"><a href="#" th:href="@{~/alue/{alueid}(alueid=${alue_string})}"><span style="color: gold">Takaisin aiheisiin</span></a></button>
+            <button class="btn btn-primary"><a href="#" th:href="@{~/alue/{alueid}(alueid=${alue_id})}"><span style="color: gold">Takaisin aiheisiin</span></a></button>
 
         </section>
 

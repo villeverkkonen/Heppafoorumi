@@ -132,7 +132,7 @@ public class Heppafoorumi {
             int erotinmerkinIndeksi = alueJaAihe.indexOf('-');
 
             String alueString = alueJaAihe.substring(0, erotinmerkinIndeksi);
-            data.put("alue_string", alueString);
+            data.put("alue_id", Integer.parseInt(alueString));
 
             String aiheString = alueJaAihe.substring(erotinmerkinIndeksi + 1);
             int aiheId = Integer.parseInt(aiheString);
@@ -141,7 +141,6 @@ public class Heppafoorumi {
 
             List<Viesti> viestit = viestiDao.findAll(aiheId);
             data.put("viestit", viestit);
-
             
             data.put("viestien_lkm", (Integer)viestit.size());
 
