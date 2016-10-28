@@ -121,7 +121,7 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
     public List<Aihe> findAll(int alueId) throws SQLException {
         Connection connection = database.getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+        PreparedStatement statement = connection.prepareStatement("SELECT "
                 + "aihe.id AS aihe_id, "
                 + "aihe.aikaleima AS aihe_aikaleima, "
                 + "aihe.alue AS aihe_alue, "
@@ -129,7 +129,9 @@ public class AiheDao implements Dao<Aihe, Integer> {
                 + "aihe.otsikko AS aihe_otsikko, "
                 + "aihe.teksti AS aihe_teksti "
                 + "FROM Aihe aihe "
-                + "WHERE aihe.alue = " + alueId);
+                + "WHERE aihe.alue = ?");
+        statement.setObject(1, alueId);
+        ResultSet resultSet = statement.executeQuery();
 
         List<Aihe> aiheet = new ArrayList();
         while (resultSet.next()) {
