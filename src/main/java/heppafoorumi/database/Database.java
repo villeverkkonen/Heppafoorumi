@@ -25,7 +25,7 @@ public class Database {
             RunScript.execute(connection, new FileReader("database-schema.sql"));
             RunScript.execute(connection, new FileReader("database-import.sql"));
         } catch (Throwable t) {
-            System.err.println("virhe: " + t.getMessage());
+            System.out.println("Käytetään vanhaa tietokantaa, koska sellainen löytyi :)\n");
         }
         connection.close();
     }
