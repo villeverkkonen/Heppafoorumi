@@ -183,20 +183,20 @@
             <span>Paina nappia piilottaaksesi kaikki viestit</span>
             <div id="kaikkiViestitt" class="collapse in">
 
-            <ul>
-                <li th:each="viesti : ${viestit}">
-                    <form th:action="@{~/aihe/{viestiid}-{alueid}-{aiheid}(viestiid=${viesti.id}, alueid=${alue_id}, aiheid=${aihe.id})}" method="POST" class="form-inline">
-                        <p>
-                            <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
-                            <span class="span">(<span style="color: blueviolet" th:text="(${viesti.timestamp})" class="span">timestamp</span>)</span>
-                        </p>
-                        <p>
-                            <span style="color: brown" th:text="${viesti.teksti}" class="span">teksti</span>
-                            <button type="submit" class="btn btn-warning">Poista!</button>
-                        </p>
-                    </form>
-                </li>
-            </ul>
+                <ul>
+                    <li th:each="viesti : ${viestit}">
+                        <form th:action="@{~/poista_viesti/{alueid}-{aiheid}-{viestiid}(alueid=${alue_id}, aiheid=${aihe.id}, viestiid=${viesti.id})}" method="POST" class="form-inline">
+                            <p>
+                                <span style="color: red" th:text="${viesti.nimimerkki}" class="span">nimimerkki</span>
+                                <span class="span">(<span style="color: blueviolet" th:text="(${viesti.timestamp})" class="span">timestamp</span>)</span>
+                            </p>
+                            <p>
+                                <span style="color: brown" th:text="${viesti.teksti}" class="span">teksti</span>
+                                <button type="submit" class="btn btn-warning">Poista!</button>
+                            </p>
+                        </form>
+                    </li>
+                </ul>
             </div>
                 
             <form th:action="@{~/aihe/{alueid}-{aiheid}(alueid=${alue_id}, aiheid=${aihe.id})}" method="POST" class="form-inline">

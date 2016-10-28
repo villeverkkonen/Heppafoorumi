@@ -231,11 +231,11 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         return viesteja;
     }
 
-    public void delete(int aiheId, int viestiId) throws SQLException {
+    @Override
+    public void delete(Integer viestiId) throws SQLException {
         Connection connection = database.getConnection();
-        PreparedStatement statement = connection.prepareStatement("DELETE FROM Viesti WHERE aihe = ? AND id = ?");
-        statement.setObject(1, aiheId);
-        statement.setObject(2, viestiId);
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM Viesti WHERE id = ?");
+        statement.setObject(1, viestiId);
 
         statement.executeUpdate();
 
@@ -257,10 +257,5 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
         statement.close();
         connection.close();
-    }
-
-    @Override
-    public void delete(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

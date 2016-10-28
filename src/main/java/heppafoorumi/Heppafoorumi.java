@@ -200,21 +200,19 @@ public class Heppafoorumi {
             return "";
         });
 
-        //yritys delete napille
-        post("/aihe/:viesti_ja_alue_ja_aihe", (req, res) -> {
-            String viestiJaAlueJaAihe = req.params(":viesti_ja_alue_ja_aihe");
+        post("/poista_viesti/:alue_ja_aihe_ja_viesti", (req, res) -> {
+            String alueJaAiheJaViesti = req.params(":alue_ja_aihe_ja_viesti");
 
-            String aiheString = viestiJaAlueJaAihe.substring(4);
-            String viestiString = viestiJaAlueJaAihe.substring(0);
+            int viimeisenErotinmerkinIndeksi = alueJaAiheJaViesti.lastIndexOf('-');
 
-            int aiheId = Integer.parseInt(aiheString);
+            String alueJaAiheString = alueJaAiheJaViesti.substring(0, viimeisenErotinmerkinIndeksi);
+            String viestiString = alueJaAiheJaViesti.substring(viimeisenErotinmerkinIndeksi + 1);
+
             int viestiId = Integer.parseInt(viestiString);
 
-            viestiDao.delete(aiheId, viestiId);
+            viestiDao.delete(viestiId);
 
-            String alueJaAihe = viestiJaAlueJaAihe.substring(2, 4);
-
-            res.redirect("/aihe/" + alueJaAihe);
+            res.redirect("/aihe/" + alueJaAiheString);
             return "";
         });
     }
