@@ -93,4 +93,8 @@ public class Viesti extends Kategoria {
         aikaleimaString = aikaleimaString.substring(0, aikaleimaString.lastIndexOf('.'));
         return this.nimimerkki + " - " + this.teksti + " - (" + aikaleimaString + ")";
     }
+    
+    public Integer getAiheId() {
+        return this.aihe;
+    }
 }

@@ -107,4 +107,11 @@ public class Alueraportti {
         }
         return this.viesti.getAikaleima();
     }
+    
+    public Integer getViestiAiheId() {
+        if (this.viesti == null) {
+            return null;
+        }
+        return this.viesti.getAiheId();
+    }
 }

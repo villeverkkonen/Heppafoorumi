@@ -183,7 +183,7 @@
 
                         <span>Uusin viesti: </span>
                         <span th:if="${alueraportti.viestiNimimerkki.isEmpty()}" style="color: chocolate">Ei viestej&auml;</span>
-                        <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alueraportti.alueId}, aiheid=${alueraportti.aiheId})}" th:if="${alueraportti.viestiNimimerkki != null}" th:text="${alueraportti.viestiNimimerkki}">aiheNimimerkki</a>
+                        <a href="#" th:href="@{~/aihe/{alueid}-{aiheid}(alueid=${alueraportti.alueId}, aiheid=${alueraportti.viestiAiheId})}" th:if="${alueraportti.viestiNimimerkki != null}" th:text="${alueraportti.viestiNimimerkki}">aiheNimimerkki</a>
                         <span th:if="${alueraportti.viestiAikaleima != null}" th:text="${alueraportti.viestiAikaleima}" style="color: blueviolet">aiheAikaleima</span>
                     </p>
                 </div>
