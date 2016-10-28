@@ -211,10 +211,12 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     public int CountAiheViestit(int aiheId) throws SQLException {
 
         Connection connection = database.getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+        PreparedStatement statement = connection.prepareStatement("SELECT "
                 + "COUNT(*) AS viesteja "
                 + "FROM Viesti viesti, Aihe aihe "
-                + "WHERE viesti.aiheId = " + aiheId);
+                + "WHERE viesti.aiheId = ?");
+        statement.setObject(1, aiheId);
+        ResultSet resultSet = statement.executeQuery();
 
         int viesteja = 0;
 
@@ -223,6 +225,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         }
 
         resultSet.close();
+        statement.close();
         connection.close();
 
         return viesteja;
