@@ -24,6 +24,7 @@ public class Database {
             // If database has not yet been created, insert content
             RunScript.execute(connection, new FileReader("database-schema.sql"));
             RunScript.execute(connection, new FileReader("database-import.sql"));
+            System.out.println("Luotiin uusi tietokanta onnistuneesti :)\n");
         } catch (Throwable t) {
             System.out.println("Käytetään vanhaa tietokantaa, koska sellainen löytyi :)\n");
         }
