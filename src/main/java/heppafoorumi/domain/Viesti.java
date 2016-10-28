@@ -93,9 +93,4 @@ public class Viesti extends Kategoria {
         aikaleimaString = aikaleimaString.substring(0, aikaleimaString.lastIndexOf('.'));
         return this.nimimerkki + " - " + this.teksti + " - (" + aikaleimaString + ")";
     }
-
-    //yritys saada kaikkien viestien määrät alueittain
-    //public int getViestit() {
-    //    return viestiDao.findAllCount();
-    //}
 }
