@@ -189,7 +189,7 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
     public List<Aiheraportti> findTarpeellisetTiedot(int alueId) throws SQLException {
         Connection connection = database.getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery(
+        PreparedStatement statement = connection.prepareStatement(
                 "SELECT * FROM Aihe AS aihe "
                 + "    LEFT JOIN Viesti AS viesti "
                 + "    ON (viesti.aihe = aihe.id) "
@@ -197,8 +197,10 @@ public class AiheDao implements Dao<Aihe, Integer> {
                 + "        (SELECT MAX(id) FROM viesti AS uusin_viesti "
                 + "            WHERE uusin_viesti.aihe = aihe.id) "
                 + "        OR viesti.id IS NULL) "
-                + "        AND aihe.alue = " + alueId
+                + "        AND aihe.alue = ? "
                 + "    ORDER BY viesti.id DESC");
+        statement.setObject(1, alueId);
+        ResultSet resultSet = statement.executeQuery();
 
         List<Aiheraportti> raporttilista = new ArrayList();
 
