@@ -234,7 +234,9 @@ public class AiheDao implements Dao<Aihe, Integer> {
         }
 
         resultSet.close();
+        statement.close();
         connection.close();
+
         return raporttilista;
     }
 
