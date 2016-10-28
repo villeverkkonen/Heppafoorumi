@@ -173,16 +173,19 @@ public class ViestiDao implements Dao<Viesti, Integer> {
     public List<Viesti> findAiheidenUusimmatViestit(int alueId, int aiheId) throws SQLException {
 
         Connection connection = database.getConnection();
-        ResultSet resultSet = connection.createStatement().executeQuery("SELECT "
+        PreparedStatement statement = connection.prepareStatement("SELECT "
                 + "viesti.id AS viesti_id, "
                 + "viesti.aikaleima AS viesti_aikaleima, "
                 + "viesti.aihe AS viesti_aihe, "
                 + "viesti.nimimerkki AS viesti_nimimerkki, "
                 + "viesti.teksti AS viesti_teksti "
                 + "FROM Viesti viesti, Aihe aihe "
-                + "WHERE viesti.aihe = " + aiheId
-                + "AND aihe.alue = " + alueId
+                + "WHERE viesti.aihe = ? "
+                + "AND aihe.alue = ? "
                 + " ORDER BY viesti_aikaleima DESC LIMIT 1");
+        statement.setObject(1, aiheId);
+        statement.setObject(2, alueId);
+        ResultSet resultSet = statement.executeQuery();
 
         List<Viesti> viestit = new ArrayList();
 
@@ -198,6 +201,7 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         }
 
         resultSet.close();
+        statement.close();
         connection.close();
 
         return viestit;
