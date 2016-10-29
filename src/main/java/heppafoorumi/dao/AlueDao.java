@@ -145,6 +145,15 @@ public class AlueDao implements Dao<Alue, Integer> {
 
     public void create(String otsikko, String teksti) throws SQLException {
         Connection connection = database.getConnection();
+        
+        //Jos merkkijonot ovat sallittua pidempiä, pätkäistään loppu pois
+        if (teksti.length() > 200) {
+            teksti = teksti.substring(0, 200);
+        }
+        
+        if (otsikko.length() > 200) {
+            otsikko = otsikko.substring(0, 200);
+        }
 
         PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO Alue (aikaleima, otsikko, teksti) VALUES(?, ?, ?)");

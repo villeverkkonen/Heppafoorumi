@@ -254,6 +254,19 @@ public class AiheDao implements Dao<Aihe, Integer> {
 
     public void create(Integer alueId, String nimimerkki, String otsikko, String teksti) throws SQLException {
         Connection connection = database.getConnection();
+        
+        //Jos merkkijonot ovat sallittua pidempiä, pätkäistään loppu pois
+        if (teksti.length() > 200) {
+            teksti = teksti.substring(0, 200);
+        }
+        
+        if (otsikko.length() > 200) {
+            otsikko = otsikko.substring(0, 200);
+        }
+        
+        if (nimimerkki.length() > 20) {
+            nimimerkki = nimimerkki.substring(0, 20);
+        }
 
         PreparedStatement statement = connection.prepareStatement(
                 "INSERT INTO Aihe (aikaleima, alue, nimimerkki, otsikko, teksti) VALUES(?, ?, ?, ?, ?)");

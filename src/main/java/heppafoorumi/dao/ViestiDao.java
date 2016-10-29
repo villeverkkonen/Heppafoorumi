@@ -245,6 +245,15 @@ public class ViestiDao implements Dao<Viesti, Integer> {
 
     public void create(int aiheId, String nimimerkki, String teksti) throws SQLException {
         Connection connection = database.getConnection();
+        
+        //Jos merkkijonot ovat sallittua pidempiä, pätkäistään loppu pois
+        if (teksti.length() > 200) {
+            teksti = teksti.substring(0, 200);
+        }
+        
+        if (nimimerkki.length() > 20) {
+            nimimerkki = nimimerkki.substring(0, 20);
+        }
 
         PreparedStatement statement = connection.prepareStatement("INSERT INTO Viesti(aikaleima, aihe, nimimerkki, teksti) VALUES(?, ?, ?, ?)");
 
