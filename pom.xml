@@ -79,11 +79,11 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <finalName>helloworld</finalName>
+                    <finalName>heppafoorumi</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>heppafoorumi.Heppafoorumi</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
