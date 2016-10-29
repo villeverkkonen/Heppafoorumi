@@ -47,6 +47,13 @@
                     <target>1.8</target>
                     <optimize>true</optimize>
                     <debug>true</debug>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>heppafoorumi.Heppafoorumi</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>
