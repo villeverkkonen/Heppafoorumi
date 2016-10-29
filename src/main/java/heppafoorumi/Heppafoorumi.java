@@ -38,7 +38,7 @@ public class Heppafoorumi {
 
         // alla oleva koodi on kehityksen nopeuttamiseksi,
         // kun ei tarvitse huolehtia vanhoista palvelinprosesseista.
-        boolean lopetetaankoVanhatPalvelinprosessit = true;
+        boolean lopetetaankoVanhatPalvelinprosessit = false;
 
         if (lopetetaankoVanhatPalvelinprosessit && onkoLinux()) {
             // lopetetaan vanha palvelin, toimii Linuxissa.
