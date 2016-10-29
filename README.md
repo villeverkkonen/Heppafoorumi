@@ -1,13 +1,5 @@
-﻿# tikape-runko
+﻿# Heppafoorumi!
 
-Tietokantojen perusteet tehtävän web-sovelluksen pohja.
-
-Heppafoorumi! Tällästä tänään.
-
-Kissanpäivät ovat täällä. Mahtavaa!
+Tietokantojen perusteet -kurssin harjoitustyö, syksy 2016.
 
 Heppafoorumi on maailman paras keskustelufoorumi.
-
-HALLOOOOO!
-
-Aurinko paistaa!
