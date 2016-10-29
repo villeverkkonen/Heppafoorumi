@@ -57,8 +57,8 @@ public class Tekstikayttoliittyma {
                 this.missaValikossa = "aluevalikossa";
                 break;
         }
-        System.out.println("start - käynnistää Spark-palvelimen ja poistuu tekstikäyttöliittymästä"
-                + "lopeta - poistuu tekstikäyttöliittymästä");
+        System.out.println("start - käynnistää Spark-palvelimen ja poistuu tekstikäyttöliittymästä");
+        System.out.println("lopeta - poistuu tekstikäyttöliittymästä");
     }
 
     private void aluevalikko(String komento, List<String> parametrit) throws SQLException {
@@ -174,7 +174,7 @@ public class Tekstikayttoliittyma {
                     break;
             }
 
-            System.out.println(" Anna komento: ");
+            System.out.print(" Anna komento: ");
             String syote = lukija.nextLine();
             syote = syote.replaceAll("\n", "");
 
