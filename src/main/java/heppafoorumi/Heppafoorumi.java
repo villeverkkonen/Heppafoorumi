@@ -22,6 +22,7 @@ import heppafoorumi.tekstikayttoliittyma.Tekstikayttoliittyma;
 import java.util.ArrayList;
 import java.util.Collections;
 import spark.Spark;
+import static spark.Spark.port;
 import static spark.Spark.post;
 
 public class Heppafoorumi {
@@ -33,6 +34,11 @@ public class Heppafoorumi {
     }
 
     public static void main(String[] args) throws Exception {
+        // asetetaan portti jos heroku antaa PORT-ympäristömuuttujan
+        if (System.getenv("PORT") != null) {
+            port(Integer.valueOf(System.getenv("PORT")));
+        }
+
         Spark.staticFileLocation("public");
         boolean tekstikayttoliittymaaKaytossa = false;
 
