@@ -34,6 +34,7 @@ public class Tekstikayttoliittyma {
     }
 
     private void ohjeet() {
+        // Tulostetaan ohjeet.
         System.out.println("Tämä on Heppafoorumin tekstikäyttöliittymä.\n"
                 + "Tällä hetkellä olet " + this.missaValikossa + ".\n"
                 + "Käytettävissäsi ovat seuraavat komennot:");
